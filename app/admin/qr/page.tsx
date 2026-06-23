@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AdminQRPage() {
   const secret = process.env.QR_SECRET ?? ''
-  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL ?? 'https://czysty.vercel.app').replace(/\/$/, '')
+  const baseUrl = 'https://czysty.vercel.app'
   const joinUrl = `${baseUrl}/join?ref=${encodeURIComponent(secret)}`
   const notConfigured = !secret
 
