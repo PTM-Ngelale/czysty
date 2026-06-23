@@ -1,0 +1,114 @@
+'use client'
+
+const steps = [
+  {
+    num: '01',
+    title: 'Schedule a Pickup',
+    body: 'Book online or message us on WhatsApp. Choose your preferred window — morning or afternoon.',
+    icon: '📲',
+  },
+  {
+    num: '02',
+    title: 'We Collect',
+    body: 'Our driver arrives at your door and collects your laundry bag. No hassle, no queues.',
+    icon: '🚪',
+  },
+  {
+    num: '03',
+    title: 'We Clean',
+    body: 'Your clothes are professionally washed, dried, and folded or dry-cleaned at our facility.',
+    icon: '✨',
+  },
+  {
+    num: '04',
+    title: 'Delivered Back',
+    body: 'Clean, fresh laundry returned to your door within 24–48 hours. Ready to wear.',
+    icon: '📦',
+  },
+]
+
+export default function HowItWorks() {
+  return (
+    <section id="how-it-works" className="relative bg-white overflow-hidden py-28 lg:py-36">
+
+      {/* Ghost number */}
+      <div className="absolute -bottom-8 right-0 select-none pointer-events-none overflow-hidden" aria-hidden>
+        <span
+          className="font-display font-extrabold text-czysty-green/[0.06] leading-none block"
+          style={{ fontSize: 'clamp(140px, 22vw, 280px)' }}
+        >
+          03
+        </span>
+      </div>
+
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(26,92,40,0.25) 30%, rgba(139,26,26,0.25) 70%, transparent)' }} />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-14">
+
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-20 reveal">
+          <div>
+            <div className="section-tag">The Process</div>
+            <h2 className="display-heading" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#09100A' }}>
+              HOW IT <span className="text-czysty-green">WORKS</span>
+            </h2>
+          </div>
+          <p className="font-body text-czysty-black/40 text-[13px] max-w-[220px] text-right leading-relaxed">
+            From your door to ours and back — in four simple steps.
+          </p>
+        </div>
+
+        {/* Steps */}
+        <div className="reveal-stagger relative">
+          {/* Connecting line (desktop) */}
+          <div className="hidden lg:block absolute top-[28px] left-[calc(12.5%+28px)] right-[calc(12.5%+28px)] h-px"
+            style={{ background: 'linear-gradient(90deg, rgba(26,92,40,0.4), rgba(26,92,40,0.1))' }} />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+            {steps.map((step, i) => (
+              <div key={step.num} className="relative flex flex-col">
+                {/* Step number circle */}
+                <div className="relative flex items-center gap-4 mb-7">
+                  <div className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full border border-czysty-green/35 bg-white shadow-sm flex items-center justify-center">
+                    <span className="font-display font-extrabold text-czysty-green text-sm">{step.num}</span>
+                    <div className="absolute inset-0 rounded-full border border-czysty-green/12 scale-110" />
+                  </div>
+                  {i < steps.length - 1 && (
+                    <div className="hidden sm:block lg:hidden h-px flex-1 bg-czysty-green/15" />
+                  )}
+                </div>
+
+                <h3 className="font-display font-bold text-czysty-black uppercase text-[15px] tracking-wide mb-3">
+                  {step.title}
+                </h3>
+                <p className="font-body text-czysty-black/50 text-[13px] leading-relaxed">
+                  {step.body}
+                </p>
+
+                {i === steps.length - 1 && (
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-czysty-red" />
+                    <span className="font-body text-czysty-red/60 text-[11px] uppercase tracking-widest">Done</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="reveal mt-16 pt-12 border-t border-czysty-green/10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div>
+            <p className="font-display font-bold text-czysty-black text-lg uppercase">Ready to start?</p>
+            <p className="font-body text-czysty-black/40 text-[13px] mt-1">No contract, no commitment. Book your first pickup today.</p>
+          </div>
+          <a href="#contact" className="czysty-btn czysty-btn-primary px-8 py-4 text-sm ml-auto">
+            Start Your First Order →
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
