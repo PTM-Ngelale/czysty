@@ -10,25 +10,25 @@ const stats = [
 
 export default function About() {
   return (
-    <section id="about" className="relative bg-white overflow-hidden py-28 lg:py-36">
+    <section id="about" className="relative bg-white overflow-hidden py-16 lg:py-36">
 
       {/* Ghost section number */}
       <div className="absolute top-0 right-0 select-none pointer-events-none overflow-hidden" aria-hidden>
         <span
           className="font-display font-extrabold text-czysty-green/[0.06] leading-none block"
-          style={{ fontSize: 'clamp(140px, 22vw, 280px)' }}
+          style={{ fontSize: 'clamp(100px, 22vw, 280px)' }}
         >
           01
         </span>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-14">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-14">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
           {/* Left */}
           <div className="reveal-left">
             <div className="section-tag">Who We Are</div>
-            <h2 className="display-heading mb-6" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#09100A' }}>
+            <h2 className="display-heading mb-6" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
               LAUNDRY DONE RIGHT,
               <br />
               <span className="text-czysty-green">EVERY TIME</span>
@@ -51,11 +51,11 @@ export default function About() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-px bg-czysty-green/12">
               {stats.map((stat) => (
-                <div key={stat.label} className="bg-white px-4 py-5 text-center">
-                  <p className="font-display font-extrabold text-czysty-green mb-1" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)' }}>
+                <div key={stat.label} className="bg-white px-2 sm:px-4 py-4 sm:py-5 text-center">
+                  <p className="font-display font-extrabold text-czysty-green mb-1" style={{ fontSize: 'clamp(1.1rem, 3.5vw, 2.2rem)' }}>
                     {stat.value}
                   </p>
-                  <p className="font-body text-[10px] text-czysty-muted uppercase tracking-widest">{stat.label}</p>
+                  <p className="font-body text-[9px] sm:text-[10px] text-czysty-muted uppercase tracking-widest">{stat.label}</p>
                 </div>
               ))}
             </div>

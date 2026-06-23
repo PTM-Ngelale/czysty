@@ -40,39 +40,39 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative bg-white overflow-hidden py-28 lg:py-36">
+    <section id="contact" className="relative bg-white overflow-hidden py-16 lg:py-36">
 
       {/* Ghost number */}
       <div className="absolute -bottom-4 right-0 select-none pointer-events-none overflow-hidden" aria-hidden>
         <span
           className="font-display font-extrabold text-czysty-green/[0.05] leading-none block"
-          style={{ fontSize: 'clamp(140px, 22vw, 280px)' }}
+          style={{ fontSize: 'clamp(100px, 22vw, 280px)' }}
         >
           07
         </span>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-14">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-14">
 
         {/* Header */}
-        <div className="reveal mb-16">
+        <div className="reveal mb-10 lg:mb-16">
           <div className="section-tag">Get in Touch</div>
-          <h2 className="display-heading" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#09100A' }}>
+          <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
             LET&apos;S GET YOUR
             <br />
             <span className="text-czysty-green">LAUNDRY SORTED</span>
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-24 items-start">
 
           {/* Left — info */}
           <div className="reveal-left">
-            <p className="font-body text-czysty-black/55 text-[15px] leading-relaxed mb-10">
+            <p className="font-body text-czysty-black/55 text-[15px] leading-relaxed mb-8 sm:mb-10">
               Book online, call, or WhatsApp. We&apos;ll confirm your pickup within the hour during business hours.
             </p>
 
-            <ul className="space-y-6 mb-10">
+            <ul className="space-y-5 sm:space-y-6 mb-8 sm:mb-10">
               {contactDetails.map((d) => (
                 <li key={d.label} className="flex items-start gap-4">
                   <span className="text-base mt-0.5 opacity-60">{d.icon}</span>
@@ -85,7 +85,7 @@ export default function Contact() {
             </ul>
 
             {/* Coverage note */}
-            <div className="border border-czysty-green/15 bg-czysty-cream/60 p-5">
+            <div className="border border-czysty-green/15 bg-czysty-cream/60 p-4 sm:p-5">
               <p className="font-body text-[10px] text-czysty-green/70 uppercase tracking-widest mb-2">Service Areas</p>
               <p className="font-body text-czysty-black/60 text-[13px] leading-relaxed">
                 Lagos Island · Victoria Island · Lekki · Ikoyi
@@ -98,8 +98,8 @@ export default function Contact() {
 
           {/* Right — form */}
           <div className="reveal-right">
-            <form onSubmit={onSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
+            <form onSubmit={onSubmit} className="space-y-5 sm:space-y-6">
+              <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
                 <div>
                   <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">Full Name *</label>
                   <input name="name" value={form.name} onChange={onChange} required placeholder="Jane Doe" className={inputBase} />
@@ -120,7 +120,7 @@ export default function Contact() {
                 <input name="address" value={form.address} onChange={onChange} required placeholder="14 Adeola Hopewell, VI" className={inputBase} />
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
                 <div>
                   <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">Service *</label>
                   <select name="service" value={form.service} onChange={onChange} required

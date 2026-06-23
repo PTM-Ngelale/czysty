@@ -36,7 +36,7 @@ export default function Footer() {
 
       {/* Top strip */}
       <div className="border-b border-czysty-green/8 py-4">
-        <div className="max-w-7xl mx-auto px-8 lg:px-14">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-14">
           {/* Marquee */}
           <div className="overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap">
@@ -56,8 +56,8 @@ export default function Footer() {
       </div>
 
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-8 lg:px-14 py-16">
-        <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-14 py-10 sm:py-16">
+        <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-8 sm:gap-12">
 
           {/* Brand */}
           <div>
@@ -121,7 +121,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-czysty-green/8 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="border-t border-czysty-green/8 mt-10 sm:mt-12 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-body text-czysty-muted/40 text-[11px]">
             © {new Date().getFullYear()} Czysty Cleaners Int&apos;l Ltd. All rights reserved.
           </p>

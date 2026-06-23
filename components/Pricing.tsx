@@ -24,7 +24,7 @@ const addons = [
 
 function SectionLabel({ color, children }: { color: string; children: string }) {
   return (
-    <div className="flex items-center gap-4 mb-8">
+    <div className="flex items-center gap-4 mb-6 sm:mb-8">
       <div className="h-px flex-1" style={{ background: `linear-gradient(90deg, transparent, ${color}30)` }} />
       <span className="font-body text-[10px] font-semibold uppercase tracking-[0.25em]" style={{ color: `${color}90` }}>
         {children}
@@ -36,24 +36,24 @@ function SectionLabel({ color, children }: { color: string; children: string }) 
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative bg-white overflow-hidden py-28 lg:py-36">
+    <section id="pricing" className="relative bg-white overflow-hidden py-16 lg:py-36">
 
       {/* Ghost number */}
       <div className="absolute -bottom-4 left-0 select-none pointer-events-none overflow-hidden" aria-hidden>
         <span
           className="font-display font-extrabold text-czysty-green/[0.06] leading-none block"
-          style={{ fontSize: 'clamp(140px, 22vw, 280px)' }}
+          style={{ fontSize: 'clamp(100px, 22vw, 280px)' }}
         >
           05
         </span>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-14">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-14">
 
         {/* Header */}
-        <div className="reveal mb-16">
+        <div className="reveal mb-10 lg:mb-16">
           <div className="section-tag">Pricing</div>
-          <h2 className="display-heading" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#09100A' }}>
+          <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
             CLEAR PRICING,
             <br />
             <span className="text-czysty-green">NO SURPRISES</span>
@@ -61,13 +61,13 @@ export default function Pricing() {
         </div>
 
         {/* Wash & Fold */}
-        <div className="reveal mb-14">
+        <div className="reveal mb-8 sm:mb-14">
           <SectionLabel color="#1A5C28">Wash &amp; Fold — Per Bag</SectionLabel>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {washFold.map((rate) => (
               <div
                 key={rate.label}
-                className={`relative border p-6 transition-all duration-300 ${
+                className={`relative border p-5 sm:p-6 transition-all duration-300 ${
                   rate.featured
                     ? 'border-czysty-green bg-czysty-green pulse-green'
                     : 'border-czysty-green/15 bg-[#F7F4EF] hover:border-czysty-green/35'
@@ -79,8 +79,8 @@ export default function Pricing() {
                   </div>
                 )}
                 <p className={`font-display font-bold uppercase text-[13px] tracking-wide mb-1 ${rate.featured ? 'text-czysty-cream' : 'text-czysty-black'}`}>{rate.label}</p>
-                <p className={`font-body text-[11px] mb-5 ${rate.featured ? 'text-czysty-cream/70' : 'text-czysty-muted'}`}>{rate.detail}</p>
-                <p className={`font-display font-extrabold ${rate.featured ? 'text-czysty-cream' : 'text-czysty-green'}`} style={{ fontSize: 'clamp(1.6rem, 3vw, 2rem)' }}>
+                <p className={`font-body text-[11px] mb-4 sm:mb-5 ${rate.featured ? 'text-czysty-cream/70' : 'text-czysty-muted'}`}>{rate.detail}</p>
+                <p className={`font-display font-extrabold ${rate.featured ? 'text-czysty-cream' : 'text-czysty-green'}`} style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)' }}>
                   {rate.price}
                 </p>
               </div>
@@ -97,12 +97,12 @@ export default function Pricing() {
               {dryClean.map((row, i) => (
                 <div
                   key={row.item}
-                  className={`flex items-center justify-between px-6 py-4 transition-colors duration-200 hover:bg-czysty-cream/60 ${
+                  className={`flex items-center justify-between px-4 sm:px-6 py-4 transition-colors duration-200 hover:bg-czysty-cream/60 ${
                     i % 2 === 0 ? 'bg-white' : 'bg-[#F7F4EF]'
                   } ${i < dryClean.length - 1 ? 'border-b border-czysty-red/08' : ''}`}
                 >
-                  <span className="font-body text-czysty-black/65 text-[14px]">{row.item}</span>
-                  <span className="font-display font-bold text-czysty-red text-lg">{row.price}</span>
+                  <span className="font-body text-czysty-black/65 text-[13px] sm:text-[14px]">{row.item}</span>
+                  <span className="font-display font-bold text-czysty-red text-base sm:text-lg flex-shrink-0 ml-4">{row.price}</span>
                 </div>
               ))}
             </div>
@@ -113,12 +113,12 @@ export default function Pricing() {
             <SectionLabel color="#1A5C28">Add-ons &amp; Extras</SectionLabel>
             <div className="flex flex-col gap-3">
               {addons.map((a) => (
-                <div key={a.label} className="flex items-center justify-between border border-czysty-green/15 bg-[#F7F4EF] px-5 py-5 hover:border-czysty-green/35 transition-colors duration-200">
+                <div key={a.label} className="flex items-center justify-between border border-czysty-green/15 bg-[#F7F4EF] px-4 sm:px-5 py-4 sm:py-5 hover:border-czysty-green/35 transition-colors duration-200">
                   <div>
                     <p className="font-display font-bold text-czysty-black uppercase text-[13px] tracking-wide">{a.label}</p>
                     <p className="font-body text-czysty-muted text-[11px] mt-0.5">{a.detail}</p>
                   </div>
-                  <span className="font-display font-extrabold text-czysty-green text-xl">{a.price}</span>
+                  <span className="font-display font-extrabold text-czysty-green text-lg sm:text-xl flex-shrink-0 ml-4">{a.price}</span>
                 </div>
               ))}
 
