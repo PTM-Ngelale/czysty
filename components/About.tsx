@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 const stats = [
   { value: '2,000+', label: 'Loads Completed', icon: '🧺' },
   { value: '4.9★',   label: 'Average Rating',  icon: '⭐' },
@@ -67,19 +69,18 @@ export default function About() {
 
               {/* Image area */}
               <div className="relative aspect-[3/4] overflow-hidden bg-czysty-cream border border-czysty-green/15">
-                {/* Placeholder */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-czysty-muted">
-                  <div className="text-7xl mb-4 opacity-20">🏭</div>
-                  <p className="font-body text-xs text-center px-6 opacity-40">
-                    Add facility photo<br />
-                    <code className="text-[11px]">public/images/facility.jpg</code>
-                  </p>
-                </div>
+                <Image
+                  src="/images/cleaning-crew.png"
+                  alt="Czysty Cleaners team"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
                 {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-czysty-green" />
-                <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-czysty-green" />
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-czysty-green" />
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-czysty-green" />
+                <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-czysty-green z-10" />
+                <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-czysty-green z-10" />
+                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-czysty-green z-10" />
+                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-czysty-green z-10" />
               </div>
 
               {/* Floating badge */}

@@ -1,5 +1,13 @@
 'use client'
 
+import Image from 'next/image'
+
+const stats = [
+  { v: '2,000+', l: 'Loads Completed' },
+  { v: '4.9★',   l: 'Customer Rating' },
+  { v: '24 hrs', l: 'Avg. Turnaround' },
+]
+
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex flex-col overflow-hidden bg-czysty-black">
@@ -16,91 +24,108 @@ export default function Hero() {
       {/* Left crimson accent bar */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-czysty-red hidden lg:block" />
 
-      {/* Main content — CSS-animated, no IntersectionObserver needed */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl w-full mx-auto px-8 lg:px-16 pt-28 pb-10">
+      {/* Main content */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl w-full mx-auto px-6 lg:px-16 pt-24 pb-10">
 
         {/* Tag line */}
-        <div className="flex items-center gap-4 mb-8 hero-a">
-          <div className="h-px w-12 bg-czysty-red" />
+        <div className="flex items-center gap-4 mb-6 hero-a">
+          <div className="h-px w-10 bg-czysty-red flex-shrink-0" />
           <span className="font-body text-[11px] text-czysty-red tracking-[0.28em] uppercase font-semibold">
             Czysty Cleaners Int&apos;l Ltd
           </span>
         </div>
 
-        {/* Split: heading left, panel right */}
-        <div className="grid lg:grid-cols-[1fr_340px] gap-12 xl:gap-20 items-end">
+        {/* Split layout */}
+        <div className="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-16 xl:gap-20 items-center">
 
-          {/* Heading */}
+          {/* Left — heading + CTA */}
           <div>
-            <h1 className="display-heading" style={{ fontSize: 'clamp(3.5rem, 8.5vw, 8rem)', lineHeight: '0.92' }}>
+            <h1 className="display-heading" style={{ fontSize: 'clamp(2.6rem, 8.5vw, 8rem)', lineHeight: '0.92' }}>
               <span className="block text-czysty-cream hero-b">CLEAN</span>
               <span className="block text-czysty-green hero-c">CLOTHES.</span>
               <span className="block text-czysty-cream hero-d">DELIVERED.</span>
             </h1>
 
-            <div className="mt-10 hero-e flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <p className="font-body text-czysty-cream/50 text-[15px] leading-relaxed max-w-xs">
+            {/* Mobile image — visible only on small screens */}
+            <div className="lg:hidden relative mt-6 mb-6 overflow-hidden hero-e" style={{ height: '220px' }}>
+              <Image
+                src="/images/main-pose.png"
+                alt="Czysty Cleaners professional"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+              {/* Fade edges into dark bg */}
+              <div className="absolute inset-0"
+                style={{ background: 'linear-gradient(to right, rgba(9,16,10,0.5) 0%, transparent 30%, transparent 70%, rgba(9,16,10,0.5) 100%)' }} />
+              <div className="absolute bottom-0 left-0 right-0 h-16"
+                style={{ background: 'linear-gradient(to top, #09100A, transparent)' }} />
+            </div>
+
+            <div className="mt-8 lg:mt-10 hero-e flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <p className="font-body text-czysty-cream/50 text-[14px] leading-relaxed max-w-xs">
                 Same-day pickup and delivery. Professional cleaning — handled with care and returned to your door.
               </p>
-              <div className="w-full sm:w-px h-px sm:h-14 bg-czysty-green/20 flex-shrink-0" />
+              <div className="w-full sm:w-px h-px sm:h-12 bg-czysty-green/20 flex-shrink-0" />
               <div className="flex flex-col gap-3 w-full sm:w-auto">
-                <a href="#contact" className="czysty-btn czysty-btn-primary px-8 py-4 text-[13px] whitespace-nowrap">
+                <a href="#contact" className="czysty-btn czysty-btn-primary px-7 py-3.5 text-[13px] whitespace-nowrap">
                   Schedule a Pickup
                 </a>
-                <a href="#services" className="czysty-btn czysty-btn-outline px-8 py-3 text-[13px] whitespace-nowrap">
+                <a href="#services" className="czysty-btn czysty-btn-outline px-7 py-3 text-[13px] whitespace-nowrap">
                   See Our Services ↓
                 </a>
               </div>
             </div>
+
+            {/* Mobile stat strip */}
+            <div className="lg:hidden flex gap-5 mt-8 hero-e">
+              {stats.map((s) => (
+                <div key={s.l} className="flex-1 border-t border-czysty-green/20 pt-3">
+                  <p className="font-display font-extrabold text-czysty-green text-lg tabular-nums">{s.v}</p>
+                  <p className="font-body text-czysty-cream/35 text-[10px] uppercase tracking-widest leading-tight mt-0.5">{s.l}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Right panel */}
-          <div className="hidden lg:flex flex-col gap-5 hero-e">
-            {/* Rotating badge */}
-            <div className="relative w-32 h-32 mx-auto">
-              <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
-                <defs>
-                  <path id="cp" d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
-                </defs>
-                <text fill="rgba(200,230,206,0.5)" fontSize="10" fontFamily="'Inter',sans-serif" fontWeight="600" letterSpacing="3.2">
-                  <textPath href="#cp">PROFESSIONAL · RELIABLE · TRUSTED ·&nbsp;</textPath>
-                </text>
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-14 h-14 rounded-full border border-czysty-green/30 bg-czysty-black/60 flex items-center justify-center">
-                  <span className="font-display font-extrabold text-czysty-green text-[17px]">CC</span>
-                </div>
-              </div>
+          {/* Right — main-pose image (desktop only) */}
+          <div className="hidden lg:block relative hero-e">
+            <div className="relative overflow-hidden" style={{ height: '520px' }}>
+              <Image
+                src="/images/main-pose.png"
+                alt="Czysty Cleaners professional"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+              {/* Bottom fade */}
+              <div className="absolute bottom-0 left-0 right-0 h-24"
+                style={{ background: 'linear-gradient(to top, #09100A, transparent)' }} />
+              {/* Right edge fade */}
+              <div className="absolute top-0 right-0 bottom-0 w-16"
+                style={{ background: 'linear-gradient(to left, #09100A, transparent)' }} />
             </div>
 
-            {/* Stat cards */}
-            {[
-              { v: '2,000+', l: 'Loads Completed' },
-              { v: '4.9★',   l: 'Customer Rating' },
-              { v: '24 hrs', l: 'Avg. Turnaround' },
-            ].map((s) => (
-              <div key={s.l} className="flex items-center gap-3 border border-czysty-green/15 bg-czysty-grey/40 px-4 py-3">
-                <span className="font-display font-extrabold text-czysty-green text-xl w-20 text-right tabular-nums">{s.v}</span>
-                <span className="h-8 w-px bg-czysty-green/15 flex-shrink-0" />
-                <span className="font-body text-czysty-cream/45 text-[11px] uppercase tracking-widest leading-tight">{s.l}</span>
-              </div>
-            ))}
+            {/* Stat cards below image */}
+            <div className="flex flex-col gap-2 mt-3">
+              {stats.map((s) => (
+                <div key={s.l} className="flex items-center gap-3 border border-czysty-green/15 bg-czysty-grey/40 px-4 py-2.5">
+                  <span className="font-display font-extrabold text-czysty-green text-lg w-20 text-right tabular-nums">{s.v}</span>
+                  <span className="h-6 w-px bg-czysty-green/15 flex-shrink-0" />
+                  <span className="font-body text-czysty-cream/45 text-[11px] uppercase tracking-widest leading-tight">{s.l}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom trust strip */}
       <div className="relative z-10 border-t border-czysty-green/10 bg-czysty-grey/40">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16 py-4">
-          <div className="flex flex-wrap gap-x-8 gap-y-2">
-            {[
-              '✓ Same-Day Pickup',
-              '✓ Eco-Friendly Products',
-              '✓ 24–48 Hr Turnaround',
-              '✓ Door-to-Door Delivery',
-              '✓ WhatsApp Booking',
-            ].map((t) => (
-              <span key={t} className="font-body text-[12px] text-czysty-cream/35 tracking-wide">{t}</span>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16 py-3">
+          <div className="flex flex-wrap gap-x-6 gap-y-1.5">
+            {['✓ Same-Day Pickup', '✓ Eco-Friendly Products', '✓ 24–48 Hr Turnaround', '✓ Door-to-Door Delivery', '✓ WhatsApp Booking'].map((t) => (
+              <span key={t} className="font-body text-[11px] text-czysty-cream/35 tracking-wide">{t}</span>
             ))}
           </div>
         </div>

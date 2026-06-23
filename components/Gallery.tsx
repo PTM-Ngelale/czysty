@@ -1,12 +1,14 @@
 'use client'
 
+import Image from 'next/image'
+
 const items = [
-  { category: 'Facility',  ph: '🏭', span: 'lg:col-span-2 lg:row-span-2' },
-  { category: 'Results',   ph: '👕', span: '' },
-  { category: 'Delivery',  ph: '🚚', span: '' },
-  { category: 'Dry Clean', ph: '👔', span: '' },
-  { category: 'Ironing',   ph: '🔥', span: '' },
-  { category: 'Team',      ph: '👥', span: '' },
+  { category: 'Facility',   src: '/images/washing-machines.jpeg',   span: 'lg:col-span-2 lg:row-span-2', objectPos: 'object-center' },
+  { category: 'Dry Clean',  src: '/images/drycleaned.jpeg',          span: '',                            objectPos: 'object-center' },
+  { category: 'Results',    src: '/images/cleaned-sneakers.jpeg',    span: '',                            objectPos: 'object-center' },
+  { category: 'Equipment',  src: '/images/washing-machines-2.jpeg',  span: '',                            objectPos: 'object-center' },
+  { category: 'Detail',     src: '/images/cleaning.jpeg',            span: '',                            objectPos: 'object-center' },
+  { category: 'Team',       src: '/images/pose-with-mop.png',        span: '',                            objectPos: 'object-top' },
 ]
 
 export default function Gallery() {
@@ -43,15 +45,15 @@ export default function Gallery() {
           {items.map((item, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden bg-white border border-czysty-green/10 hover:border-czysty-green/35 transition-all duration-500 cursor-pointer shadow-sm ${item.span}`}
+              className={`group relative overflow-hidden bg-czysty-cream border border-czysty-green/10 hover:border-czysty-green/35 transition-all duration-500 cursor-pointer shadow-sm ${item.span}`}
             >
-              {/* Placeholder content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-5xl mb-2 opacity-20">{item.ph}</div>
-                <p className="font-body text-[10px] text-czysty-muted/50 text-center px-3">
-                  gallery-{i + 1}.jpg
-                </p>
-              </div>
+              <Image
+                src={item.src}
+                alt={item.category}
+                fill
+                className={`object-cover ${item.objectPos} transition-transform duration-700 group-hover:scale-105`}
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+              />
 
               {/* Hover overlay */}
               <div
@@ -66,7 +68,7 @@ export default function Gallery() {
 
               {/* Category badge */}
               <div className="absolute top-3 left-3 z-10">
-                <span className="font-body text-[9px] font-semibold text-czysty-black/60 uppercase tracking-widest bg-white/80 backdrop-blur-sm px-2 py-1 border border-czysty-green/10">
+                <span className="font-body text-[9px] font-semibold text-czysty-black/70 uppercase tracking-widest bg-white/80 backdrop-blur-sm px-2 py-1 border border-czysty-green/10">
                   {item.category}
                 </span>
               </div>
