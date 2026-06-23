@@ -25,7 +25,7 @@ export default function Hero() {
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-czysty-red hidden lg:block" />
 
       {/* Main content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl w-full mx-auto px-6 lg:px-16 pt-24 pb-10">
+      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl w-full mx-auto px-6 lg:px-16 pt-20 lg:pt-24 pb-8 lg:pb-10">
 
         {/* Tag line */}
         <div className="flex items-center gap-4 mb-6 hero-a">
@@ -40,14 +40,14 @@ export default function Hero() {
 
           {/* Left — heading + CTA */}
           <div>
-            <h1 className="display-heading" style={{ fontSize: 'clamp(2.6rem, 8.5vw, 8rem)', lineHeight: '0.92' }}>
+            <h1 className="display-heading" style={{ fontSize: 'clamp(1.75rem, 9vw, 8rem)', lineHeight: '0.96' }}>
               <span className="block text-czysty-cream hero-b">CLEAN</span>
               <span className="block text-czysty-green hero-c">CLOTHES.</span>
               <span className="block text-czysty-cream hero-d">DELIVERED.</span>
             </h1>
 
             {/* Mobile image — visible only on small screens */}
-            <div className="lg:hidden relative mt-6 mb-6 overflow-hidden hero-e" style={{ height: '220px' }}>
+            <div className="lg:hidden relative mt-5 mb-5 overflow-hidden hero-e" style={{ height: '185px' }}>
               <Image
                 src="/images/main-pose.png"
                 alt="Czysty Cleaners professional"
@@ -62,23 +62,23 @@ export default function Hero() {
                 style={{ background: 'linear-gradient(to top, #09100A, transparent)' }} />
             </div>
 
-            <div className="mt-8 lg:mt-10 hero-e flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <p className="font-body text-czysty-cream/50 text-[14px] leading-relaxed max-w-xs">
+            <div className="mt-6 lg:mt-10 hero-e">
+              {/* Description — hidden on mobile to save space */}
+              <p className="hidden sm:block font-body text-czysty-cream/50 text-[14px] leading-relaxed max-w-sm mb-5">
                 Same-day pickup and delivery. Professional cleaning — handled with care and returned to your door.
               </p>
-              <div className="w-full sm:w-px h-px sm:h-12 bg-czysty-green/20 flex-shrink-0" />
-              <div className="flex flex-col gap-3 w-full sm:w-auto">
-                <a href="#contact" className="czysty-btn czysty-btn-primary px-7 py-3.5 text-[13px] whitespace-nowrap">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href="#contact" className="czysty-btn czysty-btn-primary px-7 py-3.5 text-[13px] whitespace-nowrap text-center">
                   Schedule a Pickup
                 </a>
-                <a href="#services" className="czysty-btn czysty-btn-outline px-7 py-3 text-[13px] whitespace-nowrap">
+                <a href="#services" className="czysty-btn czysty-btn-outline px-7 py-3 text-[13px] whitespace-nowrap text-center">
                   See Our Services ↓
                 </a>
               </div>
             </div>
 
             {/* Mobile stat strip */}
-            <div className="lg:hidden flex gap-5 mt-8 hero-e">
+            <div className="lg:hidden flex gap-5 mt-6 hero-e">
               {stats.map((s) => (
                 <div key={s.l} className="flex-1 border-t border-czysty-green/20 pt-3">
                   <p className="font-display font-extrabold text-czysty-green text-lg tabular-nums">{s.v}</p>
