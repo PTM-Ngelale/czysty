@@ -23,13 +23,13 @@ export default async function JoinPage({
     <main className="min-h-screen bg-[#F7F4EF] flex flex-col items-center justify-center px-4 py-16">
 
       {/* Logo */}
-      <a href="/" className="mb-10 flex-shrink-0">
+      <a href="/" className="mb-10 flex-shrink-0 bg-white px-4 py-2 shadow-sm inline-block">
         <Image
           src="/images/logo.png"
           alt="Czysty Cleaners"
           width={140}
           height={48}
-          className="object-contain"
+          className="object-contain h-11 w-auto"
           priority
         />
       </a>

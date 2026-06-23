@@ -31,8 +31,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-18 flex items-center justify-between gap-8" style={{ height: '72px' }}>
         {/* Logo */}
-        <a href="#home" className="flex-shrink-0">
-          <Image src="/images/logo.png" alt="Czysty Cleaners" width={130} height={44} className="object-contain" priority />
+        <a href="#home" className="flex-shrink-0 bg-white px-3 py-1.5 shadow-sm">
+          <Image src="/images/logo.png" alt="Czysty Cleaners" width={140} height={48} className="object-contain h-10 w-auto" priority />
         </a>
 
         {/* Desktop nav */}

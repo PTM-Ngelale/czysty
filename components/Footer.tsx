@@ -61,7 +61,9 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <Image src="/images/logo.png" alt="Czysty Cleaners" width={130} height={44} className="object-contain mb-5 opacity-90" />
+            <div className="inline-block bg-white px-3 py-2 mb-5">
+              <Image src="/images/logo.png" alt="Czysty Cleaners" width={130} height={44} className="object-contain h-9 w-auto" />
+            </div>
             <p className="font-body text-czysty-muted text-[13px] leading-relaxed max-w-xs mb-8">
               Professional laundry and dry cleaning with door-to-door service. Clean clothes, every time, without compromise.
             </p>

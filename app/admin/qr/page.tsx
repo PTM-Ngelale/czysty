@@ -14,8 +14,8 @@ export default function AdminQRPage() {
 
   return (
     <main className="min-h-screen bg-[#F7F4EF] flex flex-col items-center justify-center px-6 py-16">
-      <a href="/" className="mb-10">
-        <Image src="/images/logo.png" alt="Czysty Cleaners" width={130} height={44} className="object-contain" />
+      <a href="/" className="mb-10 bg-white px-4 py-2 shadow-sm inline-block">
+        <Image src="/images/logo.png" alt="Czysty Cleaners" width={130} height={44} className="object-contain h-10 w-auto" />
       </a>
 
       <h1
