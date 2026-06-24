@@ -1,38 +1,48 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const navLinks = [
-  { href: '#services',     label: 'Services' },
-  { href: '#how-it-works', label: 'How It Works' },
-  { href: '#pricing',      label: 'Pricing' },
-  { href: '#reviews',      label: 'Reviews' },
-  { href: '#contact',      label: 'Contact' },
-]
+  { href: "#services", label: "Services" },
+  { href: "#how-it-works", label: "How It Works" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#reviews", label: "Reviews" },
+  { href: "#contact", label: "Contact" },
+];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/96 backdrop-blur-md border-b border-czysty-green/10 shadow-sm'
-          : 'bg-transparent'
+          ? "bg-white/96 backdrop-blur-md border-b border-czysty-green/10 shadow-sm"
+          : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-18 flex items-center justify-between gap-8" style={{ height: '72px' }}>
+      <div
+        className="max-w-7xl mx-auto px-6 lg:px-10 h-18 flex items-center justify-between gap-8"
+        style={{ height: "72px" }}
+      >
         {/* Logo */}
-        <a href="#home" className="flex-shrink-0 bg-white px-3 py-1.5 shadow-sm">
-          <Image src="/images/logo.png" alt="Czysty Cleaners" width={140} height={48} className="object-contain h-10 w-auto" priority />
+        <a href="#home">
+          <Image
+            src="/images/logo.png"
+            alt="Czysty Cleaners"
+            width={140}
+            height={48}
+            className=""
+            priority
+          />
         </a>
 
         {/* Desktop nav */}
@@ -42,7 +52,9 @@ export default function Navbar() {
               <a
                 href={link.href}
                 className={`font-body text-[13px] tracking-wide transition-colors duration-200 relative group ${
-                  scrolled ? 'text-czysty-black/55 hover:text-czysty-black' : 'text-czysty-cream/60 hover:text-czysty-cream'
+                  scrolled
+                    ? "text-czysty-black/55 hover:text-czysty-black"
+                    : "text-czysty-cream/60 hover:text-czysty-cream"
                 }`}
               >
                 {link.label}
@@ -53,7 +65,10 @@ export default function Navbar() {
         </ul>
 
         {/* CTA */}
-        <a href="#contact" className="hidden md:inline-flex czysty-btn czysty-btn-primary text-[12px] px-6 py-3">
+        <a
+          href="#contact"
+          className="hidden md:inline-flex czysty-btn czysty-btn-primary text-[8px] px-2 py-1 "
+        >
           Book Pickup
         </a>
 
@@ -63,14 +78,22 @@ export default function Navbar() {
           aria-label="Toggle menu"
           className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8 p-1"
         >
-          <span className={`block h-px transition-all duration-300 ${scrolled ? 'bg-czysty-black' : 'bg-czysty-cream'} ${menuOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
-          <span className={`block h-px transition-all duration-300 ${scrolled ? 'bg-czysty-black' : 'bg-czysty-cream'} ${menuOpen ? 'opacity-0 w-0' : 'w-full'}`} />
-          <span className={`block h-px transition-all duration-300 ${scrolled ? 'bg-czysty-black' : 'bg-czysty-cream'} ${menuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`} />
+          <span
+            className={`block h-px transition-all duration-300 ${scrolled ? "bg-czysty-black" : "bg-czysty-cream"} ${menuOpen ? "rotate-45 translate-y-[6px]" : ""}`}
+          />
+          <span
+            className={`block h-px transition-all duration-300 ${scrolled ? "bg-czysty-black" : "bg-czysty-cream"} ${menuOpen ? "opacity-0 w-0" : "w-full"}`}
+          />
+          <span
+            className={`block h-px transition-all duration-300 ${scrolled ? "bg-czysty-black" : "bg-czysty-cream"} ${menuOpen ? "-rotate-45 -translate-y-[6px]" : ""}`}
+          />
         </button>
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-400 ${menuOpen ? 'max-h-96' : 'max-h-0'}`}>
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-400 ${menuOpen ? "max-h-96" : "max-h-0"}`}
+      >
         <div className="bg-white border-t border-czysty-green/10 px-6 py-6 flex flex-col gap-5">
           {navLinks.map((link) => (
             <a
@@ -85,12 +108,12 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="czysty-btn czysty-btn-primary mt-2 text-center text-[12px]"
+            className="czysty-btn czysty-btn-primary mt-2 text-center text-[11px] rounded-full"
           >
             Book Pickup
           </a>
         </div>
       </div>
     </nav>
-  )
+  );
 }

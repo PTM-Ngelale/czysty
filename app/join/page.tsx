@@ -1,56 +1,55 @@
-import { redirect } from 'next/navigation'
-import Image from 'next/image'
-import JoinForm from './JoinForm'
+import { redirect } from "next/navigation";
+import Image from "next/image";
+import JoinForm from "./JoinForm";
 
 export const metadata = {
-  title: 'Join Czysty Cleaners — Register',
-  robots: 'noindex, nofollow',
-}
+  title: "Join Czysty Cleaners — Register",
+  robots: "noindex, nofollow",
+};
 
 export default async function JoinPage({
   searchParams,
 }: {
-  searchParams: Promise<{ ref?: string }>
+  searchParams: Promise<{ ref?: string }>;
 }) {
-  const params = await searchParams
-  const secret = process.env.QR_SECRET
+  const params = await searchParams;
+  const secret = process.env.QR_SECRET;
 
   if (!secret || params.ref !== secret) {
-    redirect('/')
+    redirect("/");
   }
 
   return (
     <main className="min-h-screen bg-[#F7F4EF] flex flex-col items-center justify-center px-4 py-16">
-
       {/* Logo */}
-      <a href="/" className="mb-10 flex-shrink-0 bg-white px-4 py-2 shadow-sm inline-block">
+      <a href="/">
         <Image
           src="/images/logo.png"
           alt="Czysty Cleaners"
-          width={140}
-          height={48}
-          className="object-contain h-11 w-auto"
+          width={200}
+          height={68}
+          className=""
           priority
         />
       </a>
 
       {/* Card */}
       <div className="w-full max-w-md bg-white border border-czysty-green/12 shadow-sm">
-
         {/* Card header */}
         <div className="bg-czysty-black px-10 py-8">
           <p className="font-body text-czysty-green text-[11px] uppercase tracking-[0.25em] mb-2">
-            Welcome
+            Celebrate with us!
           </p>
           <h1
             className="font-display font-extrabold text-czysty-cream uppercase leading-tight"
-            style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}
+            style={{ fontSize: "clamp(1.6rem, 4vw, 2.2rem)" }}
           >
-            LET&apos;S GET YOU<br />
-            <span className="text-czysty-green">REGISTERED</span>
+            CZYSTY @ 10
+            <br />
+            <span className="text-czysty-green">GIVEAWAY 🥳</span>
           </h1>
           <p className="font-body text-czysty-cream/45 text-[13px] mt-3 leading-relaxed">
-            Quick setup — then you&apos;re straight to our services.
+            Enter your details for a chance to win a FREE professional clean up.
           </p>
         </div>
 
@@ -64,5 +63,5 @@ export default async function JoinPage({
         Czysty Cleaners Int&apos;l Ltd · Lagos
       </p>
     </main>
-  )
+  );
 }
