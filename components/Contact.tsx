@@ -4,10 +4,10 @@ import { useState } from 'react'
 
 const contactDetails = [
   { icon: '📍', label: 'Address',   value: 'Your service area / business address' },
-  { icon: '📞', label: 'Phone',     value: '+234 000 000 0000' },
-  { icon: '📧', label: 'Email',     value: 'hello@czystycleaners.com' },
+  { icon: '📞', label: 'Phone',     value: '+234 807 213 3343' },
+  { icon: '📧', label: 'Email',     value: 'info.czysty@gmail.com' },
   { icon: '🕐', label: 'Hours',     value: 'Mon – Sat · 8am – 6pm' },
-  { icon: '💬', label: 'WhatsApp',  value: '+234 000 000 0000' },
+  { icon: '💬', label: 'WhatsApp',  value: '+234 807 213 3343' },
 ]
 
 const inputBase =

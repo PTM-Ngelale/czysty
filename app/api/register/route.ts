@@ -12,9 +12,10 @@ export async function POST(req: Request) {
 
   try {
     if (process.env.RESEND_API_KEY) {
+      // Notify admin
       await resend.emails.send({
         from: 'noreply@czystycleaners.com',
-        to: process.env.NOTIFICATION_EMAIL ?? 'hello@czystycleaners.com',
+        to: process.env.NOTIFICATION_EMAIL ?? 'info.czysty@gmail.com',
         subject: '🧺 New QR Registration — Czysty Cleaners',
         html: `
           <div style="font-family:sans-serif;max-width:500px;margin:0 auto">
@@ -28,6 +29,31 @@ export async function POST(req: Request) {
           </div>
         `,
       })
+
+      // Send confirmation to user (only if they provided an email)
+      if (email) {
+        await resend.emails.send({
+          from: 'noreply@czystycleaners.com',
+          to: email,
+          subject: '🥳 You\'re entered — Czysty @ 10 Giveaway!',
+          html: `
+            <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#09100A">
+              <h2 style="color:#1A5C28;margin-bottom:8px">You're in, ${name}! 🎉</h2>
+              <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:16px">
+                Thank you for entering the <strong>Czysty @ 10 Giveaway</strong>. Your details have been received and you're officially in the draw for a FREE professional clean up!
+              </p>
+              <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:24px">
+                We'll be in touch if you're selected. Good luck! 🧺
+              </p>
+              <hr style="border:none;border-top:1px solid #eee;margin-bottom:24px" />
+              <p style="font-size:12px;color:#aaa">
+                Czysty Cleaners Int'l Ltd · Lagos<br/>
+                📞 +234 807 213 3343 · 📧 info.czysty@gmail.com
+              </p>
+            </div>
+          `,
+        })
+      }
     }
 
     return NextResponse.json({ ok: true })

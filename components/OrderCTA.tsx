@@ -46,11 +46,11 @@ export default function OrderCTA() {
             className="czysty-btn bg-czysty-black text-czysty-cream hover:bg-czysty-grey transition-colors duration-200 px-9 py-4 text-sm border border-czysty-cream/10 text-center">
             Schedule Pickup Online
           </a>
-          <a href="tel:+2340000000000"
+          <a href="tel:+2348072133343"
             className="czysty-btn border-2 border-czysty-cream/70 text-czysty-cream hover:bg-czysty-cream hover:text-czysty-green transition-all duration-200 px-9 py-4 text-sm text-center">
             Call Us
           </a>
-          <a href="https://wa.me/2340000000000" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/2348072133343" target="_blank" rel="noopener noreferrer"
             className="czysty-btn bg-czysty-red text-czysty-cream hover:bg-czysty-red/80 transition-colors duration-200 px-9 py-4 text-sm text-center">
             WhatsApp →
           </a>
