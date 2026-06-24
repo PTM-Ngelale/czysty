@@ -66,8 +66,8 @@ export default function Navbar() {
 
         {/* CTA */}
         <a
-          href="#contact"
-          className="hidden md:inline-flex czysty-btn czysty-btn-primary text-[8px] px-2 py-1 "
+          href="/booking"
+          className="hidden md:inline-flex czysty-btn-nav czysty-btn-primary text-[8px] px-2 py-1 "
         >
           Book Pickup
         </a>
@@ -106,7 +106,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/booking"
             onClick={() => setMenuOpen(false)}
             className="czysty-btn czysty-btn-primary mt-2 text-center text-[11px] rounded-full"
           >

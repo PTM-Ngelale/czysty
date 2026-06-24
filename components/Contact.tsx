@@ -149,7 +149,7 @@ export default function Contact() {
               <div className="pt-2">
                 <button type="submit" disabled={status === 'sending'}
                   className="czysty-btn czysty-btn-primary w-full py-4 text-sm disabled:opacity-50">
-                  {status === 'sending' ? 'Sending…' : 'Book My Pickup →'}
+                  {status === 'sending' ? 'Sending…' : 'Send Message →'}
                 </button>
               </div>
 

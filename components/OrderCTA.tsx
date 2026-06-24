@@ -42,9 +42,9 @@ export default function OrderCTA() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-          <a href="#contact"
+          <a href="/booking"
             className="czysty-btn bg-czysty-black text-czysty-cream hover:bg-czysty-grey transition-colors duration-200 px-9 py-4 text-sm border border-czysty-cream/10 text-center">
-            Schedule Pickup Online
+            Book a Pickup
           </a>
           <a href="tel:+2348072133343"
             className="czysty-btn border-2 border-czysty-cream/70 text-czysty-cream hover:bg-czysty-cream hover:text-czysty-green transition-all duration-200 px-9 py-4 text-sm text-center">
