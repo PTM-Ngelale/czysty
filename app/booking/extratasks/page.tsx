@@ -6,6 +6,8 @@ import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { EXTRA_TASKS, STANDALONE_ADDONS, FREQUENCIES, formatNaira } from '@/lib/booking-catalog';
 import { StepHeader } from '@/components/BookingStepHeader';
+import { Shirt, Droplets, Zap, Package, Sparkles, Flower2, Wrench, Check } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 type LocalSelection = {
   taskId: string;
@@ -36,13 +38,13 @@ function buildInitialSelections(
   });
 }
 
-const TASK_ICONS: Record<string, string> = {
-  'ironing':         '👔',
-  'stain-treatment': '🧴',
-  'express':         '⚡',
-  'fold-pack':       '📦',
-  'starch':          '✨',
-  'softener':        '🌸',
+const TASK_ICONS: Record<string, LucideIcon> = {
+  'ironing':         Shirt,
+  'stain-treatment': Droplets,
+  'express':         Zap,
+  'fold-pack':       Package,
+  'starch':          Sparkles,
+  'softener':        Flower2,
 };
 
 export default function ExtraTasksPage() {
@@ -130,7 +132,7 @@ export default function ExtraTasksPage() {
           <div className="flex flex-col gap-2.5">
             {EXTRA_TASKS.map(task => {
               const sel = selections.find(s => s.taskId === task.id)!;
-              const icon = TASK_ICONS[task.id] ?? '🔧';
+              const TaskIcon = TASK_ICONS[task.id] ?? Wrench;
               return (
                 <button
                   key={task.id}
@@ -142,7 +144,7 @@ export default function ExtraTasksPage() {
                     boxShadow: sel.checked ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
                   }}
                 >
-                  <span className="text-xl shrink-0 leading-none">{icon}</span>
+                  <TaskIcon size={20} className="shrink-0" style={{ color: sel.checked ? '#f2ede4' : '#09100a' }} />
                   <div className="flex-1 min-w-0">
                     <p className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
                       style={{ color: sel.checked ? '#f2ede4' : '#09100a' }}>
@@ -170,11 +172,7 @@ export default function ExtraTasksPage() {
                         background:  sel.checked ? '#f2ede4' : 'transparent',
                       }}
                     >
-                      {sel.checked && (
-                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                          <path d="M2 6l3 3 5-5" stroke="#1a5c28" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      )}
+                      {sel.checked && <Check size={10} stroke="#1a5c28" strokeWidth={2.5} />}
                     </div>
                   </div>
                 </button>
@@ -198,14 +196,14 @@ export default function ExtraTasksPage() {
           <div className="flex flex-col gap-4">
             {selectedTaskDefs.map(task => {
               const sel = selections.find(s => s.taskId === task.id)!;
-              const icon = TASK_ICONS[task.id] ?? '🔧';
+              const TaskIcon2 = TASK_ICONS[task.id] ?? Wrench;
               const lineTotal = task.unitPrice * sel.quantity;
 
               return (
                 <div key={task.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                   {/* Card header */}
                   <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">
-                    <span className="text-xl leading-none">{icon}</span>
+                    <TaskIcon2 size={20} className="text-czysty-black/70 shrink-0" />
                     <div className="flex-1">
                       <p className="font-display font-bold text-czysty-black text-sm uppercase tracking-wide">
                         {task.name}

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { StepHeader, FieldLabel } from '@/components/BookingStepHeader';
+import { Check } from 'lucide-react';
 
 function isValidEmail(e: string) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function isValidPhone(p: string) { return /^(\+?234|0)[789]\d{9}$/.test(p.replace(/\s/g, '')); }
@@ -66,11 +67,7 @@ export default function ContactPage() {
           className="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
           style={{ borderColor: forSomeoneElse ? '#1a5c28' : '#d1d5db', background: forSomeoneElse ? '#1a5c28' : 'transparent' }}
         >
-          {forSomeoneElse && (
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6l3 3 5-5" stroke="#f2ede4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )}
+          {forSomeoneElse && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
         </div>
         <span className="font-body text-czysty-black text-sm">
           I&apos;m booking for someone else

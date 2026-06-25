@@ -2,17 +2,19 @@
 
 import { useRouter } from 'next/navigation';
 import { useBooking, type BookingType } from '@/lib/booking-store';
+import { WashingMachine, Gift, ArrowRight } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-const CARDS = [
+const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string }[] = [
   {
-    type: 'self' as BookingType,
-    icon: '🧺',
+    type: 'self',
+    Icon: WashingMachine,
     title: 'Book For You',
     sub:   'Clean clothes, delivered back to your door.',
   },
   {
-    type: 'gift' as BookingType,
-    icon: '🎁',
+    type: 'gift',
+    Icon: Gift,
     title: 'Gift a Loved One',
     sub:   'Give the gift of fresh laundry.',
   },
@@ -50,7 +52,7 @@ export default function BookingIntroPage() {
               className="group relative text-left bg-white rounded-2xl border-2 border-transparent hover:border-czysty-green p-5 transition-all duration-200 hover:shadow-md active:scale-[0.98]"
               style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}
             >
-              <span className="text-3xl mb-3 block">{card.icon}</span>
+              <card.Icon size={30} className="mb-3 text-czysty-green" />
               <p className="font-display font-extrabold text-czysty-black text-base uppercase leading-tight mb-1.5">
                 {card.title}
               </p>
@@ -61,9 +63,7 @@ export default function BookingIntroPage() {
                 className="w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-czysty-green transition-colors duration-200"
                 style={{ background: '#09100a' }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f2ede4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <ArrowRight size={14} stroke="#f2ede4" strokeWidth={2.5} />
               </div>
             </button>
           ))}

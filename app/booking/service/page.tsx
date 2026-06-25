@@ -6,12 +6,14 @@ import { PRIMARY_SERVICES, STANDALONE_ADDONS, formatNaira } from '@/lib/booking-
 import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { StepBadge } from '@/components/BookingStepHeader';
+import { WashingMachine, Shirt, Sparkles, BedDouble, Check } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-const SERVICE_META: Record<string, { icon: string; from: string; desc: string }> = {
-  'wash-fold':  { icon: '🧺', from: '₦2,500', desc: 'Washed, dried & folded for you' },
-  'wash-iron':  { icon: '👔', from: '₦3,500', desc: 'Washed, dried & professionally pressed' },
-  'dry-clean':  { icon: '✨', from: '₦5,000', desc: 'Solvent cleaning for delicate garments' },
-  'bulky':      { icon: '🛏',  from: '₦4,000', desc: 'Duvets, curtains & oversized items' },
+const SERVICE_META: Record<string, { Icon: LucideIcon; from: string; desc: string }> = {
+  'wash-fold':  { Icon: WashingMachine, from: '₦2,500', desc: 'Washed, dried & folded for you' },
+  'wash-iron':  { Icon: Shirt,          from: '₦3,500', desc: 'Washed, dried & professionally pressed' },
+  'dry-clean':  { Icon: Sparkles,       from: '₦5,000', desc: 'Solvent cleaning for delicate garments' },
+  'bulky':      { Icon: BedDouble,      from: '₦4,000', desc: 'Duvets, curtains & oversized items' },
 };
 
 export default function ServicePage() {
@@ -66,7 +68,7 @@ export default function ServicePage() {
                 boxShadow: active ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
               }}
             >
-              <span className="text-2xl shrink-0 leading-none">{meta.icon}</span>
+              <meta.Icon size={22} className="shrink-0" style={{ color: active ? '#f2ede4' : '#09100a' }} />
               <div className="flex-1 min-w-0">
                 <p className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
                   style={{ color: active ? '#f2ede4' : '#09100a' }}>
@@ -92,11 +94,7 @@ export default function ServicePage() {
                     background:  active ? '#f2ede4' : 'transparent',
                   }}
                 >
-                  {active && (
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                      <path d="M2 6l3 3 5-5" stroke="#1a5c28" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
+                  {active && <Check size={10} stroke="#1a5c28" strokeWidth={2.2} />}
                 </div>
               </div>
             </button>
@@ -132,11 +130,7 @@ export default function ServicePage() {
                     background:  checked ? '#1a5c28' : 'transparent',
                   }}
                 >
-                  {checked && (
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                      <path d="M2 6l3 3 5-5" stroke="#f2ede4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
+                  {checked && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
                 </div>
               </button>
             );

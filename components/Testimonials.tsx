@@ -1,22 +1,24 @@
 'use client'
 
+import { Star } from 'lucide-react'
+
 const testimonials = [
   {
-    quote: 'They picked up Monday morning and delivered Tuesday evening. Everything was perfectly folded and smelled amazing. I won\'t go back to doing laundry myself.',
+    quote: 'They came in, cleaned the entire apartment top to bottom, and did our laundry the same day. Everything was spotless and perfectly folded. I won\'t go back to doing it myself.',
     name: 'Chioma A.',
-    label: 'Regular Customer',
+    label: 'Home Cleaning & Laundry',
     initials: 'CA',
   },
   {
-    quote: 'My work shirts have never looked this crisp. The dry cleaning is genuinely better than what I used to pay double for elsewhere.',
+    quote: 'My work shirts have never looked this crisp. The dry cleaning is genuinely better than what I used to pay double for elsewhere. Consistent every time.',
     name: 'Tunde B.',
     label: 'Dry Cleaning Customer',
     initials: 'TB',
   },
   {
-    quote: 'The WhatsApp scheduling is so easy. I send a message, they pick up, and two days later it\'s back at my door. Don\'t even think about laundry anymore.',
+    quote: 'The WhatsApp booking is so easy. I send a message, they show up, and the office is clean before our clients arrive. Completely stress-free.',
     name: 'Adaeze M.',
-    label: 'Weekly Subscriber',
+    label: 'Office Cleaning Client',
     initials: 'AM',
   },
 ]
@@ -65,9 +67,7 @@ export default function Testimonials() {
               {/* Stars */}
               <div className="flex gap-1 mb-5 sm:mb-6">
                 {Array.from({ length: 5 }).map((_, j) => (
-                  <svg key={j} className="w-3.5 h-3.5 text-czysty-green" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
+                  <Star key={j} className="w-3.5 h-3.5 text-czysty-green" fill="currentColor" />
                 ))}
               </div>
 
@@ -96,7 +96,7 @@ export default function Testimonials() {
         {/* Bottom tag line */}
         <div className="reveal mt-8 sm:mt-10 text-center">
           <p className="font-body text-czysty-muted text-[12px] uppercase tracking-widest">
-            Trusted by hundreds of households — Lagos Island · Victoria Island · Lekki · Ikoyi
+            Trusted by hundreds of households — Port Harcourt · D-Line · Eliozu · Ozuoba
           </p>
         </div>
       </div>

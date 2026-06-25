@@ -6,6 +6,7 @@ import { useBooking, type BookingCheckout } from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
 import { formatNaira } from "@/lib/booking-catalog";
 import { StepHeader } from "@/components/BookingStepHeader";
+import { CircleCheckBig, Check } from "lucide-react";
 
 const INSURANCE_FEE = 1100;
 
@@ -77,19 +78,7 @@ export default function CheckoutPage() {
     return (
       <div className="max-w-2xl mx-auto px-5 py-12 flex flex-col items-center text-center">
         <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-czysty-green/10">
-          <svg
-            width="36"
-            height="36"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#1a5c28"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <polyline points="22 4 12 14.01 9 11.01" />
-          </svg>
+          <CircleCheckBig size={36} stroke="#1a5c28" strokeWidth={2} />
         </div>
         <h2 className="step-heading mb-3">Booking confirmed!</h2>
         <p className="font-body text-czysty-muted text-sm mb-2 max-w-xs">
@@ -216,17 +205,7 @@ export default function CheckoutPage() {
             background: insurance ? "#1a5c28" : "transparent",
           }}
         >
-          {insurance && (
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-              <path
-                d="M2 6l3 3 5-5"
-                stroke="#f2ede4"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          )}
+          {insurance && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
         </div>
         <div className="flex-1">
           <p className="font-display font-bold text-czysty-black text-sm uppercase tracking-wide leading-tight">

@@ -6,8 +6,7 @@ import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { SPACE_OPTIONS, formatNaira, calcBasePrice } from '@/lib/booking-catalog';
 import { StepHeader } from '@/components/BookingStepHeader';
-
-const BAG_ICONS = ['🛍', '🛍🛍', '🛍🛍🛍', '🛍🛍🛍🛍', '🛍🛍🛍🛍🛍'];
+import { ShoppingBag, Check } from 'lucide-react';
 
 export default function SpacePage() {
   const router = useRouter();
@@ -57,8 +56,10 @@ export default function SpacePage() {
                 gridColumn: i === 4 ? 'span 2' : undefined,
               }}
             >
-              <span className="block text-xl mb-2 leading-none" role="presentation">
-                {BAG_ICONS[i]}
+              <span className="flex gap-0.5 mb-2" role="presentation">
+                {Array.from({ length: i + 1 }).map((_, n) => (
+                  <ShoppingBag key={n} size={16} style={{ color: active ? '#c8e6ce' : '#1a5c28' }} />
+                ))}
               </span>
               <p className="font-display font-bold text-xs uppercase tracking-wide leading-tight"
                 style={{ color: active ? '#f2ede4' : '#09100a' }}>
@@ -93,11 +94,7 @@ export default function SpacePage() {
             background:  stainRemoval ? '#1a5c28' : 'transparent',
           }}
         >
-          {stainRemoval && (
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6l3 3 5-5" stroke="#f2ede4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )}
+          {stainRemoval && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
         </div>
         <div>
           <p className="font-body font-semibold text-czysty-black text-sm">Add stain pre-treatment</p>

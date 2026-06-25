@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Check, ArrowRight } from 'lucide-react'
 
 const inputBase =
   'w-full bg-transparent border-0 border-b border-czysty-green/20 text-czysty-black placeholder:text-czysty-muted/50 font-body text-sm px-0 py-3 focus:outline-none focus:border-czysty-green transition-colors duration-200'
@@ -37,9 +38,7 @@ export default function JoinForm() {
         <div
           className="w-16 h-16 rounded-full bg-czysty-green/10 border border-czysty-green/30 flex items-center justify-center mx-auto mb-5"
         >
-          <svg className="w-7 h-7 text-czysty-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
+          <Check className="w-7 h-7 text-czysty-green" strokeWidth={2.5} />
         </div>
         <p className="font-display font-bold text-czysty-black uppercase text-lg mb-1">You&apos;re In!</p>
         <p className="font-body text-czysty-muted text-[13px]">Taking you to our services…</p>
@@ -98,7 +97,7 @@ export default function JoinForm() {
           disabled={status === 'sending'}
           className="czysty-btn czysty-btn-primary w-full py-4 text-sm disabled:opacity-50"
         >
-          {status === 'sending' ? 'Registering…' : 'Continue to Our Services →'}
+          {status === 'sending' ? 'Registering…' : <span className="flex items-center justify-center gap-2">Continue to Our Services <ArrowRight size={14} /></span>}
         </button>
       </div>
 

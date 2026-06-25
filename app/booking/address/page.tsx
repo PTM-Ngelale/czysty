@@ -6,6 +6,7 @@ import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { TRANSPORT_ZONES, formatNaira } from '@/lib/booking-catalog';
 import { StepHeader, FieldLabel, RadioCard } from '@/components/BookingStepHeader';
+import { ChevronDown } from 'lucide-react';
 
 const ACCESS_OPTIONS = [
   { value: 'none' as const,        label: 'No — open access' },
@@ -114,7 +115,7 @@ export default function AddressPage() {
               </option>
             ))}
           </select>
-          <svg className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7b6b" strokeWidth="2.5"><path d="M6 9l6 6 6-6" /></svg>
+          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
         </div>
 
         {transportFee > 0 && (

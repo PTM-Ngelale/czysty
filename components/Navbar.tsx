@@ -69,7 +69,7 @@ export default function Navbar() {
           href="/booking"
           className="hidden md:inline-flex czysty-btn-nav czysty-btn-primary text-[8px] px-2 py-1 "
         >
-          Book Pickup
+          Book Now
         </a>
 
         {/* Hamburger */}
@@ -110,7 +110,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
             className="czysty-btn czysty-btn-primary mt-2 text-center text-[11px] rounded-full"
           >
-            Book Pickup
+            Book Now
           </a>
         </div>
       </div>

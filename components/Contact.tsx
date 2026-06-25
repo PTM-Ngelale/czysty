@@ -1,13 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { MapPin, Phone, Mail, Clock, MessageCircle, Check, ArrowRight } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
-const contactDetails = [
-  { icon: '📍', label: 'Address',   value: 'Your service area / business address' },
-  { icon: '📞', label: 'Phone',     value: '+234 807 213 3343' },
-  { icon: '📧', label: 'Email',     value: 'info.czysty@gmail.com' },
-  { icon: '🕐', label: 'Hours',     value: 'Mon – Sat · 8am – 6pm' },
-  { icon: '💬', label: 'WhatsApp',  value: '+234 807 213 3343' },
+const contactDetails: { Icon: LucideIcon; label: string; value: string }[] = [
+  { Icon: MapPin,         label: 'D-Line Branch',  value: '2b Egelege Street off Olu-Obasanjo Road, D-Line Port Harcourt' },
+  { Icon: MapPin,         label: 'Eliozu Branch',  value: '1st Plaza after Farm Road 2 Junction, Eliozu, Port Harcourt' },
+  { Icon: MapPin,         label: 'Ozuoba Branch',  value: 'No.4 Ogbogoro Ozuoba Road off NTA Road, Port Harcourt' },
+  { Icon: Phone,          label: 'Phone',          value: '+234 807 213 3343' },
+  { Icon: Mail,           label: 'Email',          value: 'info.czysty@gmail.com' },
+  { Icon: Clock,          label: 'Hours',          value: 'Mon – Sat · 8am – 6pm' },
+  { Icon: MessageCircle,  label: 'WhatsApp',       value: '+234 807 213 3343' },
 ]
 
 const inputBase =
@@ -15,7 +19,7 @@ const inputBase =
 
 export default function Contact() {
   const [form, setForm] = useState({
-    name: '', phone: '', email: '', address: '', service: '', date: '', notes: '',
+    name: '', phone: '', email: '', message: '',
   })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
@@ -33,7 +37,7 @@ export default function Contact() {
       })
       if (!res.ok) throw new Error()
       setStatus('sent')
-      setForm({ name: '', phone: '', email: '', address: '', service: '', date: '', notes: '' })
+      setForm({ name: '', phone: '', email: '', message: '' })
     } catch {
       setStatus('error')
     }
@@ -60,7 +64,7 @@ export default function Contact() {
           <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
             LET&apos;S GET YOUR
             <br />
-            <span className="text-czysty-green">LAUNDRY SORTED</span>
+            <span className="text-czysty-green">PLACE SORTED</span>
           </h2>
         </div>
 
@@ -69,13 +73,13 @@ export default function Contact() {
           {/* Left — info */}
           <div className="reveal-left">
             <p className="font-body text-czysty-black/55 text-[15px] leading-relaxed mb-8 sm:mb-10">
-              Book online, call, or WhatsApp. We&apos;ll confirm your pickup within the hour during business hours.
+              Book a service, ask a question, or request a quote. We&apos;ll get back to you within the hour during business hours.
             </p>
 
             <ul className="space-y-5 sm:space-y-6 mb-8 sm:mb-10">
               {contactDetails.map((d) => (
                 <li key={d.label} className="flex items-start gap-4">
-                  <span className="text-base mt-0.5 opacity-60">{d.icon}</span>
+                  <d.Icon size={15} className="mt-0.5 text-czysty-green opacity-70 shrink-0" />
                   <div>
                     <p className="font-body text-czysty-muted text-[10px] uppercase tracking-widest mb-0.5">{d.label}</p>
                     <p className="font-body text-czysty-black/75 text-[14px]">{d.value}</p>
@@ -88,7 +92,7 @@ export default function Contact() {
             <div className="border border-czysty-green/15 bg-czysty-cream/60 p-4 sm:p-5">
               <p className="font-body text-[10px] text-czysty-green/70 uppercase tracking-widest mb-2">Service Areas</p>
               <p className="font-body text-czysty-black/60 text-[13px] leading-relaxed">
-                Lagos Island · Victoria Island · Lekki · Ikoyi
+                Port Harcourt · D-Line · Eliozu · Ozuoba
                 <span className="block text-czysty-muted/60 text-[11px] mt-1">
                   More areas coming soon. Contact us to check your location.
                 </span>
@@ -116,46 +120,22 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">Pickup Address *</label>
-                <input name="address" value={form.address} onChange={onChange} required placeholder="14 Adeola Hopewell, VI" className={inputBase} />
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
-                <div>
-                  <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">Service *</label>
-                  <select name="service" value={form.service} onChange={onChange} required
-                    className={`${inputBase} bg-white/60`}
-                    style={{ backgroundImage: 'none' }}>
-                    <option value="" disabled>Select a service</option>
-                    <option value="wash-fold">Wash &amp; Fold</option>
-                    <option value="dry-cleaning">Dry Cleaning</option>
-                    <option value="ironing">Ironing</option>
-                    <option value="pickup-delivery">Pickup &amp; Delivery</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">Preferred Date</label>
-                  <input name="date" value={form.date} onChange={onChange} type="date" className={inputBase} />
-                </div>
-              </div>
-
-              <div>
-                <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">Notes</label>
-                <textarea name="notes" value={form.notes} onChange={onChange} rows={3}
-                  placeholder="Any special instructions?" className={`${inputBase} resize-none`} />
+                <label className="font-body text-[10px] text-czysty-muted uppercase tracking-widest block mb-1">How Can We Help? *</label>
+                <textarea name="message" value={form.message} onChange={onChange} required rows={4}
+                  placeholder="Tell us what you need — laundry, dry cleaning, home clean, office clean, or any questions…"
+                  className={`${inputBase} resize-none`} />
               </div>
 
               <div className="pt-2">
                 <button type="submit" disabled={status === 'sending'}
-                  className="czysty-btn czysty-btn-primary w-full py-4 text-sm disabled:opacity-50">
-                  {status === 'sending' ? 'Sending…' : 'Send Message →'}
+                  className="czysty-btn czysty-btn-primary w-full py-4 text-sm disabled:opacity-50 flex items-center justify-center gap-2">
+                  {status === 'sending' ? 'Sending…' : <><span>Send Message</span><ArrowRight size={14} /></>}
                 </button>
               </div>
 
               {status === 'sent' && (
-                <p className="font-body text-czysty-green text-[13px] text-center py-1">
-                  ✓ Booking received! We&apos;ll confirm within the hour.
+                <p className="font-body text-czysty-green text-[13px] text-center py-1 flex items-center justify-center gap-1.5">
+                  <Check size={13} /> Booking received! We&apos;ll confirm within the hour.
                 </p>
               )}
               {status === 'error' && (

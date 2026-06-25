@@ -1,3 +1,5 @@
+import { Check, ChevronDown } from 'lucide-react'
+
 export function StepBadge({ step, total }: { step: number; total: number }) {
   return (
     <span className="inline-flex items-center bg-czysty-green/10 text-czysty-green text-[10px] font-body font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3">
@@ -55,11 +57,7 @@ export function RadioCard({
           background:  active ? '#f2ede4' : 'transparent',
         }}
       >
-        {active && (
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-            <path d="M2 6l3 3 5-5" stroke="#1a5c28" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
+        {active && <Check size={10} stroke="#1a5c28" strokeWidth={2.2} />}
       </div>
     </button>
   );
@@ -92,11 +90,7 @@ export function CheckCard({
           background:  checked ? '#1a5c28' : 'transparent',
         }}
       >
-        {checked && (
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-            <path d="M2 6l3 3 5-5" stroke="#f2ede4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
+        {checked && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
       </div>
     </button>
   );
@@ -140,9 +134,7 @@ export function StyledSelect({
         >
           {children}
         </select>
-        <svg className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7b6b" strokeWidth="2.5">
-          <path d="M6 9l6 6 6-6" />
-        </svg>
+        <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
       </div>
       {error && <p className="font-body text-czysty-red text-[12px] mt-1.5">{error}</p>}
     </div>

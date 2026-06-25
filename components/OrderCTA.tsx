@@ -18,7 +18,7 @@ export default function OrderCTA() {
           className="font-display font-extrabold text-czysty-black/10 leading-none whitespace-nowrap"
           style={{ fontSize: 'clamp(48px, 14vw, 180px)' }}
         >
-          CLEAN CLOTHES
+          CLEAN SPACES
         </span>
       </div>
 
@@ -33,18 +33,18 @@ export default function OrderCTA() {
           className="display-heading text-czysty-cream mb-5 sm:mb-6"
           style={{ fontSize: 'clamp(1.5rem, 7vw, 6rem)' }}
         >
-          READY FOR
+          READY FOR A
           <br />
-          CLEAN CLOTHES?
+          CLEANER SPACE?
         </h2>
         <p className="font-body text-czysty-cream/65 text-sm sm:text-base mb-8 sm:mb-12 max-w-md mx-auto leading-relaxed">
-          Book your first pickup in under 60 seconds. No contract, no commitment.
+          Book your first service in under 60 seconds. No contract, no commitment.
         </p>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <a href="/booking"
             className="czysty-btn bg-czysty-black text-czysty-cream hover:bg-czysty-grey transition-colors duration-200 px-9 py-4 text-sm border border-czysty-cream/10 text-center">
-            Book a Pickup
+            Book Now
           </a>
           <a href="tel:+2348072133343"
             className="czysty-btn border-2 border-czysty-cream/70 text-czysty-cream hover:bg-czysty-cream hover:text-czysty-green transition-all duration-200 px-9 py-4 text-sm text-center">

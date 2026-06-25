@@ -14,8 +14,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Czysty Cleaners Int\'l Ltd — Professional Laundry & Dry Cleaning',
-  description: 'Same-day pickup and delivery. Professional laundry, dry cleaning, and ironing service. Clean clothes, delivered to your door.',
+  title: 'Czysty Cleaners Int\'l Ltd — Professional Cleaning Services',
+  description: 'Professional laundry, dry cleaning, and home & office cleaning in Port Harcourt. Book online or on WhatsApp. We come to you.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

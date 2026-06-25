@@ -3,9 +3,9 @@
 const services = [
   {
     num: '01',
-    tag: 'Wash & Fold',
-    title: 'Everyday Laundry',
-    description: 'Washed, dried, and neatly folded per kg. Fresh and ready to wear.',
+    tag: 'Laundry',
+    title: 'Wash, Dry & Fold',
+    description: 'Everyday laundry washed, dried, and neatly folded per kg — fresh and ready to wear.',
     cta: 'See Pricing',
     ctaHref: '#pricing',
     accent: '#1A5C28',
@@ -15,7 +15,7 @@ const services = [
     num: '02',
     tag: 'Dry Cleaning',
     title: 'Delicate & Formal Wear',
-    description: 'Professional dry cleaning for suits, dresses, and delicates — expert care guaranteed.',
+    description: 'Professional dry cleaning for suits, dresses, and delicates — expert solvent care guaranteed.',
     cta: 'See Pricing',
     ctaHref: '#pricing',
     accent: '#8B1A1A',
@@ -23,10 +23,10 @@ const services = [
   },
   {
     num: '03',
-    tag: 'Pickup & Delivery',
-    title: 'Door-to-Door Service',
-    description: 'We collect from your door and return clean laundry within 24–48 hours.',
-    cta: 'Schedule Pickup',
+    tag: 'Home & Office',
+    title: 'Space Cleaning',
+    description: 'Full home or office cleans — floors, surfaces, bathrooms, kitchens. One-off or recurring.',
+    cta: 'Get a Quote',
     ctaHref: '#contact',
     accent: '#1A5C28',
     ctaColor: '#1A5C28',
@@ -35,7 +35,7 @@ const services = [
 
 const addons = [
   { tag: 'Ironing', title: 'Press & Iron', description: 'Crisp, wrinkle-free results. Per-item pricing.' },
-  { tag: 'Stain Removal', title: 'Specialist Treatment', description: 'Stubborn stains handled with professional targeted solutions.' },
+  { tag: 'Pickup & Delivery', title: 'Door-to-Door', description: 'We collect and return your laundry within 24–48 hours. No queues, no hassle.' },
 ]
 
 export default function Services() {
@@ -59,9 +59,9 @@ export default function Services() {
           <div>
             <div className="section-tag">Our Services</div>
             <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
-              EVERYTHING YOUR
+              EVERY CLEANING
               <br />
-              <span className="text-czysty-green">WARDROBE NEEDS</span>
+              <span className="text-czysty-green">NEED, COVERED</span>
             </h2>
           </div>
           <a href="#pricing" className="czysty-btn czysty-btn-green-outline self-start lg:self-end text-sm px-6 py-3">
