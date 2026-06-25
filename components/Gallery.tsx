@@ -17,16 +17,16 @@ const items = [
   },
   {
     category: "Sneaker Clean",
-    src: "/images/cleaned-sneakers.jpeg",
+    src: "/images/cleaned-sneakers.jpg",
     span: "",
     objectPos: "object-center",
   },
-  {
-    category: "Equipment",
-    src: "/images/washing-machines-2.jpeg",
-    span: "",
-    objectPos: "object-center",
-  },
+  // {
+  //   category: "Equipment",
+  //   src: "/images/washing-machines-2.jpeg",
+  //   span: "",
+  //   objectPos: "object-center",
+  // },
   {
     category: "Deep Clean",
     src: "/images/mopping.jpeg",
@@ -38,6 +38,12 @@ const items = [
     src: "/images/cleaning-crew.png",
     span: "",
     objectPos: "object-top",
+  },
+  {
+    category: "Ironing",
+    src: "/images/ironing.PNG",
+    span: "",
+    objectPos: "object-center",
   },
 ];
 
