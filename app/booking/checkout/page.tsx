@@ -6,9 +6,7 @@ import { useBooking, type BookingCheckout } from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
 import { formatNaira } from "@/lib/booking-catalog";
 import { StepHeader } from "@/components/BookingStepHeader";
-import { CircleCheckBig, Check } from "lucide-react";
-
-const INSURANCE_FEE = 1100;
+import { CircleCheckBig } from "lucide-react";
 
 const PREPAY_OPTIONS = [
   {
@@ -40,7 +38,6 @@ export default function CheckoutPage() {
   const [prepayMonths, setPrepayMonths] = useState<0 | 2 | 3>(
     saved.prepayMonths,
   );
-  const [insurance, setInsurance] = useState(saved.insurance);
   const [status, setStatus] = useState<
     "idle" | "processing" | "success" | "error"
   >("idle");
@@ -48,9 +45,9 @@ export default function CheckoutPage() {
   useEffect(() => {
     dispatch({
       type: "SET_CHECKOUT",
-      checkout: { prepayMonths, insurance } as BookingCheckout,
+      checkout: { prepayMonths, insurance: false } as BookingCheckout,
     });
-  }, [prepayMonths, insurance, dispatch]);
+  }, [prepayMonths, dispatch]);
 
   useEffect(() => {
     if (!booking.contact) {
@@ -61,11 +58,10 @@ export default function CheckoutPage() {
   }, [booking.contact, router, setOverride]);
 
   const noOfBookings = prepayMonths > 0 ? prepayMonths : 1;
-  const insuranceFee = insurance ? INSURANCE_FEE : 0;
   const discount = 0;
   const baseSingle = totals.basePrice;
   const totalPayable =
-    baseSingle * noOfBookings + insuranceFee - discount + totals.transportFee;
+    baseSingle * noOfBookings - discount + totals.transportFee;
 
   async function handlePay() {
     setStatus("processing");
@@ -189,37 +185,6 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      {/* Insurance */}
-      <button
-        onClick={() => setInsurance((v) => !v)}
-        className="w-full flex items-start gap-4 rounded-2xl border-2 px-5 py-4 mb-6 text-left transition-all duration-200"
-        style={{
-          borderColor: insurance ? "#1a5c28" : "#e9ecef",
-          background: insurance ? "#f0faf3" : "white",
-        }}
-      >
-        <div
-          className="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors"
-          style={{
-            borderColor: insurance ? "#1a5c28" : "#d1d5db",
-            background: insurance ? "#1a5c28" : "transparent",
-          }}
-        >
-          {insurance && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
-        </div>
-        <div className="flex-1">
-          <p className="font-display font-bold text-czysty-black text-sm uppercase tracking-wide leading-tight">
-            Insure my booking
-          </p>
-          <p className="font-body text-czysty-muted text-[12px] mt-0.5 leading-relaxed">
-            Protection against damage or missing items — up to ₦500,000 covered.
-          </p>
-        </div>
-        <p className="font-display font-bold text-czysty-green text-sm shrink-0 mt-0.5">
-          {formatNaira(INSURANCE_FEE)}
-        </p>
-      </button>
-
       {/* Price breakdown */}
       <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm mb-5">
         <div className="bg-czysty-black px-5 py-4">
@@ -238,12 +203,6 @@ export default function CheckoutPage() {
               <BRow
                 label="Delivery fee"
                 value={formatNaira(totals.transportFee)}
-              />
-            )}
-            {insurance && (
-              <BRow
-                label="Booking insurance"
-                value={formatNaira(insuranceFee)}
               />
             )}
             {discount > 0 && (

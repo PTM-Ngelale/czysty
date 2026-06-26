@@ -82,7 +82,6 @@ export type BookingTotals = {
   noOfBookings: number;
   basePrice: number;
   extraTasksPrice: number;
-  insuranceFee: number;
   discount: number;
   transportFee: number;
   totalPayable: number;
@@ -147,10 +146,9 @@ export function calcTotals(booking: Booking): BookingTotals {
 
   const subtotal       = basePrice + suppliesFee + extraPrice;
   const noOfBookings   = checkout.prepayMonths > 0 ? checkout.prepayMonths : 1;
-  const insuranceFee   = checkout.insurance ? 1100 : 0;
   const discount       = 0;
   const transportFee   = address?.transportFee ?? 0;
-  const totalPayable   = subtotal * noOfBookings + insuranceFee - discount + transportFee;
+  const totalPayable   = subtotal * noOfBookings - discount + transportFee;
 
   const spaceOption    = SPACE_OPTIONS.find(s => s.value === spaceValue);
   const durationHrs    = spaceOption?.durationHrs ?? 0;
@@ -160,7 +158,6 @@ export function calcTotals(booking: Booking): BookingTotals {
     noOfBookings,
     basePrice: subtotal,
     extraTasksPrice: extraPrice,
-    insuranceFee,
     discount,
     transportFee,
     totalPayable,
