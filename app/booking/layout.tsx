@@ -345,11 +345,11 @@ function BookingShell({ children }: { children: React.ReactNode }) {
                   <p className="font-body text-[10px] text-czysty-muted uppercase tracking-widest">
                     Total amount
                   </p>
+                  {totals.durationHrs > 0 && (
                   <p className="font-body text-[11px] text-czysty-muted mt-0.5">
-                    {totals.staffCount > 0 && totals.durationHrs > 0
-                      ? `${totals.staffCount} attendant · ~${totals.durationHrs} hrs`
-                      : "1 attendant · ~2–3 day turnaround"}
+                    {totals.staffCount} attendant · ~{totals.durationHrs} hrs
                   </p>
+                )}
                 </div>
                 <p className="font-display font-extrabold text-czysty-black text-xl leading-none">
                   {isCalculating ? (
