@@ -15,9 +15,10 @@ const items = [
     span: "",
     objectPos: "object-center",
   },
+
   {
     category: "Sneaker Clean",
-    src: "/images/cleaned-sneakers.jpg",
+    src: "/images/cleaned-sneakers.jpeg",
     span: "",
     objectPos: "object-center",
   },
