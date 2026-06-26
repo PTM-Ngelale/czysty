@@ -24,6 +24,7 @@ export default function SummaryPage() {
 
   if (!booking.contact) return null;
 
+  const isLaundryFlow = booking.bookingType === 'gift' && !booking.space;
   const spaceOption = HOME_OPTIONS.find(s => s.value === booking.space?.description);
 
   return (
@@ -34,13 +35,20 @@ export default function SummaryPage() {
       <div className="rounded-2xl bg-czysty-cream/80 border border-czysty-cream px-5 py-4 mb-6">
         <p className="font-body font-semibold text-czysty-black text-[13px] mb-2">Before we arrive</p>
         <ul className="space-y-1">
-          {[
-            'Ensure adequate running water or stored water at the location.',
-            booking.space?.bringSupplies
-              ? 'Our team will bring all cleaning supplies.'
-              : 'Please have your cleaning supplies ready for our team.',
-            'Point out any special areas of concern at the time of arrival.',
-          ].map(item => (
+          {(isLaundryFlow
+            ? [
+                'Ensure all items are packed and ready for pickup.',
+                'Our team will wash, dry, and neatly pack your items within 48 hours.',
+                'You will be contacted to confirm pickup and delivery times.',
+              ]
+            : [
+                'Ensure adequate running water or stored water at the location.',
+                booking.space?.bringSupplies
+                  ? 'Our team will bring all cleaning supplies.'
+                  : 'Please have your cleaning supplies ready for our team.',
+                'Point out any special areas of concern at the time of arrival.',
+              ]
+          ).map(item => (
             <li key={item} className="font-body text-czysty-muted text-[12px] flex items-start gap-2">
               <span className="text-czysty-green mt-0.5 shrink-0">•</span>
               {item}
@@ -75,7 +83,8 @@ export default function SummaryPage() {
         )}
 
         {/* Task */}
-        <SummaryCard title="Task" editPath="/booking/space">
+        <SummaryCard title="Task" editPath={isLaundryFlow ? '/booking/laundry' : '/booking/space'}>
+          {isLaundryFlow && <p className="font-body text-czysty-black text-sm font-medium">Monthly Laundry Package</p>}
           {spaceOption && <p className="font-body text-czysty-black text-sm font-medium">{spaceOption.label}</p>}
           {booking.schedule && (
             <>

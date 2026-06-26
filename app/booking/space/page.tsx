@@ -22,6 +22,11 @@ export default function SpacePage() {
 
   const [selected, setSelected] = useState(booking.space?.description ?? '');
 
+  // Arriving at the space selector always means cleaning flow
+  useEffect(() => {
+    dispatch({ type: 'SET_BOOKING_TYPE', bookingType: 'self' });
+  }, [dispatch]);
+
   const isValid = selected.length > 0;
 
   useEffect(() => {

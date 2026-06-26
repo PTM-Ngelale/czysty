@@ -74,7 +74,8 @@ function isStepValid(pathname: string, booking: Booking): boolean {
 
 function SummaryPanel({ isCalculating }: { isCalculating: boolean }) {
   const { booking, totals } = useBooking();
-  const { space, address, schedule, extraTasks, contact } = booking;
+  const { bookingType, space, address, schedule, extraTasks, contact } = booking;
+  const isLaundryFlow = bookingType === 'gift' && !space;
   const spaceOption = HOME_OPTIONS.find((s) => s.value === space?.description);
 
   return (
@@ -127,8 +128,11 @@ function SummaryPanel({ isCalculating }: { isCalculating: boolean }) {
             )}
           </PanelSection>
         )}
-        {(spaceOption || schedule) && (
+        {(spaceOption || isLaundryFlow || schedule) && (
           <PanelSection label="Task">
+            {isLaundryFlow && (
+              <p className="text-czysty-black font-medium">Monthly Laundry Package</p>
+            )}
             {spaceOption && (
               <p className="text-czysty-black font-medium">{spaceOption.label}</p>
             )}
