@@ -54,7 +54,7 @@ export default function AddressPage() {
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
       <StepHeader
-        step={isLaundry ? 3 : 4} total={9}
+        step={4} total={9}
         title="Tell us where you need us"
         subtitle="We'll pick up and deliver back to this address."
       />

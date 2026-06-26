@@ -2,11 +2,39 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useBooking, type BookingCheckout } from "@/lib/booking-store";
+import { useBooking, type Booking, type BookingCheckout } from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
-import { formatNaira } from "@/lib/booking-catalog";
+import { formatNaira, HOME_OPTIONS } from "@/lib/booking-catalog";
 import { StepHeader } from "@/components/BookingStepHeader";
 import { CircleCheckBig } from "lucide-react";
+
+function buildWhatsAppHref(booking: Booking, totalPayable: number): string {
+  const isLaundry = booking.bookingType === 'gift';
+  const contact = booking.contact!;
+  const spaceLabel = HOME_OPTIONS.find(o => o.value === booking.space?.description)?.label
+    ?? booking.space?.description ?? '—';
+
+  const lines = [
+    `Hi Czysty! I just booked online.`,
+    ``,
+    `Name: ${contact.firstName} ${contact.lastName}`,
+    `Phone: ${contact.phone}`,
+    `Address: ${booking.address?.full ?? '—'}`,
+    `Service: ${isLaundry ? 'Monthly Laundry Package' : spaceLabel}`,
+  ];
+
+  if (!isLaundry && booking.schedule) {
+    const date = new Date(booking.schedule.date + 'T00:00:00').toLocaleDateString('en-NG', {
+      weekday: 'short', day: 'numeric', month: 'short',
+    });
+    lines.push(`Date: ${date} · ${booking.schedule.arrivalWindow}`);
+  }
+
+  lines.push(`Total: ${formatNaira(totalPayable)}`);
+  lines.push(`Please confirm. Thank you!`);
+
+  return `https://wa.me/2348072133343?text=${encodeURIComponent(lines.join('\n'))}`;
+}
 
 const PREPAY_OPTIONS = [
   {
@@ -78,18 +106,15 @@ export default function CheckoutPage() {
         </div>
         <h2 className="step-heading mb-3">Booking confirmed!</h2>
         <p className="font-body text-czysty-muted text-sm mb-2 max-w-xs">
-          Your laundry will be picked up on{" "}
           {booking.schedule
-            ? new Date(booking.schedule.date + "T00:00:00").toLocaleDateString(
-                "en-NG",
-                {
-                  weekday: "short",
-                  day: "numeric",
-                  month: "short",
-                },
-              )
-            : "your selected date"}{" "}
-          during the {booking.schedule?.arrivalWindow} window.
+            ? <>
+                Your booking is set for{" "}
+                {new Date(booking.schedule.date + "T00:00:00").toLocaleDateString("en-NG", {
+                  weekday: "short", day: "numeric", month: "short",
+                })}{" "}
+                during the {booking.schedule.arrivalWindow} window.
+              </>
+            : "Our team will be in touch to confirm your pickup time."}
         </p>
         <p className="font-body text-czysty-muted text-sm mb-8">
           A confirmation has been sent to{" "}
@@ -98,7 +123,7 @@ export default function CheckoutPage() {
 
         <div className="flex flex-col gap-3 w-full max-w-xs">
           <a
-            href="https://wa.me/2348072133343"
+            href={buildWhatsAppHref(booking, totalPayable)}
             target="_blank"
             rel="noopener noreferrer"
             className="h-12 rounded-full font-display font-bold text-xs uppercase tracking-widest text-czysty-cream flex items-center justify-center bg-czysty-green"
