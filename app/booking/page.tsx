@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBooking, type BookingType } from '@/lib/booking-store';
 import { Sparkles, WashingMachine, ArrowRight } from 'lucide-react';
@@ -25,6 +26,11 @@ const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string; 
 export default function BookingIntroPage() {
   const router = useRouter();
   const { dispatch } = useBooking();
+
+  // Reset state every time the user lands on the intro page
+  useEffect(() => {
+    dispatch({ type: 'RESET' });
+  }, [dispatch]);
 
   function select(card: typeof CARDS[number]) {
     dispatch({ type: 'SET_BOOKING_TYPE', bookingType: card.type });
