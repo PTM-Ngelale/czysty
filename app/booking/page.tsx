@@ -2,21 +2,23 @@
 
 import { useRouter } from 'next/navigation';
 import { useBooking, type BookingType } from '@/lib/booking-store';
-import { WashingMachine, Gift, ArrowRight } from 'lucide-react';
+import { Sparkles, WashingMachine, ArrowRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string }[] = [
+const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string; route: string }[] = [
   {
-    type: 'self',
-    Icon: WashingMachine,
-    title: 'Book For You',
-    sub:   'Reset your surroundings.',
+    type:  'self',
+    Icon:  Sparkles,
+    title: 'Book for Cleaning',
+    sub:   'Standard and deep cleaning for your home.',
+    route: '/booking/space',
   },
   {
-    type: 'gift',
-    Icon: Gift,
-    title: 'Gift a Loved One',
-    sub:   'Show someone you care.',
+    type:  'gift',
+    Icon:  WashingMachine,
+    title: 'Do your Laundry',
+    sub:   'Up to 50 items washed and packed monthly.',
+    route: '/booking/laundry',
   },
 ];
 
@@ -24,9 +26,9 @@ export default function BookingIntroPage() {
   const router = useRouter();
   const { dispatch } = useBooking();
 
-  function select(type: BookingType) {
-    dispatch({ type: 'SET_BOOKING_TYPE', bookingType: type });
-    router.push('/booking/space');
+  function select(card: typeof CARDS[number]) {
+    dispatch({ type: 'SET_BOOKING_TYPE', bookingType: card.type });
+    router.push(card.route);
   }
 
   return (
@@ -48,7 +50,7 @@ export default function BookingIntroPage() {
           {CARDS.map(card => (
             <button
               key={card.type}
-              onClick={() => select(card.type)}
+              onClick={() => select(card)}
               className="group relative text-left bg-white rounded-2xl border-2 border-transparent hover:border-czysty-green p-5 transition-all duration-200 hover:shadow-md active:scale-[0.98]"
               style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}
             >
