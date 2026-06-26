@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
-import { TRANSPORT_ZONES, formatNaira } from '@/lib/booking-catalog';
+import { PH_LOCATIONS } from '@/lib/booking-catalog';
 import { StepHeader, FieldLabel, RadioCard } from '@/components/BookingStepHeader';
 import { ChevronDown } from 'lucide-react';
 
@@ -14,21 +14,20 @@ const ACCESS_OPTIONS = [
   { value: 'call_gate' as const,   label: "Yes, I'll need to call the gate" },
 ];
 
-const ZONES = Object.entries(TRANSPORT_ZONES);
-
 export default function AddressPage() {
   const router = useRouter();
   const { booking, dispatch } = useBooking();
   const { setOverride } = useFooter();
 
-  const [full, setFull]               = useState(booking.address?.full ?? '');
-  const [landmark, setLandmark]       = useState(booking.address?.landmark ?? '');
-  const [access, setAccess]           = useState<'access_code' | 'call_gate' | 'none'>(
+  const isLaundry = booking.space?.description === 'laundry';
+
+  const [full,          setFull]      = useState(booking.address?.full ?? '');
+  const [landmark,      setLandmark]  = useState(booking.address?.landmark ?? '');
+  const [access,        setAccess]    = useState<'access_code' | 'call_gate' | 'none'>(
     booking.address?.accessPermission ?? 'none',
   );
-  const [selectedArea, setSelectedArea] = useState(booking.address?.area ?? '');
+  const [area,          setArea]      = useState(booking.address?.area ?? '');
 
-  const transportFee = selectedArea ? (TRANSPORT_ZONES[selectedArea] ?? 0) : 0;
   const isValid = full.trim().length > 5;
 
   useEffect(() => {
@@ -39,21 +38,23 @@ export default function AddressPage() {
         dispatch({
           type: 'SET_ADDRESS',
           address: {
-            full: full.trim(), landmark: landmark.trim(),
-            accessPermission: access, transportFee,
-            area: selectedArea || 'Other (free)',
+            full: full.trim(),
+            landmark: landmark.trim(),
+            accessPermission: access,
+            transportFee: 0,
+            area: area || 'Port Harcourt',
           },
         });
-        router.push('/booking/schedule');
+        router.push(isLaundry ? '/booking/contact' : '/booking/schedule');
       },
-      onBack: () => router.push('/booking/space'),
+      onBack: () => router.push(isLaundry ? '/booking/laundry' : '/booking/supplies'),
     });
-  }, [isValid, full, landmark, access, selectedArea, transportFee, booking.space, dispatch, router, setOverride]);
+  }, [isValid, full, landmark, access, area, isLaundry, booking.space, dispatch, router, setOverride]);
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
       <StepHeader
-        step={3} total={9}
+        step={isLaundry ? 3 : 4} total={9}
         title="Tell us where you need us"
         subtitle="We'll pick up and deliver back to this address."
       />
@@ -64,7 +65,7 @@ export default function AddressPage() {
         <textarea
           value={full}
           onChange={e => setFull(e.target.value)}
-          placeholder="e.g. 14 Admiralty Way, Lekki Phase 1, Lagos"
+          placeholder="e.g. 14 Rumuola Road, GRA Phase 2, Port Harcourt"
           rows={3}
           className="w-full rounded-xl border-2 border-[#e9ecef] focus:border-czysty-green outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 resize-none transition-colors bg-white"
         />
@@ -77,13 +78,35 @@ export default function AddressPage() {
           type="text"
           value={landmark}
           onChange={e => setLandmark(e.target.value)}
-          placeholder="e.g. Beside Mobil, opposite Shoprite"
+          placeholder="e.g. Beside Access Bank, opposite Shoprite"
           className="w-full rounded-xl border-2 border-[#e9ecef] focus:border-czysty-green outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 transition-colors bg-white"
         />
       </div>
 
-      {/* Access permission */}
+      {/* Area */}
       <div className="mb-6">
+        <FieldLabel>Area</FieldLabel>
+        <p className="font-body text-czysty-muted/70 text-[12px] mb-2">
+          Pickup and delivery is free across all Port Harcourt locations.
+        </p>
+        <div className="relative">
+          <select
+            value={area}
+            onChange={e => setArea(e.target.value)}
+            className="w-full appearance-none rounded-xl border-2 border-[#e9ecef] focus:border-czysty-green outline-none px-4 py-3 font-body text-sm text-czysty-black bg-white pr-10"
+          >
+            <option value="">Select your area</option>
+            {PH_LOCATIONS.map(loc => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+            <option value="Other">Other area in Port Harcourt</option>
+          </select>
+          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
+        </div>
+      </div>
+
+      {/* Access permission */}
+      <div>
         <FieldLabel>Gate / access permission</FieldLabel>
         <div className="flex flex-col gap-2 mt-1.5">
           {ACCESS_OPTIONS.map(opt => (
@@ -94,36 +117,6 @@ export default function AddressPage() {
             </RadioCard>
           ))}
         </div>
-      </div>
-
-      {/* Delivery zone */}
-      <div>
-        <FieldLabel>Delivery zone</FieldLabel>
-        <p className="font-body text-czysty-muted/70 text-[12px] mb-2">
-          Most areas are free. Select your zone if listed to see the fee.
-        </p>
-        <div className="relative">
-          <select
-            value={selectedArea}
-            onChange={e => setSelectedArea(e.target.value)}
-            className="w-full appearance-none rounded-xl border-2 border-[#e9ecef] focus:border-czysty-green outline-none px-4 py-3 font-body text-sm text-czysty-black bg-white pr-10"
-          >
-            <option value="">My area — free delivery</option>
-            {ZONES.map(([zone]) => (
-              <option key={zone} value={zone}>
-                {zone} (+{formatNaira(TRANSPORT_ZONES[zone])})
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
-        </div>
-
-        {transportFee > 0 && (
-          <div className="mt-4 rounded-2xl border border-czysty-green/20 bg-czysty-green/5 px-5 py-3.5 flex items-center justify-between">
-            <p className="font-body text-czysty-muted text-sm">Pickup & delivery fee</p>
-            <p className="font-display font-bold text-czysty-green">{formatNaira(transportFee)}</p>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -10,13 +10,13 @@ const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string }
     type: 'self',
     Icon: WashingMachine,
     title: 'Book For You',
-    sub:   'Clean clothes, delivered back to your door.',
+    sub:   'Reset your surroundings.',
   },
   {
     type: 'gift',
     Icon: Gift,
     title: 'Gift a Loved One',
-    sub:   'Give the gift of fresh laundry.',
+    sub:   'Show someone you care.',
   },
 ];
 
@@ -26,7 +26,7 @@ export default function BookingIntroPage() {
 
   function select(type: BookingType) {
     dispatch({ type: 'SET_BOOKING_TYPE', bookingType: type });
-    router.push('/booking/service');
+    router.push('/booking/space');
   }
 
   return (

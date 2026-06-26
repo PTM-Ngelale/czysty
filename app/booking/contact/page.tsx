@@ -44,15 +44,15 @@ export default function ContactPage() {
         });
         router.push('/booking/summary');
       },
-      onBack: () => router.push('/booking/fullpicture'),
+      onBack: () => router.push(booking.space?.description === 'laundry' ? '/booking/address' : '/booking/extratasks'),
     });
-  }, [isValid, forSomeoneElse, firstName, lastName, phone, email, dispatch, router, setOverride]);
+  }, [isValid, forSomeoneElse, firstName, lastName, phone, email, booking.space, dispatch, router, setOverride]);
 
   const lbl = forSomeoneElse ? "Recipient's" : 'Your';
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
-      <StepHeader step={7} total={9} title="Let us know how to reach you" subtitle="Used for booking confirmation and pickup coordination." />
+      <StepHeader step={7} total={9} title="Your contact details" subtitle="Used for booking confirmation and pickup coordination." />
 
       {/* Booking for someone else */}
       <button

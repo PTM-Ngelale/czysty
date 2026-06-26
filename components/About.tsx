@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 const stats = [
-  { value: "2,000+", label: "Loads Completed" },
+  { value: "2.9M+", label: "Items Laundered" },
   { value: "4.9★", label: "Average Rating" },
   { value: "24 hrs", label: "Avg Turnaround" },
 ];
@@ -39,30 +39,35 @@ export default function About() {
                 color: "#09100A",
               }}
             >
-              CLEANING DONE RIGHT,
+              WE HANDLE THE MESS.
               <br />
-              <span className="text-czysty-green">EVERY TIME</span>
+              <span className="text-czysty-green">YOU ENJOY THE REST.</span>
             </h2>
 
             {/* Pull quote */}
             <div className="border-l-2 border-czysty-red pl-5 mb-7">
               <p className="font-body text-czysty-black/70 text-[15px] leading-relaxed italic">
-                &ldquo;We treat your home and wardrobe as if they were our
-                own.&rdquo;
+                &ldquo;Laundry piling up? House looking tired? We&apos;ve got
+                it covered.&rdquo;
               </p>
             </div>
 
             <p className="font-body text-czysty-black/55 text-[15px] leading-relaxed mb-3">
-              At Czysty Cleaners, we believe clean shouldn&apos;t be
-              complicated. From laundry and dry cleaning to home and office
-              cleans, our team uses professional-grade equipment and
-              eco-conscious products to deliver exceptional results — every
-              time.
+              At Czysty, we&apos;re on a mission to give Port Harcourt residents
+              something they never seem to have enough of: time. Whether it&apos;s
+              laundry, dry cleaning, home cleaning, or office cleaning, our team
+              shows up ready to work so you don&apos;t have to spend your evenings
+              washing, scrubbing, ironing, or stressing.
+            </p>
+            <p className="font-body text-czysty-black/55 text-[15px] leading-relaxed mb-3">
+              We pick up, clean up, and deliver back freshness with professional
+              equipment, reliable staff, and a commitment to getting it right
+              every single time.
             </p>
             <p className="font-body text-czysty-black/55 text-[15px] leading-relaxed mb-10">
-              We serve homes and businesses across Port Harcourt with flexible
-              scheduling, WhatsApp booking, and door-to-door service — because
-              your time matters.
+              Because weekends should be for resting, family, football, movies,
+              outings, side hustles, or absolutely nothing at all. You live your
+              best. We handle the rest.
             </p>
 
             {/* Stats */}
@@ -117,10 +122,10 @@ export default function About() {
               {/* Floating badge */}
               <div className="absolute -bottom-6 -right-6 bg-czysty-green px-5 py-4 shadow-[0_8px_30px_rgba(26,92,40,0.25)]">
                 <p className="font-display font-extrabold text-czysty-cream text-2xl">
-                  2,000+
+                  2.9M+
                 </p>
                 <p className="font-body text-czysty-cream/70 text-[11px] uppercase tracking-widest mt-0.5">
-                  Happy Customers
+                  Items Laundered
                 </p>
               </div>
 

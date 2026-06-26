@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
-import { EXTRA_TASKS, PRIMARY_SERVICES, SPACE_OPTIONS, formatNaira, calcExtraTaskPrice } from '@/lib/booking-catalog';
+import { EXTRA_TASKS, HOME_OPTIONS, formatNaira, calcExtraTaskPrice } from '@/lib/booking-catalog';
 import { StepHeader } from '@/components/BookingStepHeader';
 
 export default function SummaryPage() {
@@ -24,12 +24,11 @@ export default function SummaryPage() {
 
   if (!booking.contact) return null;
 
-  const primarySvc  = PRIMARY_SERVICES.find(s => s.id === booking.service.cleaningType);
-  const spaceOption = SPACE_OPTIONS.find(s => s.value === booking.space?.description);
+  const spaceOption = HOME_OPTIONS.find(s => s.value === booking.space?.description);
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
-      <StepHeader step={8} total={9} title="Booking Summary" />
+      <StepHeader step={8} total={9} title="Booking Summary" subtitle="Review your booking before payment." />
 
       {/* Fulfilment callout */}
       <div className="rounded-2xl bg-czysty-cream/80 border border-czysty-cream px-5 py-4 mb-6">
@@ -37,8 +36,10 @@ export default function SummaryPage() {
         <ul className="space-y-1">
           {[
             'Ensure adequate running water or stored water at the location.',
-            'Leave out any specific detergent or fragrance preferences.',
-            'Point out delicate items or stains at the time of handover.',
+            booking.space?.bringSupplies
+              ? 'Our team will bring all cleaning supplies.'
+              : 'Please have your cleaning supplies ready for our team.',
+            'Point out any special areas of concern at the time of arrival.',
           ].map(item => (
             <li key={item} className="font-body text-czysty-muted text-[12px] flex items-start gap-2">
               <span className="text-czysty-green mt-0.5 shrink-0">•</span>
@@ -74,9 +75,8 @@ export default function SummaryPage() {
         )}
 
         {/* Task */}
-        <SummaryCard title="Task" editPath="/booking/service">
-          {primarySvc    && <p className="font-body text-czysty-black text-sm font-medium">{primarySvc.name}</p>}
-          {spaceOption   && <p className="font-body text-czysty-muted text-sm">{spaceOption.label}</p>}
+        <SummaryCard title="Task" editPath="/booking/space">
+          {spaceOption && <p className="font-body text-czysty-black text-sm font-medium">{spaceOption.label}</p>}
           {booking.schedule && (
             <>
               <p className="font-body text-czysty-muted text-sm">{booking.schedule.frequencyLabel}</p>

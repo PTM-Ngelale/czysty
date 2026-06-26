@@ -8,19 +8,18 @@ import { FooterProvider, useFooter } from "@/lib/footer-context";
 import {
   formatNaira,
   EXTRA_TASKS,
-  PRIMARY_SERVICES,
-  SPACE_OPTIONS,
+  HOME_OPTIONS,
 } from "@/lib/booking-catalog";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const STEPS = [
   "/booking",
-  "/booking/service",
   "/booking/space",
+  "/booking/service",     // cleaning details
+  "/booking/supplies",    // recommended products
   "/booking/address",
   "/booking/schedule",
   "/booking/extratasks",
-  "/booking/fullpicture",
   "/booking/contact",
   "/booking/summary",
   "/booking/checkout",
@@ -34,16 +33,16 @@ function stepSegment(pathname: string): number {
 }
 
 function isStepValid(pathname: string, booking: Booking): boolean {
-  const { service, space, address, schedule, contact } = booking;
+  const { space, address, schedule, contact } = booking;
   switch (pathname) {
     case "/booking":
       return true;
-    case "/booking/service":
-      return (
-        service.cleaningType !== null || service.additionalServices.length > 0
-      );
     case "/booking/space":
       return space !== null && space.description.length > 0;
+    case "/booking/service":   // cleaning details — always valid once space chosen
+      return space !== null;
+    case "/booking/supplies":  // always valid
+      return space !== null;
     case "/booking/address":
       return address !== null && address.full.trim().length > 5;
     case "/booking/schedule":
@@ -53,8 +52,6 @@ function isStepValid(pathname: string, booking: Booking): boolean {
         schedule.arrivalWindow.length > 0
       );
     case "/booking/extratasks":
-      return true;
-    case "/booking/fullpicture":
       return true;
     case "/booking/contact":
       return (
@@ -77,11 +74,8 @@ function isStepValid(pathname: string, booking: Booking): boolean {
 
 function SummaryPanel({ isCalculating }: { isCalculating: boolean }) {
   const { booking, totals } = useBooking();
-  const { service, space, address, schedule, extraTasks, contact } = booking;
-  const primarySvc = PRIMARY_SERVICES.find(
-    (s) => s.id === service.cleaningType,
-  );
-  const spaceOption = SPACE_OPTIONS.find((s) => s.value === space?.description);
+  const { space, address, schedule, extraTasks, contact } = booking;
+  const spaceOption = HOME_OPTIONS.find((s) => s.value === space?.description);
 
   return (
     <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
@@ -133,13 +127,10 @@ function SummaryPanel({ isCalculating }: { isCalculating: boolean }) {
             )}
           </PanelSection>
         )}
-        {(primarySvc || spaceOption || schedule) && (
+        {(spaceOption || schedule) && (
           <PanelSection label="Task">
-            {primarySvc && (
-              <p className="text-czysty-black font-medium">{primarySvc.name}</p>
-            )}
             {spaceOption && (
-              <p className="text-czysty-muted">{spaceOption.label}</p>
+              <p className="text-czysty-black font-medium">{spaceOption.label}</p>
             )}
             {schedule && (
               <>

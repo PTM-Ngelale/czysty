@@ -53,7 +53,7 @@ export default function SchedulePage() {
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
-      <StepHeader step={4} total={9} title="When would you like us?" subtitle="We operate Monday – Sunday, 7 am – 4 pm." />
+      <StepHeader step={5} total={9} title="When would you like us?" subtitle="We operate Monday – Sunday, 7 am – 4 pm." />
 
       {/* Date picker */}
       <div className="mb-5">

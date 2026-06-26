@@ -1,142 +1,147 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { PRIMARY_SERVICES, STANDALONE_ADDONS, formatNaira } from '@/lib/booking-catalog';
 import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
-import { StepBadge } from '@/components/BookingStepHeader';
-import { WashingMachine, Shirt, Sparkles, BedDouble, Check } from 'lucide-react';
+import { StepHeader } from '@/components/BookingStepHeader';
+import { Bed, Bath, ChefHat, Sofa } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-const SERVICE_META: Record<string, { Icon: LucideIcon; from: string; desc: string }> = {
-  'wash-fold':  { Icon: WashingMachine, from: '₦2,500', desc: 'Washed, dried & folded for you' },
-  'wash-iron':  { Icon: Shirt,          from: '₦3,500', desc: 'Washed, dried & professionally pressed' },
-  'dry-clean':  { Icon: Sparkles,       from: '₦5,000', desc: 'Solvent cleaning for delicate garments' },
-  'bulky':      { Icon: BedDouble,      from: '₦4,000', desc: 'Duvets, curtains & oversized items' },
+type RoomSection = {
+  Icon: LucideIcon;
+  title: string;
+  items: string[];
+  note?: string;
 };
 
-export default function ServicePage() {
+const ROOMS: RoomSection[] = [
+  {
+    Icon: Bed,
+    title: 'Bedrooms',
+    items: [
+      'Dusting of furniture and surfaces',
+      'Making bed',
+      'Sweeping and/or mopping floors',
+      'Dusting and wiping of skirtings',
+      'Folding or hanging of up to 10 clothes on the bed or around the bedroom',
+      'Cleaning mirrors',
+      'Cleaning out cobwebs',
+    ],
+    note: 'Folding more than 10 items of clothing will attract additional charges communicated by our Booking Support Team.',
+  },
+  {
+    Icon: Bath,
+    title: 'Bathrooms',
+    items: [
+      'Cleaning of shower, bath, and sinks',
+      'Wiping of counters and taps',
+      'Wiping of walls and mirrors',
+      'Mopping floors',
+      'Wiping outside of cupboards and cabinets',
+      'Toilet clean',
+      'Folding or hanging of clean towels',
+      'Emptying bins and cleaning bin area',
+      'Cleaning out cobwebs',
+    ],
+  },
+  {
+    Icon: ChefHat,
+    title: 'Kitchens',
+    items: [
+      'Wiping of surfaces, sinks, and appliances',
+      'Washing of dishes',
+      'Wiping outside of cupboards and fridge',
+      'Cleaning the stove top and the walls behind the stove',
+      'Cleaning inside and outside of the microwave',
+      'Wiping of walls',
+      'Emptying bins and cleaning bin area',
+      'Mopping floors',
+      'Cleaning out cobwebs',
+    ],
+  },
+  {
+    Icon: Sofa,
+    title: 'Living Areas',
+    items: [
+      'The dusting of furniture and surfaces',
+      'Mopping and sweeping of floors',
+      'Dusting and wiping of skirtings',
+      'Dusting and wiping electronics, picture frames etc.',
+      'Dusting and wiping of light switches and other fixtures',
+      'Cleaning mirrors',
+      'Cleaning out cobwebs',
+    ],
+  },
+];
+
+export default function CleaningDetailsPage() {
   const router = useRouter();
-  const { booking, dispatch } = useBooking();
+  const { booking } = useBooking();
   const { setOverride } = useFooter();
 
-  const [cleaningType, setCleaningType]             = useState<string | null>(booking.service.cleaningType);
-  const [additionalServices, setAdditionalServices] = useState<string[]>(booking.service.additionalServices);
-
-  const isValid = cleaningType !== null || additionalServices.length > 0;
-
   useEffect(() => {
+    if (!booking.space) { router.replace('/booking/space'); return; }
     setOverride({
-      nextDisabled: !isValid,
-      onNext: () => {
-        dispatch({ type: 'SET_SERVICE', service: { cleaningType, additionalServices } });
-        router.push('/booking/space');
-      },
-      onBack: () => router.push('/booking'),
+      nextDisabled: false,
+      nextLabel: 'Accept & Continue →',
+      onNext: () => router.push('/booking/supplies'),
+      onBack: () => router.push('/booking/space'),
     });
-  }, [isValid, cleaningType, additionalServices, dispatch, router, setOverride]);
-
-  function toggleAddon(id: string) {
-    setAdditionalServices(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id],
-    );
-  }
+  }, [booking.space, router, setOverride]);
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
-      <StepBadge step={1} total={9} />
-      <h2 className="step-heading mb-1">What service would you like?</h2>
-      <p className="font-body text-czysty-muted text-sm mb-7 leading-relaxed">
-        Select a service type. You can add extras on later.
-      </p>
+      <StepHeader
+        step={2} total={9}
+        title="Standard Cleaning"
+        subtitle="Here's what's included in your booking."
+      />
 
-      {/* Primary — single select */}
-      <p className="section-label mb-2.5">Choose one service type</p>
-      <div className="flex flex-col gap-2 mb-8">
-        {PRIMARY_SERVICES.map(svc => {
-          const meta   = SERVICE_META[svc.id];
-          const active = cleaningType === svc.id;
+      <div className="rounded-2xl bg-czysty-cream/70 border border-czysty-cream px-5 py-4 mb-6">
+        <p className="font-body text-czysty-black text-[12px] font-semibold mb-1.5">Before you continue</p>
+        <p className="font-body text-czysty-muted text-[12px] leading-relaxed">
+          This booking typically takes up to <strong>3–14 hours</strong> of work done by <strong>1–3 Handlers</strong>.
+          Please note that your Handlers will <strong>not</strong> be coming with cleaning products — they will use
+          the cleaning products you provide. Homes significantly larger than other homes of the same size,
+          and bookings that run longer than the estimated time, may attract additional charges
+          communicated by our Booking Support Team.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        {ROOMS.map(room => {
+          const Icon = room.Icon;
           return (
-            <button
-              key={svc.id}
-              onClick={() => setCleaningType(active ? null : svc.id)}
-              className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
-              style={{
-                borderColor: active ? '#1a5c28' : '#e9ecef',
-                background:  active ? '#1a5c28' : 'white',
-                boxShadow: active ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
-              }}
-            >
-              <meta.Icon size={22} className="shrink-0" style={{ color: active ? '#f2ede4' : '#09100a' }} />
-              <div className="flex-1 min-w-0">
-                <p className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
-                  style={{ color: active ? '#f2ede4' : '#09100a' }}>
-                  {svc.name}
-                </p>
-                <p className="font-body text-[12px] mt-0.5 leading-relaxed"
-                  style={{ color: active ? '#c8e6ce' : '#6b7b6b' }}>
-                  {meta.desc}
+            <div key={room.title} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-3">
+                <Icon size={18} className="text-czysty-green shrink-0" />
+                <p className="font-display font-bold text-czysty-black text-sm uppercase tracking-wide">
+                  {room.title}
                 </p>
               </div>
-              <div className="flex flex-col items-end gap-1.5 shrink-0">
-                <span className="font-body text-[11px]" style={{ color: active ? '#c8e6ce' : '#6b7b6b' }}>
-                  from
-                </span>
-                <span className="font-display font-bold text-sm" style={{ color: active ? '#f2ede4' : '#1a5c28' }}>
-                  {meta.from}
-                </span>
-                {/* Circle radio */}
-                <div
-                  className="w-5 h-5 rounded-full border-2 flex items-center justify-center"
-                  style={{
-                    borderColor: active ? '#f2ede4' : '#d1d5db',
-                    background:  active ? '#f2ede4' : 'transparent',
-                  }}
-                >
-                  {active && <Check size={10} stroke="#1a5c28" strokeWidth={2.2} />}
-                </div>
-              </div>
-            </button>
+              <ul className="px-5 py-4 space-y-2">
+                {room.items.map(item => (
+                  <li key={item} className="flex items-start gap-2.5 font-body text-czysty-muted text-[12px] leading-relaxed">
+                    <span className="text-czysty-green mt-0.5 shrink-0">•</span>
+                    {item}
+                  </li>
+                ))}
+                {room.note && (
+                  <li className="font-body text-czysty-muted/60 text-[11px] leading-relaxed italic mt-2 pt-2 border-t border-gray-50">
+                    {room.note}
+                  </li>
+                )}
+              </ul>
+            </div>
           );
         })}
       </div>
 
-      {/* Standalone add-ons — multi select */}
-      <div className="border-t border-gray-100 pt-6">
-        <p className="section-label mb-2.5">Or book a standalone add-on</p>
-        <div className="flex flex-col gap-2">
-          {STANDALONE_ADDONS.map(addon => {
-            const checked = additionalServices.includes(addon.id);
-            return (
-              <button
-                key={addon.id}
-                onClick={() => toggleAddon(addon.id)}
-                className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center justify-between gap-3 transition-all duration-200"
-                style={{
-                  borderColor: checked ? '#1a5c28' : '#e9ecef',
-                  background:  checked ? '#f0faf3' : 'white',
-                }}
-              >
-                <div>
-                  <p className="font-body font-semibold text-czysty-black text-sm">{addon.name}</p>
-                  <p className="font-body text-czysty-muted text-[12px] mt-0.5">{addon.description}</p>
-                </div>
-                {/* Square checkbox */}
-                <div
-                  className="w-5 h-5 rounded flex items-center justify-center shrink-0 border-2 transition-colors"
-                  style={{
-                    borderColor: checked ? '#1a5c28' : '#d1d5db',
-                    background:  checked ? '#1a5c28' : 'transparent',
-                  }}
-                >
-                  {checked && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <p className="font-body text-czysty-muted/60 text-[12px] text-center mt-6 leading-relaxed">
+        By tapping &ldquo;Accept &amp; Continue&rdquo; you confirm you have read and understood
+        what is included in this booking.
+      </p>
     </div>
   );
 }

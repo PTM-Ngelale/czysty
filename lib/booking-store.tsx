@@ -4,8 +4,12 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import {
   calcBasePrice,
   calcExtraTaskPrice,
-  SPACE_OPTIONS,
+  SUPPLIES_FEE,
+  HOME_OPTIONS,
 } from './booking-catalog';
+
+// Alias for backward compat
+const SPACE_OPTIONS = HOME_OPTIONS;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -17,8 +21,8 @@ export type BookingService = {
 };
 
 export type BookingSpace = {
-  description: string;                // space option value e.g. '2-bags'
-  stainRemovalSupplies: boolean;
+  description: string;                // home type e.g. 'student', 'self-contained', '1-bed', 'laundry'
+  bringSupplies: boolean;             // true = team brings supplies (+₦2,500)
 };
 
 export type BookingAddress = {
@@ -45,7 +49,6 @@ export type ExtraTaskSelection = {
 };
 
 export type BookingFullPicture = {
-  pets: boolean;
   notes: string;
   additionalStaff: number;
 };
@@ -96,7 +99,7 @@ const defaultBooking: Booking = {
   address: null,
   schedule: null,
   extraTasks: [],
-  fullPicture: { pets: false, notes: '', additionalStaff: 0 },
+  fullPicture: { notes: '', additionalStaff: 0 },
   contact: null,
   checkout: { prepayMonths: 0, insurance: false },
 };
@@ -136,13 +139,13 @@ export function calcTotals(booking: Booking): BookingTotals {
 
   const spaceValue    = space?.description ?? '';
   const basePrice     = calcBasePrice(service.cleaningType, spaceValue);
-  const stainFee      = space?.stainRemovalSupplies ? 500 : 0;
+  const suppliesFee   = space?.bringSupplies ? SUPPLIES_FEE : 0;
   const extraPrice    = extraTasks.reduce(
     (sum, t) => sum + calcExtraTaskPrice(t.taskId, t.quantity),
     0,
   );
 
-  const subtotal       = basePrice + stainFee + extraPrice;
+  const subtotal       = basePrice + suppliesFee + extraPrice;
   const noOfBookings   = checkout.prepayMonths > 0 ? checkout.prepayMonths : 1;
   const insuranceFee   = checkout.insurance ? 1100 : 0;
   const discount       = 0;

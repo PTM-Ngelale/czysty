@@ -1,25 +1,40 @@
 'use client'
 
-const washFold = [
-  { label: 'Small Bag',  detail: 'Up to 5 kg',  price: '₦2,500',  featured: false },
-  { label: 'Medium Bag', detail: 'Up to 10 kg', price: '₦4,500',  featured: true  },
-  { label: 'Large Bag',  detail: 'Up to 15 kg', price: '₦6,000',  featured: false },
-  { label: 'Bulk',       detail: '15 kg+',      price: 'Custom',  featured: false },
+const mainServices = [
+  {
+    label:    'Standard Cleaning',
+    price:    '₦4,999',
+    from:     true,
+    detail:   'Professional home cleaning — bedroom, bathroom, kitchen & living areas.',
+    featured: false,
+  },
+  {
+    label:    'Deep Cleaning',
+    price:    '₦9,999',
+    from:     true,
+    detail:   'Thorough top-to-bottom clean including hard-to-reach areas and fixtures.',
+    featured: true,
+  },
+  {
+    label:    'Wash, Dry & Fold',
+    price:    '₦9,999',
+    from:     false,
+    detail:   'One off payment gives you the power to wash up to 50 items monthly with 1 free pick up.',
+    featured: false,
+  },
 ]
 
 const dryClean = [
-  { item: 'Suit (2-piece)',   price: '₦3,500' },
-  { item: 'Dress',            price: '₦2,500' },
-  { item: 'Shirt / Blouse',   price: '₦1,200' },
-  { item: 'Duvet / Bedding',  price: '₦5,000' },
-  { item: 'Trousers',         price: '₦1,500' },
-  { item: 'Jacket / Blazer',  price: '₦2,000' },
+  { item: 'Corporate Shirt', price: '₦2,150' },
+  { item: 'Dress',           price: '₦1,800' },
+  { item: 'Duvet',           price: 'from ₦3,500' },
+  { item: 'Suit',            price: '₦3,500' },
+  { item: 'Senator',         price: '₦3,500' },
 ]
 
 const addons = [
-  { label: 'Ironing',         detail: 'Per item',     price: '₦300' },
-  { label: 'Stain Treatment', detail: 'Per garment',  price: '₦500' },
-  { label: 'Express (12 hr)', detail: 'Surcharge',    price: '+50%' },
+  { label: 'Ironing Only',   detail: 'Per item',  price: '₦750' },
+  { label: 'Express (12 hr)', detail: 'Surcharge', price: '+50%' },
 ]
 
 function SectionLabel({ color, children }: { color: string; children: string }) {
@@ -60,28 +75,33 @@ export default function Pricing() {
           </h2>
         </div>
 
-        {/* Wash & Fold */}
+        {/* Main services */}
         <div className="reveal mb-8 sm:mb-14">
-          <SectionLabel color="#1A5C28">Wash &amp; Fold — Per Bag</SectionLabel>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {washFold.map((rate) => (
+          <SectionLabel color="#1A5C28">Our Services</SectionLabel>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {mainServices.map((svc) => (
               <div
-                key={rate.label}
+                key={svc.label}
                 className={`relative border p-5 sm:p-6 transition-all duration-300 ${
-                  rate.featured
+                  svc.featured
                     ? 'border-czysty-green bg-czysty-green pulse-green'
                     : 'border-czysty-green/15 bg-[#F7F4EF] hover:border-czysty-green/35'
                 }`}
               >
-                {rate.featured && (
+                {svc.featured && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-czysty-black px-3 py-0.5">
                     <span className="font-body text-czysty-cream text-[10px] font-bold uppercase tracking-widest">Popular</span>
                   </div>
                 )}
-                <p className={`font-display font-bold uppercase text-[13px] tracking-wide mb-1 ${rate.featured ? 'text-czysty-cream' : 'text-czysty-black'}`}>{rate.label}</p>
-                <p className={`font-body text-[11px] mb-4 sm:mb-5 ${rate.featured ? 'text-czysty-cream/70' : 'text-czysty-muted'}`}>{rate.detail}</p>
-                <p className={`font-display font-extrabold ${rate.featured ? 'text-czysty-cream' : 'text-czysty-green'}`} style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)' }}>
-                  {rate.price}
+                <p className={`font-display font-bold uppercase text-[13px] tracking-wide mb-2 ${svc.featured ? 'text-czysty-cream' : 'text-czysty-black'}`}>
+                  {svc.label}
+                </p>
+                <p className={`font-body text-[11px] mb-4 sm:mb-5 leading-relaxed ${svc.featured ? 'text-czysty-cream/70' : 'text-czysty-muted'}`}>
+                  {svc.detail}
+                </p>
+                <p className={`font-display font-extrabold ${svc.featured ? 'text-czysty-cream' : 'text-czysty-green'}`} style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)' }}>
+                  {svc.from && <span className={`font-body font-normal text-sm mr-1 ${svc.featured ? 'text-czysty-cream/70' : 'text-czysty-muted'}`}>from</span>}
+                  {svc.price}
                 </p>
               </div>
             ))}
