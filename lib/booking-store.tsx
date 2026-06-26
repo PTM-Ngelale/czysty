@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import {
   calcBasePrice,
   calcExtraTaskPrice,
@@ -176,24 +176,8 @@ type BookingContextType = {
 
 const BookingContext = createContext<BookingContextType | null>(null);
 
-const STORAGE_KEY = 'czysty_booking_v2';
-
 export function BookingProvider({ children }: { children: React.ReactNode }) {
-  const [booking, dispatch] = useReducer(bookingReducer, defaultBooking, (initial) => {
-    if (typeof window === 'undefined') return initial;
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? { ...initial, ...JSON.parse(saved) } : initial;
-    } catch {
-      return initial;
-    }
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(booking));
-    } catch { /* storage unavailable */ }
-  }, [booking]);
+  const [booking, dispatch] = useReducer(bookingReducer, defaultBooking);
 
   const totals = calcTotals(booking);
 
