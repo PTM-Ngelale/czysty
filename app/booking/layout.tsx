@@ -245,10 +245,12 @@ function BookingShell({ children }: { children: React.ReactNode }) {
     if (nextPath) router.push(nextPath);
   }
 
+  // Hide the price total in the laundry flow — fixed price shown on terms page & checkout only
+  const isLaundryFlow = booking.bookingType === 'gift' && !booking.space;
   // Show footer on every step except the intro landing page
   const showCart = !isIntro && stepIndex >= 1;
-  // Right panel from space step onward
-  const showPanel = showCart && stepIndex >= 2;
+  // Right panel from space step onward (not for laundry flow — price shown at checkout only)
+  const showPanel = showCart && stepIndex >= 2 && !isLaundryFlow;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4ef]">
@@ -337,27 +339,29 @@ function BookingShell({ children }: { children: React.ReactNode }) {
           }}
         >
           <div className="max-w-5xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="font-body text-[10px] text-czysty-muted uppercase tracking-widest">
-                  Total amount
-                </p>
-                <p className="font-body text-[11px] text-czysty-muted mt-0.5">
-                  {totals.staffCount > 0 && totals.durationHrs > 0
-                    ? `${totals.staffCount} attendant · ~${totals.durationHrs} hrs`
-                    : "1 attendant · ~2–3 day turnaround"}
+            {!isLaundryFlow && (
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <p className="font-body text-[10px] text-czysty-muted uppercase tracking-widest">
+                    Total amount
+                  </p>
+                  <p className="font-body text-[11px] text-czysty-muted mt-0.5">
+                    {totals.staffCount > 0 && totals.durationHrs > 0
+                      ? `${totals.staffCount} attendant · ~${totals.durationHrs} hrs`
+                      : "1 attendant · ~2–3 day turnaround"}
+                  </p>
+                </div>
+                <p className="font-display font-extrabold text-czysty-black text-xl leading-none">
+                  {isCalculating ? (
+                    <span className="text-czysty-muted/50 text-sm font-body font-normal animate-pulse">
+                      Calculating…
+                    </span>
+                  ) : (
+                    formatNaira(totals.totalPayable)
+                  )}
                 </p>
               </div>
-              <p className="font-display font-extrabold text-czysty-black text-xl leading-none">
-                {isCalculating ? (
-                  <span className="text-czysty-muted/50 text-sm font-body font-normal animate-pulse">
-                    Calculating…
-                  </span>
-                ) : (
-                  formatNaira(totals.totalPayable)
-                )}
-              </p>
-            </div>
+            )}
 
             {!hideButtons && (
               <div className="flex gap-2.5">
