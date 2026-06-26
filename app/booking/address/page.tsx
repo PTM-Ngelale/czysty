@@ -19,7 +19,7 @@ export default function AddressPage() {
   const { booking, dispatch } = useBooking();
   const { setOverride } = useFooter();
 
-  const isLaundry = booking.space?.description === 'laundry';
+  const isLaundry = booking.bookingType === 'gift';
 
   const [full,          setFull]      = useState(booking.address?.full ?? '');
   const [landmark,      setLandmark]  = useState(booking.address?.landmark ?? '');
@@ -31,7 +31,7 @@ export default function AddressPage() {
   const isValid = full.trim().length > 5;
 
   useEffect(() => {
-    if (!booking.space) { router.replace('/booking/space'); return; }
+    if (!isLaundry && !booking.space) { router.replace('/booking/space'); return; }
     setOverride({
       nextDisabled: !isValid,
       onNext: () => {
@@ -49,7 +49,7 @@ export default function AddressPage() {
       },
       onBack: () => router.push(isLaundry ? '/booking/laundry' : '/booking/supplies'),
     });
-  }, [isValid, full, landmark, access, area, isLaundry, booking.space, dispatch, router, setOverride]);
+  }, [isValid, full, landmark, access, area, isLaundry, booking.bookingType, booking.space, dispatch, router, setOverride]);
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">

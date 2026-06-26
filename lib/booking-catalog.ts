@@ -30,8 +30,10 @@ export const HOME_OPTIONS: HomeOption[] = [
   { value: 'student',        label: 'Student Accommodation (campus)', basePrice: 4999, durationHrs: 3 },
   { value: 'self-contained', label: 'Self Contained',                 basePrice: 5999, durationHrs: 4 },
   { value: '1-bed',          label: '1 Bedroom Apartment',            basePrice: 6999, durationHrs: 5 },
-  { value: 'laundry',        label: 'Laundry Package',                basePrice: 9999, durationHrs: 2 },
 ];
+
+// Laundry package is accessed via the "Do your Laundry" entry on the intro page only
+export const LAUNDRY_PACKAGE_PRICE = 9999;
 
 // Alias for backward compat
 export const SPACE_OPTIONS = HOME_OPTIONS;

@@ -44,9 +44,9 @@ export default function ContactPage() {
         });
         router.push('/booking/summary');
       },
-      onBack: () => router.push(booking.space?.description === 'laundry' ? '/booking/address' : '/booking/extratasks'),
+      onBack: () => router.push(booking.bookingType === 'gift' ? '/booking/address' : '/booking/extratasks'),
     });
-  }, [isValid, forSomeoneElse, firstName, lastName, phone, email, booking.space, dispatch, router, setOverride]);
+  }, [isValid, forSomeoneElse, firstName, lastName, phone, email, booking.bookingType, dispatch, router, setOverride]);
 
   const lbl = forSomeoneElse ? "Recipient's" : 'Your';
 

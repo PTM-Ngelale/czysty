@@ -5,6 +5,7 @@ import {
   calcBasePrice,
   calcExtraTaskPrice,
   SUPPLIES_FEE,
+  LAUNDRY_PACKAGE_PRICE,
   HOME_OPTIONS,
 } from './booking-catalog';
 
@@ -134,12 +135,15 @@ function bookingReducer(state: Booking, action: Action): Booking {
 // ─── Totals calculation ───────────────────────────────────────────────────────
 
 export function calcTotals(booking: Booking): BookingTotals {
-  const { service, space, address, extraTasks, fullPicture, checkout } = booking;
+  const { bookingType, service, space, address, extraTasks, fullPicture, checkout } = booking;
 
+  const isLaundry     = bookingType === 'gift';
   const spaceValue    = space?.description ?? '';
-  const basePrice     = calcBasePrice(service.cleaningType, spaceValue);
-  const suppliesFee   = space?.bringSupplies ? SUPPLIES_FEE : 0;
-  const extraPrice    = extraTasks.reduce(
+  const basePrice     = isLaundry
+    ? LAUNDRY_PACKAGE_PRICE
+    : calcBasePrice(service.cleaningType, spaceValue);
+  const suppliesFee   = !isLaundry && space?.bringSupplies ? SUPPLIES_FEE : 0;
+  const extraPrice    = isLaundry ? 0 : extraTasks.reduce(
     (sum, t) => sum + calcExtraTaskPrice(t.taskId, t.quantity),
     0,
   );

@@ -6,14 +6,13 @@ import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { HOME_OPTIONS, formatNaira } from '@/lib/booking-catalog';
 import { StepHeader } from '@/components/BookingStepHeader';
-import { Home, School, Package, Check } from 'lucide-react';
+import { Home, School, Check } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const OPTION_META: Record<string, { Icon: LucideIcon; sub?: string }> = {
-  'student':        { Icon: School,   sub: 'One room, shared facilities' },
-  'self-contained': { Icon: Home,     sub: 'Bedsitter with private bathroom & kitchen' },
-  '1-bed':          { Icon: Home,     sub: 'Bedroom, living room, kitchen & bathroom' },
-  'laundry':        { Icon: Package,  sub: 'Wash · Dry · Fold — includes pickup & delivery' },
+  'student':        { Icon: School, sub: 'One room, shared facilities' },
+  'self-contained': { Icon: Home,   sub: 'Bedsitter with private bathroom & kitchen' },
+  '1-bed':          { Icon: Home,   sub: 'Bedroom, living room, kitchen & bathroom' },
 };
 
 export default function SpacePage() {
@@ -33,7 +32,7 @@ export default function SpacePage() {
           type: 'SET_SPACE',
           space: { description: selected, bringSupplies: booking.space?.bringSupplies ?? false },
         });
-        router.push(selected === 'laundry' ? '/booking/laundry' : '/booking/service');
+        router.push('/booking/service');
       },
       onBack: () => router.push('/booking'),
     });

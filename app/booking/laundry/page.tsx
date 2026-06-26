@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
 import { WashingMachine, ArrowRight } from 'lucide-react';
 
@@ -14,7 +13,6 @@ const ITEM_COUNTS = [
 
 export default function LaundryTermsPage() {
   const router = useRouter();
-  const { dispatch } = useBooking();
   const { setOverride } = useFooter();
 
   useEffect(() => {
@@ -23,8 +21,7 @@ export default function LaundryTermsPage() {
   }, [router, setOverride]);
 
   function agree() {
-    // Set space to 'laundry' so the rest of the flow knows which path we're on
-    dispatch({ type: 'SET_SPACE', space: { description: 'laundry', bringSupplies: false } });
+    // bookingType 'gift' (set on intro page) drives the laundry flow — no extra dispatch needed
     router.push('/booking/address');
   }
 
