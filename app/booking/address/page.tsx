@@ -47,7 +47,7 @@ export default function AddressPage() {
         });
         router.push(isLaundry ? '/booking/contact' : '/booking/schedule');
       },
-      onBack: () => router.push(isLaundry ? '/booking/laundry' : '/booking/supplies'),
+      onBack: () => router.push(isLaundry ? '/booking/laundry/type' : '/booking/supplies'),
     });
   }, [isValid, full, landmark, access, area, isLaundry, booking.bookingType, booking.space, dispatch, router, setOverride]);
 

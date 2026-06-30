@@ -9,6 +9,7 @@ import {
   formatNaira,
   EXTRA_TASKS,
   HOME_OPTIONS,
+  LAUNDRY_OPTIONS,
 } from "@/lib/booking-catalog";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -131,7 +132,9 @@ function SummaryPanel({ isCalculating }: { isCalculating: boolean }) {
         {(spaceOption || isLaundryFlow || schedule) && (
           <PanelSection label="Task">
             {isLaundryFlow && (
-              <p className="text-czysty-black font-medium">Monthly Laundry Package</p>
+              <p className="text-czysty-black font-medium">
+                {LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType)?.name ?? 'Monthly Laundry Package'}
+              </p>
             )}
             {spaceOption && (
               <p className="text-czysty-black font-medium">{spaceOption.label}</p>

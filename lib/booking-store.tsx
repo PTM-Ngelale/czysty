@@ -6,6 +6,7 @@ import {
   calcExtraTaskPrice,
   SUPPLIES_FEE,
   LAUNDRY_PACKAGE_PRICE,
+  LAUNDRY_OPTIONS,
   HOME_OPTIONS,
 } from './booking-catalog';
 
@@ -69,6 +70,7 @@ export type BookingCheckout = {
 
 export type Booking = {
   bookingType: BookingType | null;
+  laundryType: string | null;
   service: BookingService;
   space: BookingSpace | null;
   address: BookingAddress | null;
@@ -94,6 +96,7 @@ export type BookingTotals = {
 
 const defaultBooking: Booking = {
   bookingType: null,
+  laundryType: null,
   service: { cleaningType: null, additionalServices: [] },
   space: null,
   address: null,
@@ -106,6 +109,7 @@ const defaultBooking: Booking = {
 
 type Action =
   | { type: 'SET_BOOKING_TYPE'; bookingType: BookingType }
+  | { type: 'SET_LAUNDRY_TYPE'; laundryType: string }
   | { type: 'SET_SERVICE'; service: BookingService }
   | { type: 'SET_SPACE'; space: BookingSpace }
   | { type: 'SET_ADDRESS'; address: BookingAddress }
@@ -119,6 +123,7 @@ type Action =
 function bookingReducer(state: Booking, action: Action): Booking {
   switch (action.type) {
     case 'SET_BOOKING_TYPE': return { ...state, bookingType: action.bookingType };
+    case 'SET_LAUNDRY_TYPE': return { ...state, laundryType: action.laundryType };
     case 'SET_SERVICE':      return { ...state, service: action.service };
     case 'SET_SPACE':        return { ...state, space: action.space };
     case 'SET_ADDRESS':      return { ...state, address: action.address };
@@ -139,8 +144,9 @@ export function calcTotals(booking: Booking): BookingTotals {
 
   const isLaundry     = bookingType === 'gift';
   const spaceValue    = space?.description ?? '';
+  const laundryOption = LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType);
   const basePrice     = isLaundry
-    ? LAUNDRY_PACKAGE_PRICE
+    ? (laundryOption?.price ?? LAUNDRY_PACKAGE_PRICE)
     : calcBasePrice(service.cleaningType, spaceValue);
   const suppliesFee   = !isLaundry && space?.bringSupplies ? SUPPLIES_FEE : 0;
   const extraPrice    = isLaundry ? 0 : extraTasks.reduce(

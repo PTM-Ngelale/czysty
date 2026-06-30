@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBooking } from '@/lib/booking-store';
 import { useFooter } from '@/lib/footer-context';
-import { EXTRA_TASKS, HOME_OPTIONS, formatNaira, calcExtraTaskPrice } from '@/lib/booking-catalog';
+import { EXTRA_TASKS, HOME_OPTIONS, LAUNDRY_OPTIONS, formatNaira, calcExtraTaskPrice } from '@/lib/booking-catalog';
 import { StepHeader } from '@/components/BookingStepHeader';
 
 export default function SummaryPage() {
@@ -83,8 +83,12 @@ export default function SummaryPage() {
         )}
 
         {/* Task */}
-        <SummaryCard title="Task" editPath={isLaundryFlow ? '/booking/laundry' : '/booking/space'}>
-          {isLaundryFlow && <p className="font-body text-czysty-black text-sm font-medium">Monthly Laundry Package</p>}
+        <SummaryCard title="Task" editPath={isLaundryFlow ? '/booking/laundry/type' : '/booking/space'}>
+          {isLaundryFlow && (
+            <p className="font-body text-czysty-black text-sm font-medium">
+              {LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType)?.name ?? 'Monthly Laundry Package'}
+            </p>
+          )}
           {spaceOption && <p className="font-body text-czysty-black text-sm font-medium">{spaceOption.label}</p>}
           {booking.schedule && (
             <>

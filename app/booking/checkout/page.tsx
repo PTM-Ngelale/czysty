@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useBooking, type Booking, type BookingCheckout } from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
-import { formatNaira, HOME_OPTIONS } from "@/lib/booking-catalog";
+import { formatNaira, HOME_OPTIONS, LAUNDRY_OPTIONS } from "@/lib/booking-catalog";
 import { StepHeader } from "@/components/BookingStepHeader";
 import { CircleCheckBig } from "lucide-react";
 
@@ -20,7 +20,7 @@ function buildWhatsAppHref(booking: Booking, totalPayable: number): string {
     `Name: ${contact.firstName} ${contact.lastName}`,
     `Phone: ${contact.phone}`,
     `Address: ${booking.address?.full ?? '—'}`,
-    `Service: ${isLaundry ? 'Monthly Laundry Package' : spaceLabel}`,
+    `Service: ${isLaundry ? (LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType)?.name ?? 'Monthly Laundry Package') : spaceLabel}`,
   ];
 
   if (!isLaundry && booking.schedule) {

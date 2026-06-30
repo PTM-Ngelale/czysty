@@ -15,14 +15,14 @@ const ITEM_COUNTS = [
 export default function LaundryPage() {
   const router = useRouter();
   const { setOverride } = useFooter();
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(true);
 
   useEffect(() => {
     setOverride({ hideButtons: true, onBack: () => router.push('/booking') });
   }, [router, setOverride]);
 
   function agree() {
-    router.push('/booking/address');
+    router.push('/booking/laundry/type');
   }
 
   return (

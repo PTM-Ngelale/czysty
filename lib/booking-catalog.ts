@@ -63,6 +63,14 @@ export const PRIMARY_SERVICES: PrimaryService[] = [
 ];
 export const STANDALONE_ADDONS: StandaloneAddon[] = [];
 
+// ─── Laundry options ─────────────────────────────────────────────────────────
+
+export const LAUNDRY_OPTIONS = [
+  { id: 'wash',      name: 'Just Washing',                     price: 9999  },
+  { id: 'wash-iron', name: 'Washing & Ironing (Dry Cleaning)', price: 19999 },
+] as const;
+export type LaundryOptionId = typeof LAUNDRY_OPTIONS[number]['id'];
+
 // ─── Pricing constants ────────────────────────────────────────────────────────
 
 export const SUPPLIES_FEE = 2500;
