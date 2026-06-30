@@ -77,14 +77,7 @@ export default function BookingIntroPage() {
           ))}
         </div>
 
-        <div className="flex flex-col items-center gap-2.5">
-          <p className="font-body text-czysty-muted/70 text-sm">Returning user?</p>
-          <button className="h-10 px-6 rounded-full border-2 border-gray-200 font-body text-sm text-czysty-muted hover:border-czysty-green hover:text-czysty-green transition-colors">
-            Login to your account
-          </button>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
+        <div className="flex flex-wrap justify-center gap-4 mt-2">
           {['Free pickup & delivery', 'Secure payment', 'Confirmed by email'].map(t => (
             <span key={t} className="flex items-center gap-1.5 font-body text-czysty-muted/60 text-[11px]">
               <span className="w-1 h-1 rounded-full bg-czysty-green/60" />
