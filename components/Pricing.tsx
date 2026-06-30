@@ -6,14 +6,14 @@ const mainServices = [
     price:    '₦4,999',
     from:     true,
     detail:   'Professional home cleaning — bedroom, bathroom, kitchen & living areas.',
-    featured: false,
+    featured: true,
   },
   {
     label:    'Deep Cleaning',
     price:    '₦9,999',
     from:     true,
     detail:   'Thorough top-to-bottom clean including hard-to-reach areas and fixtures.',
-    featured: true,
+    featured: false,
   },
   {
     label:    'Wash, Dry & Fold',

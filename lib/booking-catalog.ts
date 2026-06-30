@@ -44,6 +44,7 @@ export const CLEANING_EXTRAS: CleaningExtra[] = [
   { id: 'window-net', name: 'Window Net Washing',  unitPrice: 1500 },
   { id: 'wardrobe',   name: 'Wardrobe Rearranging', unitPrice: 1500 },
   { id: 'fridge',     name: 'Fridge Deep Clean',    unitPrice: 1500 },
+  { id: 'ironing',    name: 'Ironing',               unitPrice: 1500 },
 ];
 
 // EXTRA_TASKS alias used by layout / summary for backward compat
