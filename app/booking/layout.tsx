@@ -250,8 +250,11 @@ function BookingShell({ children }: { children: React.ReactNode }) {
 
   // Hide the price total in the laundry flow — fixed price shown on terms page & checkout only
   const isLaundryFlow = booking.bookingType === 'gift' && !booking.space;
-  // Show footer on every step except the intro landing page
-  const showCart = !isIntro && stepIndex >= 1;
+  // Show footer on every step except the intro landing page.
+  // /booking/laundry/type isn't in STEPS (it's a laundry-flow-only sub-step)
+  // but still needs the shared footer for its Next/Back buttons.
+  const showCart =
+    !isIntro && (stepIndex >= 1 || pathname === "/booking/laundry/type");
   // Right panel from space step onward (not for laundry flow — price shown at checkout only)
   const showPanel = showCart && stepIndex >= 2 && !isLaundryFlow;
 
