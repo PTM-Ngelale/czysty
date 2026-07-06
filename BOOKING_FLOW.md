@@ -4,7 +4,7 @@
 >
 > **Two deliberate changes from the reference** (per product decision):
 > 1. **The "Get Matched" / staff-matching step is removed.** The reference, after checkout, assigned a specific staff member and held a slot for 10 minutes before payment. We do **not** do that.
-> 2. **The checkout CTA goes straight to a payment platform (Paystack).** No staff assignment, no reservation/booking-code-then-pay flow. After "Review and checkout", the user pays directly.
+> 2. **The checkout CTA goes straight to a payment platform (Flutterwave).** No staff assignment, no reservation/booking-code-then-pay flow. After "Review and checkout", the user pays directly.
 
 ---
 
@@ -23,7 +23,7 @@ The reference is **Next.js** (asset paths confirm it). Match that.
 - **Framework:** Next.js (App Router), TypeScript.
 - **State:** one client-side booking store (Zustand or React Context) that persists across steps. Persist to `localStorage` and rehydrate on mount so a refresh mid-flow keeps progress + the running total. The store is the source of truth.
 - **Backend/persistence:** Supabase (Postgres) for `bookings`, plus catalog tables (services, add-ons, locations/transport fees).
-- **Payments:** **Paystack** (the reference uses Paystack; pricing page confirms it). Final checkout CTA launches Paystack with the total payable. See §10. *(Paystack keys/details to be supplied later — leave them as env vars.)*
+- **Payments:** **Flutterwave** (product decision — the reference used Paystack, but this build uses Flutterwave instead). Final checkout CTA launches Flutterwave with the total payable. See §10. Keys live in env vars (`NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY`, `FLUTTERWAVE_SECRET_KEY`).
 - **Routing:** one route per step (§5). Guard each step: if required earlier data is missing, redirect to the first incomplete step.
 
 ---
@@ -179,7 +179,7 @@ The right summary panel + footer total recompute from this object on every chang
 | 7 | `/booking/fullpicture` | Pets / notes / extra staff | 6 |
 | 8 | `/booking/contact` | Contact details | 7 |
 | 9 | `/booking/summary` | Booking summary | 8 |
-| 10 | `/booking/checkout` | Review & checkout → **Paystack** | 9 |
+| 10 | `/booking/checkout` | Review & checkout → **Flutterwave** | 9 |
 | ~~—~~ | ~~`/booking/matching`~~ | ~~Staff assignment + hold~~ | **REMOVED** |
 
 ---
@@ -278,7 +278,7 @@ Heading: **"Let us know how to reach you"**
 - **Phone number** (NG format)
 - **Email address**
 
-Validate email + phone. These feed the summary panel, the confirmation email, and the Paystack customer.
+Validate email + phone. These feed the summary panel, the confirmation email, and the Flutterwave customer.
 
 ### Step 9 — `/booking/summary` — Booking Summary
 Heading: **"Booking Summary"**
@@ -291,7 +291,7 @@ Heading: **"Booking Summary"**
 - **"+ Add extra task"** button — jumps back to the extra-tasks step to add more.
 - Footer CTA: **"Proceed to Checkout"** → `/booking/checkout`.
 
-### Step 10 — `/booking/checkout` — Review and checkout → Paystack
+### Step 10 — `/booking/checkout` — Review and checkout → Flutterwave
 Heading: **"Review and checkout"**
 - Prepay/repeat: "You can pay upfront if you want this booking to repeat for the next 2-3 months. If you would like that, tell us how many months to charge you for." → checkboxes **"Two (2) Months"** / **"Three (3) Months"**. Selecting one sets `noOfBookings` (2 or 3) and multiplies the base accordingly.
 - Insurance: **"Insure my booking against damage or missing items (up to ₦500K)"** → checkbox **"Premium Insurance"**. Adds an insurance fee (reference showed **₦1,100** — confirm whether flat or %).
@@ -301,7 +301,7 @@ Heading: **"Review and checkout"**
   - `Insurance` — e.g. `₦1,100`
   - `Discount` — e.g. `₦0`
   - **`Total payable`** — e.g. `₦26,075`
-- **Footer CTA — CHANGED:** the reference said **"Get Matched"** (which led to staff assignment). **Replace it with "Proceed to Payment"**, which launches **Paystack** for the **Total payable**. No matching, no slot hold, no booking code. See §10.
+- **Footer CTA — CHANGED:** the reference said **"Get Matched"** (which led to staff assignment). **Replace it with "Proceed to Payment"**, which launches **Flutterwave** for the **Total payable**. No matching, no slot hold, no booking code. See §10.
 
 > If transport fee applies (non-free zone), add a `Transport` line to this breakdown and include it in Total payable.
 
@@ -346,21 +346,21 @@ The reference had a `/booking/matching` step after checkout: it assigned a named
 
 ---
 
-## 10. Checkout — Paystack
+## 10. Checkout — Flutterwave
 
-The final CTA on `/booking/checkout` ("Proceed to Payment") launches Paystack for the **Total payable**. Accepted methods (per reference): Card, Bank, Bank transfer, USSD, Visa QR, plus international.
+The final CTA on `/booking/checkout` ("Proceed to Payment") launches the Flutterwave Standard checkout modal for the **Total payable**. Accepted methods: Card, Bank transfer, USSD (see `payment_options`).
 
 **Client**
-- Use `@paystack/inline-js` (popup/inline). Start the transaction with: amount in **kobo** (`totalPayable × 100`), customer **email** (from contact step), and a **unique reference** tied to the booking record. Pass `metadata` with the booking id for reconciliation.
+- Load `https://checkout.flutterwave.com/v3.js` (via `next/script`) and call `window.FlutterwaveCheckout({...})` — amount in **naira** (not kobo), customer **email/phone/name** (from contact step), and a **unique `tx_ref`** generated per attempt.
 
 **Server (required — never trust the client callback alone)**
-1. Create/record the reference server-side so the amount is server-controlled.
-2. **Webhook** endpoint: verify `x-paystack-signature` (HMAC-SHA512 of the raw body with your secret key). On `charge.success` → mark booking **paid + confirmed**, send confirmation email.
-3. **Verify** fallback: on the client success callback, call Paystack's transaction verify API by reference and confirm `status === 'success'` **and amount matches** before showing the success screen.
-4. Keys in env vars: `PAYSTACK_SECRET_KEY` (server only), `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` (client). Use test keys in dev. *(Live keys + any Paystack specifics to be provided.)*
+1. On the client `callback`, POST `{ transactionId, txRef, expectedAmount, contact }` to `/api/payment/verify`.
+2. That route calls Flutterwave's `GET /v3/transactions/{id}/verify` with the secret key and confirms `status === 'successful'`, `currency === 'NGN'`, `tx_ref` matches, and `amount >= expectedAmount` before treating the booking as paid.
+3. Keys in env vars: `FLUTTERWAVE_SECRET_KEY` (server only), `NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY` (client). Use test keys in dev.
+4. **Known gap:** there's no persisted booking record yet (no DB in this project — see §1), so the expected amount is trusted from the client at verify time rather than a server-created record. Once bookings are persisted (e.g. Supabase), move `expectedAmount` to come from that record instead, and consider adding the Flutterwave webhook (`verif-hash` header) as a second, DB-driven confirmation path.
 
 **After payment**
-- Show a success/confirmation screen and email the booking details.
+- Show a success/confirmation screen and email the booking + payment details.
 
 ---
 
@@ -371,7 +371,7 @@ The final CTA on `/booking/checkout` ("Proceed to Payment") launches Paystack fo
 3. Steps 1–5 (intro → service → space → address → schedule) with live total + summary panel.
 4. Step 6 extra tasks — the two-sub-step select→customize pattern (match screenshots closely).
 5. Steps 7–9 (fullpicture → contact → summary, incl. "+ Add extra task").
-6. Step 10 checkout: prepay-months + insurance + breakdown → Paystack (verify via webhook).
+6. Step 10 checkout: prepay-months + insurance + breakdown → Flutterwave (verify server-side via `/api/payment/verify`).
 
 ---
 
@@ -392,9 +392,9 @@ The final CTA on `/booking/checkout` ("Proceed to Payment") launches Paystack fo
 | fullpicture: Pets / additional Sparkler | Optional; keep the notes box |
 | Duration "~8 hrs" | Turnaround "~48 hrs" / pickup+delivery dates |
 | Summary "water + materials" callout | Laundry-relevant terms, or remove |
-| ~~Get Matched / staff assignment~~ | **Removed — go straight to Paystack** |
+| ~~Get Matched / staff assignment~~ | **Removed — go straight to Flutterwave** |
 
-Keep the **flow, the right-hand live summary + footer cart, the segmented progress bar, the two-stage extra-tasks pattern, and the Review-and-checkout (prepay months + insurance + breakdown) → Paystack** intact. Swap only the domain vocabulary and the price/units.
+Keep the **flow, the right-hand live summary + footer cart, the segmented progress bar, the two-stage extra-tasks pattern, and the Review-and-checkout (prepay months + insurance + breakdown) → Flutterwave** intact. Swap only the domain vocabulary and the price/units.
 
 ---
 
@@ -406,4 +406,4 @@ Keep the **flow, the right-hand live summary + footer cart, the segmented progre
 - Extra tasks: only ticked tasks appear in the customize sub-step; bar stays on segment 5 across `1/2`→`2/2`.
 - Summary lists service, space, frequency, date/window, extra tasks, and notes, with a working "+ Add extra task".
 - Checkout breakdown math: `Total payable = Base × noOfBookings + Insurance − Discount (+ Transport)`.
-- **No matching step exists.** "Proceed to Payment" launches Paystack for the exact Total payable; success is confirmed by a signature-verified webhook (not the client callback alone); a confirmation email is sent.
+- **No matching step exists.** "Proceed to Payment" launches Flutterwave for the exact Total payable; success is confirmed by a server-side call to Flutterwave's verify API (not the client callback alone); a confirmation email is sent.

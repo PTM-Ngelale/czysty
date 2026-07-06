@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Script from "next/script";
 import { useBooking, type Booking, type BookingCheckout } from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
 import { formatNaira, HOME_OPTIONS, LAUNDRY_OPTIONS } from "@/lib/booking-catalog";
@@ -91,11 +92,59 @@ export default function CheckoutPage() {
   const totalPayable =
     baseSingle * noOfBookings - discount + totals.transportFee;
 
-  async function handlePay() {
+  function handlePay() {
+    if (!booking.contact) return;
+    if (typeof window === "undefined" || !window.FlutterwaveCheckout) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("processing");
-    // TODO: initialize Paystack — amount = totalPayable * 100 (kobo), email = booking.contact.email
-    await new Promise((r) => setTimeout(r, 2500));
-    setStatus("success");
+    const txRef = `czysty-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const contact = booking.contact;
+
+    window.FlutterwaveCheckout({
+      public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY ?? "",
+      tx_ref: txRef,
+      amount: totalPayable,
+      currency: "NGN",
+      payment_options: "card,banktransfer,ussd",
+      customer: {
+        email: contact.email,
+        phone_number: contact.phone,
+        name: `${contact.firstName} ${contact.lastName}`,
+      },
+      customizations: {
+        title: "Czysty Cleaners",
+        description: "Booking payment",
+        logo: `${window.location.origin}/images/logo.png`,
+      },
+      callback: async (response) => {
+        if (response.status !== "successful") {
+          setStatus("error");
+          return;
+        }
+        try {
+          const res = await fetch("/api/payment/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              transactionId: response.transaction_id,
+              txRef,
+              expectedAmount: totalPayable,
+              contact,
+            }),
+          });
+          const data = await res.json();
+          setStatus(data.success ? "success" : "error");
+        } catch {
+          setStatus("error");
+        }
+      },
+      onclose: () => {
+        setStatus((s) => (s === "success" ? s : "idle"));
+      },
+    });
   }
 
   if (status === "success") {
@@ -144,6 +193,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
+      <Script src="https://checkout.flutterwave.com/v3.js" strategy="afterInteractive" />
       <StepHeader step={9} total={9} title="Review and checkout" />
 
       {/* Prepay section */}
@@ -281,7 +331,7 @@ export default function CheckoutPage() {
       )}
 
       <p className="font-body text-czysty-muted/50 text-[11px] text-center mt-4">
-        Secured by Paystack · 256-bit encryption
+        Secured by Flutterwave · 256-bit encryption
       </p>
     </div>
   );
