@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { BOOKING_ADMIN_EMAILS } from '@/lib/email-templates'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -15,7 +16,7 @@ export async function POST(request: Request) {
     // Notify admin
     await resend.emails.send({
       from: 'Czysty Cleaners <bookings@gritquad.com>',
-      to: [process.env.NOTIFICATION_EMAIL ?? 'info.czysty@gmail.com'],
+      to: BOOKING_ADMIN_EMAILS,
       subject: `New Pickup Request — ${name}`,
       html: `
         <h2 style="color:#1A5C28">New Booking Request</h2>
