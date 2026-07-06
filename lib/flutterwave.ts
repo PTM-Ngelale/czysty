@@ -29,6 +29,7 @@ export type FlutterwaveConfig = {
   payment_options?: string;
   customer: FlutterwaveCustomer;
   customizations?: FlutterwaveCustomizations;
+  meta?: Record<string, string>;
   callback: (response: FlutterwaveCallbackResponse) => void;
   onclose: () => void;
 };

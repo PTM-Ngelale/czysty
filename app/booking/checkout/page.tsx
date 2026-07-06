@@ -5,9 +5,47 @@ import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { useBooking, type Booking, type BookingCheckout } from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
-import { formatNaira, HOME_OPTIONS, LAUNDRY_OPTIONS } from "@/lib/booking-catalog";
+import { formatNaira, HOME_OPTIONS, LAUNDRY_OPTIONS, CLEANING_EXTRAS } from "@/lib/booking-catalog";
 import { StepHeader } from "@/components/BookingStepHeader";
 import { CircleCheckBig } from "lucide-react";
+import type { BookingMetaFields } from "@/lib/email-templates";
+
+function buildBookingMeta(booking: Booking): BookingMetaFields {
+  const isLaundry = booking.bookingType === 'gift';
+  const spaceLabel = HOME_OPTIONS.find(o => o.value === booking.space?.description)?.label;
+  const laundryLabel = LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType)?.name;
+
+  const meta: BookingMetaFields = {
+    bookingType: isLaundry ? 'Laundry' : 'Cleaning',
+    service: isLaundry ? (laundryLabel ?? 'Monthly Laundry Package') : (spaceLabel ?? 'Home Cleaning'),
+  };
+
+  if (booking.address?.full) meta.address = booking.address.full;
+  if (booking.address?.landmark) meta.landmark = booking.address.landmark;
+
+  if (booking.schedule?.date) {
+    meta.date = new Date(booking.schedule.date + 'T00:00:00').toLocaleDateString('en-NG', {
+      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+    });
+  }
+  if (booking.schedule?.arrivalWindow) meta.arrivalWindow = booking.schedule.arrivalWindow;
+  if (booking.schedule?.frequencyLabel) meta.frequency = booking.schedule.frequencyLabel;
+
+  if (booking.extraTasks.length) {
+    meta.extraTasks = booking.extraTasks
+      .map(t => {
+        const extra = CLEANING_EXTRAS.find(e => e.id === t.taskId);
+        return extra ? `${extra.name} × ${t.quantity}` : null;
+      })
+      .filter(Boolean)
+      .join(', ');
+  }
+
+  if (booking.fullPicture?.notes) meta.notes = booking.fullPicture.notes;
+  if (booking.fullPicture?.additionalStaff) meta.additionalStaff = String(booking.fullPicture.additionalStaff);
+
+  return meta;
+}
 
 function buildWhatsAppHref(booking: Booking, totalPayable: number): string {
   const isLaundry = booking.bookingType === 'gift';
@@ -102,6 +140,7 @@ export default function CheckoutPage() {
     setStatus("processing");
     const txRef = `czysty-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const contact = booking.contact;
+    const bookingMeta = buildBookingMeta(booking);
 
     window.FlutterwaveCheckout({
       public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY ?? "",
@@ -119,6 +158,7 @@ export default function CheckoutPage() {
         description: "Booking payment",
         logo: `${window.location.origin}/images/logo.png`,
       },
+      meta: bookingMeta,
       callback: async (response) => {
         if (response.status !== "successful") {
           setStatus("error");
@@ -133,6 +173,7 @@ export default function CheckoutPage() {
               txRef,
               expectedAmount: totalPayable,
               contact,
+              bookingDetails: bookingMeta,
             }),
           });
           const data = await res.json();

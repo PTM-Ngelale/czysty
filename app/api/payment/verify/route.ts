@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { pickBookingMetaFields, renderBookingDetailsHtml } from '@/lib/email-templates'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   const body = await request.json()
-  const { transactionId, txRef, expectedAmount, contact } = body
+  const { transactionId, txRef, expectedAmount, contact, bookingDetails } = body
 
   if (!transactionId || !txRef || !expectedAmount || !contact?.email) {
     return NextResponse.json({ success: false, error: 'Missing verification fields.' }, { status: 400 })
@@ -39,6 +40,8 @@ export async function POST(request: Request) {
     }
 
     const name = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim()
+    const bookingMeta = pickBookingMetaFields(bookingDetails ?? {})
+    const bookingHtml = renderBookingDetailsHtml(bookingMeta)
 
     await resend.emails.send({
       from: 'Czysty Cleaners <bookings@gritquad.com>',
@@ -53,6 +56,7 @@ export async function POST(request: Request) {
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Amount</strong></td><td style="padding:8px;border:1px solid #ddd">₦${Number(tx.amount).toLocaleString('en-NG')}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Tx ref</strong></td><td style="padding:8px;border:1px solid #ddd">${txRef}</td></tr>
         </table>
+        ${bookingHtml}
       `,
     }, { idempotencyKey: `${txRef}-admin` })
 
@@ -69,7 +73,8 @@ export async function POST(request: Request) {
           <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:24px">
             Our team will be in touch to confirm pickup/arrival details.
           </p>
-          <hr style="border:none;border-top:1px solid #eee;margin-bottom:24px" />
+          ${bookingHtml}
+          <hr style="border:none;border-top:1px solid #eee;margin-top:24px;margin-bottom:24px" />
           <p style="font-size:12px;color:#aaa">
             Czysty Cleaners Int'l Ltd · Lagos<br/>
             📞 +234 807 213 3343 · 📧 info.czysty@gmail.com
