@@ -33,8 +33,14 @@ export default function Hero() {
       />
 
       {/* Background layers */}
-      <div className="absolute inset-0 line-grid opacity-40" style={{ zIndex: 2 }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
+      <div
+        className="absolute inset-0 line-grid opacity-40"
+        style={{ zIndex: 2 }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 2 }}
+      >
         <div
           className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full"
           style={{
@@ -52,7 +58,10 @@ export default function Hero() {
       </div>
 
       {/* Left crimson accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-czysty-red hidden lg:block" style={{ zIndex: 3 }} />
+      <div
+        className="absolute left-0 top-0 bottom-0 w-1 bg-czysty-red hidden lg:block"
+        style={{ zIndex: 3 }}
+      />
 
       {/* Main content */}
       <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl w-full mx-auto px-6 lg:px-16 pt-20 lg:pt-24 pb-8 lg:pb-10">
@@ -80,12 +89,12 @@ export default function Hero() {
         {/* Description + CTAs */}
         <div className="mt-8 lg:mt-12 hero-e max-w-xl">
           <p className="font-body text-czysty-cream/50 text-[14px] leading-relaxed mb-6">
-            Laundry, dry cleaning, home and office cleans — we handle it all
-            and come to you.
+            Laundry, dry cleaning, home and office cleans — we handle it all and
+            come to you.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
-              href="#contact"
+              href="/booking"
               className="czysty-btn czysty-btn-primary px-7 py-3.5 text-[13px] whitespace-nowrap text-center"
             >
               Book a Service
