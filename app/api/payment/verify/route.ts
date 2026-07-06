@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     const name = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim()
 
     await resend.emails.send({
-      from: 'bookings@czystycleaners.com',
+      from: 'Czysty Cleaners <bookings@gritquad.com>',
       to: [process.env.NOTIFICATION_EMAIL ?? 'info.czysty@gmail.com'],
       subject: `Payment received — ${name}`,
       html: `
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     })
 
     await resend.emails.send({
-      from: 'bookings@czystycleaners.com',
+      from: 'Czysty Cleaners <bookings@gritquad.com>',
       to: contact.email,
       subject: '✅ Payment received — Czysty Cleaners',
       html: `
