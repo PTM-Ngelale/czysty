@@ -1,4 +1,4 @@
-export const BOOKING_ADMIN_EMAILS = ['info@czystycleaners.com', 'chairman@czystycleaners.com']
+export const BOOKING_ADMIN_EMAILS = ['info@czystycleaners.com', 'chairman@czystycleaners.com', 'admin@czystycleaners.com']
 
 export type BookingMetaFields = {
   bookingType?: string

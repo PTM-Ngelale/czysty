@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     if (process.env.RESEND_API_KEY) {
       // Notify admin
       await resend.emails.send({
-        from: 'Czysty Cleaners <bookings@gritquad.com>',
+        from: 'Czysty Cleaners <bookings@czystycleaners.com>',
         to: process.env.NOTIFICATION_EMAIL ?? 'info.czysty@gmail.com',
         subject: '🧺 New QR Registration — Czysty Cleaners',
         html: `
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       // Send confirmation to user (only if they provided an email)
       if (email) {
         await resend.emails.send({
-          from: 'Czysty Cleaners <bookings@gritquad.com>',
+          from: 'Czysty Cleaners <bookings@czystycleaners.com>',
           to: email,
           subject: '🥳 You\'re entered — Czysty @ 10 Giveaway!',
           html: `

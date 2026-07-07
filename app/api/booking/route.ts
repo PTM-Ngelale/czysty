@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   try {
     // Notify admin
     await resend.emails.send({
-      from: 'Czysty Cleaners <bookings@gritquad.com>',
+      from: 'Czysty Cleaners <bookings@czystycleaners.com>',
       to: BOOKING_ADMIN_EMAILS,
       subject: `New Pickup Request — ${name}`,
       html: `
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     // Send confirmation to user (only if they provided an email)
     if (email) {
       await resend.emails.send({
-        from: 'Czysty Cleaners <bookings@gritquad.com>',
+        from: 'Czysty Cleaners <bookings@czystycleaners.com>',
         to: email,
         subject: '✅ Booking Received — Czysty Cleaners',
         html: `
