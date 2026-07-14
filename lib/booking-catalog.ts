@@ -86,7 +86,8 @@ export const STANDALONE_ADDONS: StandaloneAddon[] = [];
 // ─── Laundry options ─────────────────────────────────────────────────────────
 
 export const LAUNDRY_OPTIONS = [
-  { id: "wash", name: "Wash Only", price: 9999 },
+  // TEMP TEST PRICE — was 9999, revert after live payment test
+  { id: "wash", name: "Wash Only", price: 500 },
   { id: "wash-iron", name: "Washing & Ironing (Dry Cleaning)", price: 19999 },
 ] as const;
 export type LaundryOptionId = (typeof LAUNDRY_OPTIONS)[number]["id"];
