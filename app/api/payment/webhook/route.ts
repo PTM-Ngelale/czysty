@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { BOOKING_ADMIN_EMAILS, pickBookingMetaFields, renderBookingDetailsHtml } from '@/lib/email-templates'
+import { sendBookingWhatsApp } from '@/lib/whatsapp'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -92,6 +93,20 @@ export async function POST(request: Request) {
         </div>
       `,
     }, { idempotencyKey: `${txRef}-customer` })
+
+    // WhatsApp notifications (never throws — won't affect the webhook response).
+    await sendBookingWhatsApp({
+      customerPhone: tx.customer.phone_number,
+      customerName: name,
+      amount: Number(tx.amount),
+      txRef,
+      bookingType: bookingMeta.bookingType,
+      service: bookingMeta.service,
+      date: bookingMeta.date,
+      arrivalWindow: bookingMeta.arrivalWindow,
+      address: bookingMeta.address,
+      landmark: bookingMeta.landmark,
+    })
 
     return NextResponse.json({ ok: true })
   } catch (err) {
