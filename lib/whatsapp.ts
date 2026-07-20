@@ -112,19 +112,6 @@ export async function sendBookingWhatsApp(input: BookingWhatsAppInput): Promise<
 
   const sends: Promise<unknown>[] = []
 
-  if (input.customerPhone) {
-    sends.push(
-      sendWhatsAppTemplate({
-        to: input.customerPhone,
-        templateName: customerTemplate,
-        bodyParams:
-          customerTemplate === 'hello_world'
-            ? []
-            : [input.customerName ?? 'there', formatAmount(input.amount)],
-      }),
-    )
-  }
-
   // Laundry bookings skip the scheduling step, so date/arrivalWindow can be
   // absent — fall back to a neutral placeholder rather than leaving a blank
   // WhatsApp variable.
@@ -133,6 +120,19 @@ export async function sendBookingWhatsApp(input: BookingWhatsAppInput): Promise<
     ? `${input.date}${input.arrivalWindow ? ` (${input.arrivalWindow})` : ''}`
     : 'To be confirmed'
   const addressLine = [input.address, input.landmark].filter(Boolean).join(', ') || 'Not provided'
+
+  if (input.customerPhone) {
+    sends.push(
+      sendWhatsAppTemplate({
+        to: input.customerPhone,
+        templateName: customerTemplate,
+        bodyParams:
+          customerTemplate === 'hello_world'
+            ? []
+            : [input.customerName ?? 'there', formatAmount(input.amount), jobLabel, scheduled, addressLine],
+      }),
+    )
+  }
 
   for (const staff of WHATSAPP_STAFF_NUMBERS) {
     sends.push(

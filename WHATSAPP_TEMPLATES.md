@@ -11,8 +11,9 @@ automatically (see `lib/whatsapp.ts`).
 
 ## 1. Customer confirmation — `booking_confirmed_customer`
 
-Matches the 2 variables `sendBookingWhatsApp()` already sends for the customer
-(`lib/whatsapp.ts:114-118`: name, amount).
+Matches the 5 variables `sendBookingWhatsApp()` sends for the customer
+(`lib/whatsapp.ts`: name, amount, job label, scheduled date/window, address line).
+Mirrors the "Booking Details" block in the confirmation email.
 
 **Category:** Utility
 **Name:** `booking_confirmed_customer`
@@ -20,14 +21,17 @@ Matches the 2 variables `sendBookingWhatsApp()` already sends for the customer
 
 **Body:**
 ```
-Hi {{1}}, this is Czysty Cleaners. We've received your payment of {{2}} and your booking is confirmed. Our team will be in touch shortly to confirm pickup/arrival details.
+Hi {{1}}, this is Czysty Cleaners. We've received your payment of {{2}} and your booking is confirmed. Booking: {{3}}. Scheduled: {{4}}. Address: {{5}}. Our team will be in touch shortly to confirm pickup/arrival details.
 ```
 
 **Sample values for review** (Meta requires an example per variable):
 - `{{1}}` → `Adaeze`
 - `{{2}}` → `₦25,000`
+- `{{3}}` → `Cleaning — 1-Bedroom Apartment`
+- `{{4}}` → `Mon, 14 Jul 2026 (9am - 12pm)`
+- `{{5}}` → `12 Admiralty Way, Lekki Phase 1, Lagos`
 
-**Footer (optional):** `Czysty Cleaners · Lagos`
+**Footer (optional):** `Czysty Cleaners - Lagos`
 
 No buttons needed — keep it simple for faster approval.
 
