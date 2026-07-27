@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { useBooking, type Booking, type BookingCheckout } from "@/lib/booking-store";
@@ -108,6 +108,7 @@ export default function CheckoutPage() {
   const [status, setStatus] = useState<
     "idle" | "processing" | "success" | "error"
   >("idle");
+  const paidRef = useRef(false);
 
   useEffect(() => {
     dispatch({
@@ -138,6 +139,7 @@ export default function CheckoutPage() {
     }
 
     setStatus("processing");
+    paidRef.current = false;
     const txRef = `czysty-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const contact = booking.contact;
     const bookingMeta = buildBookingMeta(booking);
@@ -164,6 +166,7 @@ export default function CheckoutPage() {
           setStatus("error");
           return;
         }
+        paidRef.current = true;
         try {
           const res = await fetch("/api/payment/verify", {
             method: "POST",
@@ -179,11 +182,21 @@ export default function CheckoutPage() {
           const data = await res.json();
           setStatus(data.success ? "success" : "error");
         } catch {
-          setStatus("error");
+          // Flutterwave already confirmed the charge succeeded — this only
+          // means our own verify request glitched (e.g. network hiccup), not
+          // that the payment failed. The webhook will independently confirm
+          // and notify, so don't tell an already-paid customer to try again.
+          setStatus("success");
         }
       },
       onclose: () => {
-        setStatus((s) => (s === "success" ? s : "idle"));
+        // If Flutterwave already reported a successful charge, don't let its
+        // popup closing (auto-close or manual) stomp on our in-flight/finished
+        // verification — that raced the verify fetch and snapped the UI back
+        // to the "Pay" button even though the payment went through.
+        if (!paidRef.current) {
+          setStatus("idle");
+        }
       },
     });
   }
