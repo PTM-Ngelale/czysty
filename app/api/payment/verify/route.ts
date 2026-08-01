@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { BOOKING_ADMIN_EMAILS, pickBookingMetaFields, renderBookingDetailsHtml } from '@/lib/email-templates'
+import { getBookingAdminRecipients, pickBookingMetaFields, renderBookingDetailsHtml } from '@/lib/email-templates'
 import { sendBookingWhatsApp } from '@/lib/whatsapp'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
 
     await resend.emails.send({
       from: 'Czysty Cleaners <bookings@czystycleaners.com>',
-      to: BOOKING_ADMIN_EMAILS,
+      to: getBookingAdminRecipients(),
       subject: `Payment received — ${name}`,
       html: `
         <h2 style="color:#1A5C28">Booking Paid</h2>

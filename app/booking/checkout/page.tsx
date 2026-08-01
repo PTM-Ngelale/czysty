@@ -207,7 +207,7 @@ export default function CheckoutPage() {
         <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-czysty-green/10">
           <CircleCheckBig size={36} stroke="#1a5c28" strokeWidth={2} />
         </div>
-        <h2 className="step-heading mb-3">Booking confirmed!</h2>
+        <h2 className="step-heading mb-3">Payment confirmed!</h2>
         <p className="font-body text-czysty-muted text-sm mb-2 max-w-xs">
           {booking.schedule
             ? <>
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
             : "Our team will be in touch to confirm your pickup time."}
         </p>
         <p className="font-body text-czysty-muted text-sm mb-8">
-          A confirmation has been sent to{" "}
+          A purchase confirmation email with your booking details has been sent to{" "}
           <strong>{booking.contact?.email}</strong>.
         </p>
 
@@ -231,7 +231,7 @@ export default function CheckoutPage() {
             rel="noopener noreferrer"
             className="h-12 rounded-full font-display font-bold text-xs uppercase tracking-widest text-czysty-cream flex items-center justify-center bg-czysty-green"
           >
-            Message us on WhatsApp
+            Text us on WhatsApp
           </a>
           <button
             // onClick={() => { dispatch({ type: 'RESET' }); router.push('/'); }}

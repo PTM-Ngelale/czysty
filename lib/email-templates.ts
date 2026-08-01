@@ -1,5 +1,15 @@
 export const BOOKING_ADMIN_EMAILS = ['info@czystycleaners.com', 'chairman@czystycleaners.com', 'admin@czystycleaners.com']
 
+export function getBookingAdminRecipients(): string[] {
+  const configured = process.env.NOTIFICATION_EMAIL
+    ?.split(',')
+    .map((email) => email.trim())
+    .filter(Boolean)
+
+  const recipients = [...(configured ?? []), ...BOOKING_ADMIN_EMAILS]
+  return [...new Set(recipients)]
+}
+
 export type BookingMetaFields = {
   bookingType?: string
   service?: string
