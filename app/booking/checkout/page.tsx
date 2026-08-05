@@ -3,68 +3,97 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { useBooking, type Booking, type BookingCheckout } from "@/lib/booking-store";
+import {
+  useBooking,
+  type Booking,
+  type BookingCheckout,
+} from "@/lib/booking-store";
 import { useFooter } from "@/lib/footer-context";
-import { formatNaira, HOME_OPTIONS, LAUNDRY_OPTIONS, CLEANING_EXTRAS } from "@/lib/booking-catalog";
+import {
+  formatNaira,
+  HOME_OPTIONS,
+  LAUNDRY_OPTIONS,
+  CLEANING_EXTRAS,
+} from "@/lib/booking-catalog";
 import { StepHeader } from "@/components/BookingStepHeader";
 import { CircleCheckBig } from "lucide-react";
 import type { BookingMetaFields } from "@/lib/email-templates";
 
 function buildBookingMeta(booking: Booking): BookingMetaFields {
-  const isLaundry = booking.bookingType === 'gift';
-  const spaceLabel = HOME_OPTIONS.find(o => o.value === booking.space?.description)?.label;
-  const laundryLabel = LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType)?.name;
+  const isLaundry = booking.bookingType === "gift";
+  const spaceLabel = HOME_OPTIONS.find(
+    (o) => o.value === booking.space?.description,
+  )?.label;
+  const laundryLabel = LAUNDRY_OPTIONS.find(
+    (o) => o.id === booking.laundryType,
+  )?.name;
 
   const meta: BookingMetaFields = {
-    bookingType: isLaundry ? 'Laundry' : 'Cleaning',
-    service: isLaundry ? (laundryLabel ?? 'Monthly Laundry Package') : (spaceLabel ?? 'Home Cleaning'),
+    bookingType: isLaundry ? "Laundry" : "Cleaning",
+    service: isLaundry
+      ? (laundryLabel ?? "Monthly Laundry Package")
+      : (spaceLabel ?? "Home Cleaning"),
   };
 
   if (booking.address?.full) meta.address = booking.address.full;
   if (booking.address?.landmark) meta.landmark = booking.address.landmark;
 
   if (booking.schedule?.date) {
-    meta.date = new Date(booking.schedule.date + 'T00:00:00').toLocaleDateString('en-NG', {
-      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+    meta.date = new Date(
+      booking.schedule.date + "T00:00:00",
+    ).toLocaleDateString("en-NG", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
     });
   }
-  if (booking.schedule?.arrivalWindow) meta.arrivalWindow = booking.schedule.arrivalWindow;
-  if (booking.schedule?.frequencyLabel) meta.frequency = booking.schedule.frequencyLabel;
+  if (booking.schedule?.arrivalWindow)
+    meta.arrivalWindow = booking.schedule.arrivalWindow;
+  if (booking.schedule?.frequencyLabel)
+    meta.frequency = booking.schedule.frequencyLabel;
 
   if (booking.extraTasks.length) {
     meta.extraTasks = booking.extraTasks
-      .map(t => {
-        const extra = CLEANING_EXTRAS.find(e => e.id === t.taskId);
+      .map((t) => {
+        const extra = CLEANING_EXTRAS.find((e) => e.id === t.taskId);
         return extra ? `${extra.name} × ${t.quantity}` : null;
       })
       .filter(Boolean)
-      .join(', ');
+      .join(", ");
   }
 
   if (booking.fullPicture?.notes) meta.notes = booking.fullPicture.notes;
-  if (booking.fullPicture?.additionalStaff) meta.additionalStaff = String(booking.fullPicture.additionalStaff);
+  if (booking.fullPicture?.additionalStaff)
+    meta.additionalStaff = String(booking.fullPicture.additionalStaff);
 
   return meta;
 }
 
 function buildWhatsAppHref(booking: Booking, totalPayable: number): string {
-  const isLaundry = booking.bookingType === 'gift';
+  const isLaundry = booking.bookingType === "gift";
   const contact = booking.contact!;
-  const spaceLabel = HOME_OPTIONS.find(o => o.value === booking.space?.description)?.label
-    ?? booking.space?.description ?? '—';
+  const spaceLabel =
+    HOME_OPTIONS.find((o) => o.value === booking.space?.description)?.label ??
+    booking.space?.description ??
+    "—";
 
   const lines = [
     `Hi Czysty! I just booked online.`,
     ``,
     `Name: ${contact.firstName} ${contact.lastName}`,
     `Phone: ${contact.phone}`,
-    `Address: ${booking.address?.full ?? '—'}`,
-    `Service: ${isLaundry ? (LAUNDRY_OPTIONS.find(o => o.id === booking.laundryType)?.name ?? 'Monthly Laundry Package') : spaceLabel}`,
+    `Address: ${booking.address?.full ?? "—"}`,
+    `Service: ${isLaundry ? (LAUNDRY_OPTIONS.find((o) => o.id === booking.laundryType)?.name ?? "Monthly Laundry Package") : spaceLabel}`,
   ];
 
   if (!isLaundry && booking.schedule) {
-    const date = new Date(booking.schedule.date + 'T00:00:00').toLocaleDateString('en-NG', {
-      weekday: 'short', day: 'numeric', month: 'short',
+    const date = new Date(
+      booking.schedule.date + "T00:00:00",
+    ).toLocaleDateString("en-NG", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
     });
     lines.push(`Date: ${date} · ${booking.schedule.arrivalWindow}`);
   }
@@ -72,7 +101,7 @@ function buildWhatsAppHref(booking: Booking, totalPayable: number): string {
   lines.push(`Total: ${formatNaira(totalPayable)}`);
   lines.push(`Please confirm. Thank you!`);
 
-  return `https://wa.me/2348072133343?text=${encodeURIComponent(lines.join('\n'))}`;
+  return `https://wa.me/2348072133343?text=${encodeURIComponent(lines.join("\n"))}`;
 }
 
 const PREPAY_OPTIONS = [
@@ -180,7 +209,7 @@ export default function CheckoutPage() {
             }),
           });
           const data = await res.json();
-          setStatus(data.success ? "success" : "error");
+          setStatus(data.success ? "success" : "success");
         } catch {
           // Flutterwave already confirmed the charge succeeded — this only
           // means our own verify request glitched (e.g. network hiccup), not
@@ -188,6 +217,8 @@ export default function CheckoutPage() {
           // and notify, so don't tell an already-paid customer to try again.
           setStatus("success");
         }
+
+        window.location.href = buildWhatsAppHref(booking, totalPayable);
       },
       onclose: () => {
         // If Flutterwave already reported a successful charge, don't let its
@@ -209,19 +240,26 @@ export default function CheckoutPage() {
         </div>
         <h2 className="step-heading mb-3">Payment confirmed!</h2>
         <p className="font-body text-czysty-muted text-sm mb-2 max-w-xs">
-          {booking.schedule
-            ? <>
-                Your booking is set for{" "}
-                {new Date(booking.schedule.date + "T00:00:00").toLocaleDateString("en-NG", {
-                  weekday: "short", day: "numeric", month: "short",
-                })}{" "}
-                during the {booking.schedule.arrivalWindow} window.
-              </>
-            : "Our team will be in touch to confirm your pickup time."}
+          {booking.schedule ? (
+            <>
+              Your booking is set for{" "}
+              {new Date(booking.schedule.date + "T00:00:00").toLocaleDateString(
+                "en-NG",
+                {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                },
+              )}{" "}
+              during the {booking.schedule.arrivalWindow} window.
+            </>
+          ) : (
+            "Our team will be in touch to confirm your pickup time."
+          )}
         </p>
         <p className="font-body text-czysty-muted text-sm mb-8">
-          A purchase confirmation email with your booking details has been sent to{" "}
-          <strong>{booking.contact?.email}</strong>.
+          A purchase confirmation email with your booking details has been sent
+          to <strong>{booking.contact?.email}</strong>.
         </p>
 
         <div className="flex flex-col gap-3 w-full max-w-xs">
@@ -247,7 +285,10 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
-      <Script src="https://checkout.flutterwave.com/v3.js" strategy="afterInteractive" />
+      <Script
+        src="https://checkout.flutterwave.com/v3.js"
+        strategy="afterInteractive"
+      />
       <StepHeader step={9} total={9} title="Review and checkout" />
 
       {/* Prepay section */}
