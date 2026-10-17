@@ -221,22 +221,17 @@ export default function Footer() {
             href="https://nanotekai.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Powered by Nanotek AI"
-            className="flex items-center gap-2 rounded-full border border-grit-grey bg-white px-3 py-2 hover:border-grit-orange transition-colors duration-200"
+            className="inline-flex items-center gap-[9px] font-body text-[11px] uppercase tracking-[0.14em] text-[#8a908a] opacity-[0.68] hover:opacity-100 transition-opacity duration-[120ms] ease-in-out"
           >
-            <span className="font-body text-[11px] uppercase tracking-[0.25em] text-grit-black whitespace-nowrap">
-              Powered By:
-            </span>
-
-            <div className="relative h-7 w-24 shrink-0">
-              <Image
-                src="/images/nanotek-logo.png"
-                alt="Nanotek AI"
-                fill
-                sizes="96px"
-                className="object-contain"
-              />
-            </div>
+            <span className="whitespace-nowrap">Powered by</span>
+            <Image
+              src="/images/nanotek-logo.png"
+              alt="Nanotek"
+              width={1095}
+              height={231}
+              sizes="76px"
+              className="block h-[14px] w-auto"
+            />
           </a>
         </div>
       </div>
