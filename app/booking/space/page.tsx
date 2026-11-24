@@ -61,34 +61,34 @@ export default function SpacePage() {
               onClick={() => setSelected(opt.value)}
               className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
               style={{
-                borderColor: active ? '#1a5c28' : '#e9ecef',
-                background:  active ? '#1a5c28' : 'white',
-                boxShadow:   active ? '0 3px 16px rgba(26,92,40,0.18)' : '0 1px 3px rgba(0,0,0,0.05)',
+                borderColor: active ? '#085d33' : '#e9ecef',
+                background:  active ? '#085d33' : 'white',
+                boxShadow:   active ? '0 3px 16px rgba(8, 93, 51,0.18)' : '0 1px 3px rgba(0,0,0,0.05)',
               }}
             >
-              <Icon size={22} className="shrink-0" style={{ color: active ? '#f2ede4' : '#09100a' }} />
+              <Icon size={22} className="shrink-0" style={{ color: active ? '#f4fbf5' : '#022811' }} />
               <div className="flex-1 min-w-0">
                 <p className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
-                  style={{ color: active ? '#f2ede4' : '#09100a' }}>
+                  style={{ color: active ? '#f4fbf5' : '#022811' }}>
                   {opt.label}
                 </p>
                 {sub && (
                   <p className="font-body text-[11px] mt-0.5"
-                    style={{ color: active ? '#c8e6ce' : '#6b7b6b' }}>
+                    style={{ color: active ? '#c9edd1' : '#4f6b58' }}>
                     {sub}
                   </p>
                 )}
               </div>
               <div className="flex flex-col items-end gap-1.5 shrink-0">
                 <span className="font-display font-bold text-base"
-                  style={{ color: active ? '#f2ede4' : '#1a5c28' }}>
+                  style={{ color: active ? '#f4fbf5' : '#085d33' }}>
                   {formatNaira(opt.basePrice)}
                 </span>
                 <div
                   className="w-5 h-5 rounded-full border-2 flex items-center justify-center"
-                  style={{ borderColor: active ? '#f2ede4' : '#d1d5db', background: active ? '#f2ede4' : 'transparent' }}
+                  style={{ borderColor: active ? '#f4fbf5' : '#d1d5db', background: active ? '#f4fbf5' : 'transparent' }}
                 >
-                  {active && <Check size={10} stroke="#1a5c28" strokeWidth={2.2} />}
+                  {active && <Check size={10} stroke="#085d33" strokeWidth={2.2} />}
                 </div>
               </div>
             </button>

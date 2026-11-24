@@ -24,16 +24,25 @@ function buildBookingMeta(booking: Booking): BookingMetaFields {
   const spaceLabel = HOME_OPTIONS.find(
     (o) => o.value === booking.space?.description,
   )?.label;
-  const laundryLabel = LAUNDRY_OPTIONS.find(
-    (o) => o.id === booking.laundryType,
-  )?.name;
+  const plan = LAUNDRY_OPTIONS.find((o) => o.id === booking.laundryType);
+  const laundryLabel = plan
+    ? `${plan.name} — ${plan.planName} (${formatNaira(plan.price)}/month, ${plan.itemsPerMonth} items/month, max ${plan.maxPerBatch} per batch)`
+    : undefined;
+  const months = booking.checkout.prepayMonths > 0 ? booking.checkout.prepayMonths : 1;
 
   const meta: BookingMetaFields = {
     bookingType: isLaundry ? "Laundry" : "Cleaning",
     service: isLaundry
       ? (laundryLabel ?? "Monthly Laundry Package")
       : (spaceLabel ?? "Home Cleaning"),
+    months: String(months),
   };
+
+  if (booking.contact) {
+    meta.customerName = `${booking.contact.firstName} ${booking.contact.lastName}`.trim();
+    meta.customerPhone = booking.contact.phone;
+    meta.customerEmail = booking.contact.email;
+  }
 
   if (booking.address?.full) meta.address = booking.address.full;
   if (booking.address?.landmark) meta.landmark = booking.address.landmark;
@@ -85,6 +94,7 @@ function buildWhatsAppHref(booking: Booking, totalPayable: number): string {
     `Phone: ${contact.phone}`,
     `Address: ${booking.address?.full ?? "—"}`,
     `Service: ${isLaundry ? (LAUNDRY_OPTIONS.find((o) => o.id === booking.laundryType)?.name ?? "Monthly Laundry Package") : spaceLabel}`,
+    `Months: ${booking.checkout.prepayMonths > 0 ? booking.checkout.prepayMonths : 1}`,
   ];
 
   if (!isLaundry && booking.schedule) {
@@ -187,7 +197,7 @@ export default function CheckoutPage() {
       customizations: {
         title: "Czysty Cleaners",
         description: "Booking payment",
-        logo: `${window.location.origin}/images/logo.png`,
+        logo: `${window.location.origin}/images/logo-green.png`,
       },
       meta: bookingMeta,
       callback: async (response) => {
@@ -236,7 +246,7 @@ export default function CheckoutPage() {
     return (
       <div className="max-w-2xl mx-auto px-5 py-12 flex flex-col items-center text-center">
         <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-czysty-green/10">
-          <CircleCheckBig size={36} stroke="#1a5c28" strokeWidth={2} />
+          <CircleCheckBig size={36} stroke="#085d33" strokeWidth={2} />
         </div>
         <h2 className="step-heading mb-3">Payment confirmed!</h2>
         <p className="font-body text-czysty-muted text-sm mb-2 max-w-xs">
@@ -309,23 +319,23 @@ export default function CheckoutPage() {
                 onClick={() => setPrepayMonths(opt.months)}
                 className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
                 style={{
-                  borderColor: active ? "#1a5c28" : "#e9ecef",
-                  background: active ? "#1a5c28" : "white",
+                  borderColor: active ? "#085d33" : "#e9ecef",
+                  background: active ? "#085d33" : "white",
                   boxShadow: active
-                    ? "0 2px 12px rgba(26,92,40,0.15)"
+                    ? "0 2px 12px rgba(8, 93, 51,0.15)"
                     : "0 1px 3px rgba(0,0,0,0.05)",
                 }}
               >
                 <div className="flex-1 min-w-0">
                   <p
                     className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
-                    style={{ color: active ? "#f2ede4" : "#09100a" }}
+                    style={{ color: active ? "#f4fbf5" : "#022811" }}
                   >
                     {opt.label}
                   </p>
                   <p
                     className="font-body text-[12px] mt-0.5"
-                    style={{ color: active ? "#c8e6ce" : "#6b7b6b" }}
+                    style={{ color: active ? "#c9edd1" : "#4f6b58" }}
                   >
                     {opt.sub}
                   </p>
@@ -333,15 +343,15 @@ export default function CheckoutPage() {
                 <div className="flex flex-col items-end gap-1.5 shrink-0">
                   <span
                     className="font-display font-bold text-lg"
-                    style={{ color: active ? "#f2ede4" : "#1a5c28" }}
+                    style={{ color: active ? "#f4fbf5" : "#085d33" }}
                   >
                     {opt.multiplier}
                   </span>
                   <div
                     className="w-5 h-5 rounded-full border-2 flex items-center justify-center"
                     style={{
-                      borderColor: active ? "#f2ede4" : "#d1d5db",
-                      background: active ? "#f2ede4" : "transparent",
+                      borderColor: active ? "#f4fbf5" : "#d1d5db",
+                      background: active ? "#f4fbf5" : "transparent",
                     }}
                   >
                     {active && (
@@ -420,7 +430,7 @@ export default function CheckoutPage() {
       </button>
 
       {status === "error" && (
-        <p className="font-body text-czysty-red text-sm text-center mt-4">
+        <p className="font-body text-red-600 text-sm text-center mt-4">
           Payment failed. Please try again or contact us on WhatsApp.
         </p>
       )}

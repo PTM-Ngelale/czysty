@@ -19,11 +19,11 @@ export async function POST(req: Request) {
         subject: '🧺 New QR Registration — Czysty Cleaners',
         html: `
           <div style="font-family:sans-serif;max-width:500px;margin:0 auto">
-            <h2 style="color:#1A5C28;margin-bottom:24px">New Customer Registration</h2>
+            <h2 style="color:#085d33;margin-bottom:24px">New Customer Registration</h2>
             <table style="width:100%;border-collapse:collapse">
-              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#6B7B6B;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:600">${name}</td></tr>
-              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#6B7B6B;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Phone</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:600">${phone}</td></tr>
-              <tr><td style="padding:10px 0;color:#6B7B6B;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Email</td><td style="padding:10px 0">${email || '—'}</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#4f6b58;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:600">${name}</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#4f6b58;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Phone</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:600">${phone}</td></tr>
+              <tr><td style="padding:10px 0;color:#4f6b58;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Email</td><td style="padding:10px 0">${email || '—'}</td></tr>
             </table>
             <p style="margin-top:24px;font-size:12px;color:#aaa">Registered via QR code scan · ${new Date().toLocaleString('en-GB', { timeZone: 'Africa/Lagos' })} (Lagos time)</p>
           </div>
@@ -37,12 +37,12 @@ export async function POST(req: Request) {
           to: email,
           subject: '🥳 You\'re entered — Czysty @ 10 Giveaway!',
           html: `
-            <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#09100A">
-              <h2 style="color:#1A5C28;margin-bottom:8px">You're in, ${name}! 🎉</h2>
-              <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:16px">
+            <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#022811">
+              <h2 style="color:#085d33;margin-bottom:8px">You're in, ${name}! 🎉</h2>
+              <p style="color:#4f6b58;font-size:14px;line-height:1.6;margin-bottom:16px">
                 Thank you for entering the <strong>Czysty @ 10 Giveaway</strong>. Your details have been received and you're officially in the draw for a FREE professional clean up!
               </p>
-              <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:24px">
+              <p style="color:#4f6b58;font-size:14px;line-height:1.6;margin-bottom:24px">
                 We'll be in touch if you're selected. Good luck! 🧺
               </p>
               <hr style="border:none;border-top:1px solid #eee;margin-bottom:24px" />

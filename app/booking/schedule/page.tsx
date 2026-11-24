@@ -72,7 +72,7 @@ export default function SchedulePage() {
               return <option key={iso} value={iso}>{formatDateLabel(iso)}</option>;
             })}
           </select>
-          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
+          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#4f6b58" strokeWidth={2.5} />
         </div>
       </div>
 
@@ -88,13 +88,13 @@ export default function SchedulePage() {
                 onClick={() => setArrivalWindow(w)}
                 className="rounded-xl border-2 px-4 py-3 font-body text-sm text-left transition-all duration-200 active:scale-[0.98]"
                 style={{
-                  borderColor: active ? '#1a5c28' : '#e9ecef',
-                  background:  active ? '#1a5c28' : 'white',
-                  color:       active ? '#f2ede4' : '#09100a',
-                  boxShadow: active ? '0 2px 8px rgba(26,92,40,0.15)' : '0 1px 2px rgba(0,0,0,0.04)',
+                  borderColor: active ? '#085d33' : '#e9ecef',
+                  background:  active ? '#085d33' : 'white',
+                  color:       active ? '#f4fbf5' : '#022811',
+                  boxShadow: active ? '0 2px 8px rgba(8, 93, 51,0.15)' : '0 1px 2px rgba(0,0,0,0.04)',
                 }}
               >
-                <span className="block text-xs mb-0.5" style={{ color: active ? '#c8e6ce' : '#6b7b6b' }}>
+                <span className="block text-xs mb-0.5" style={{ color: active ? '#c9edd1' : '#4f6b58' }}>
                   Pickup window
                 </span>
                 {w}
@@ -116,10 +116,10 @@ export default function SchedulePage() {
                 onClick={() => setFrequency(f.id)}
                 className="px-4 py-2 rounded-full border-2 font-body text-sm transition-all duration-200"
                 style={{
-                  borderColor: active ? '#1a5c28' : '#e9ecef',
-                  background:  active ? '#1a5c28' : 'white',
-                  color:       active ? '#f2ede4' : '#09100a',
-                  boxShadow: active ? '0 2px 8px rgba(26,92,40,0.15)' : 'none',
+                  borderColor: active ? '#085d33' : '#e9ecef',
+                  background:  active ? '#085d33' : 'white',
+                  color:       active ? '#f4fbf5' : '#022811',
+                  boxShadow: active ? '0 2px 8px rgba(8, 93, 51,0.15)' : 'none',
                 }}
               >
                 {f.label}
@@ -151,9 +151,9 @@ export default function SchedulePage() {
                   onClick={() => setPreferredGender((opt.value as 'male' | 'female') || null)}
                   className="flex-1 px-3 py-2.5 rounded-xl border-2 font-body text-sm transition-all duration-200"
                   style={{
-                    borderColor: active ? '#1a5c28' : '#e9ecef',
-                    background:  active ? '#1a5c28' : 'white',
-                    color:       active ? '#f2ede4' : '#09100a',
+                    borderColor: active ? '#085d33' : '#e9ecef',
+                    background:  active ? '#085d33' : 'white',
+                    color:       active ? '#f4fbf5' : '#022811',
                   }}
                 >
                   {opt.label}

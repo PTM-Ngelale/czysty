@@ -49,7 +49,7 @@ export default function HowItWorks() {
         className="absolute top-0 left-0 right-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(26,92,40,0.25) 30%, rgba(139,26,26,0.25) 70%, transparent)",
+            "linear-gradient(90deg, transparent, rgba(8, 93, 51,0.25) 30%, rgba(201, 237, 209,0.25) 70%, transparent)",
         }}
       />
 
@@ -62,7 +62,7 @@ export default function HowItWorks() {
               className="display-heading"
               style={{
                 fontSize: "clamp(1.2rem, 5.5vw, 4rem)",
-                color: "#09100A",
+                color: "#022811",
               }}
             >
               HOW IT <span className="text-czysty-green">WORKS</span>
@@ -80,7 +80,7 @@ export default function HowItWorks() {
             className="hidden lg:block absolute top-[28px] left-[calc(12.5%+28px)] right-[calc(12.5%+28px)] h-px"
             style={{
               background:
-                "linear-gradient(90deg, rgba(26,92,40,0.4), rgba(26,92,40,0.1))",
+                "linear-gradient(90deg, rgba(8, 93, 51,0.4), rgba(8, 93, 51,0.1))",
             }}
           />
 

@@ -32,14 +32,14 @@ export default function SummaryPage() {
       <StepHeader step={8} total={9} title="Booking Summary" subtitle="Review your booking before payment." />
 
       {/* Fulfilment callout */}
-      <div className="rounded-2xl bg-czysty-cream/80 border border-czysty-cream px-5 py-4 mb-6">
+      <div className="rounded-2xl bg-czysty-light/40 border border-czysty-light px-5 py-4 mb-6">
         <p className="font-body font-semibold text-czysty-black text-[13px] mb-2">Before we arrive</p>
         <ul className="space-y-1">
           {(isLaundryFlow
             ? [
-                'Ensure all items are packed and ready for pickup.',
-                'Our team will wash, dry, and neatly pack your items within 48 hours.',
-                'You will be contacted to confirm pickup and delivery times.',
+                'Register before drop off, and keep batches within your plan limit (25 items Basic, 15 items Corporate).',
+                'Each batch takes 6–7 days to prepare. Deliveries go out on Wednesdays and Saturdays only.',
+                'Only your first pick up is free. Duvets are an extra ₦3,500 each.',
               ]
             : [
                 'Ensure adequate running water or stored water at the location.',

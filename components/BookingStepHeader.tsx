@@ -44,20 +44,20 @@ export function RadioCard({
       onClick={onClick}
       className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center justify-between gap-4 transition-all duration-200 active:scale-[0.99]"
       style={{
-        borderColor: active ? '#1a5c28' : '#e9ecef',
-        background:  active ? '#1a5c28' : 'white',
-        boxShadow: active ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.04)',
+        borderColor: active ? '#085d33' : '#e9ecef',
+        background:  active ? '#085d33' : 'white',
+        boxShadow: active ? '0 2px 12px rgba(8, 93, 51,0.15)' : '0 1px 3px rgba(0,0,0,0.04)',
       }}
     >
       {children}
       <div
         className="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0"
         style={{
-          borderColor: active ? '#f2ede4' : '#d1d5db',
-          background:  active ? '#f2ede4' : 'transparent',
+          borderColor: active ? '#f4fbf5' : '#d1d5db',
+          background:  active ? '#f4fbf5' : 'transparent',
         }}
       >
-        {active && <Check size={10} stroke="#1a5c28" strokeWidth={2.2} />}
+        {active && <Check size={10} stroke="#085d33" strokeWidth={2.2} />}
       </div>
     </button>
   );
@@ -77,7 +77,7 @@ export function CheckCard({
       onClick={onClick}
       className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center justify-between gap-4 transition-all duration-200 active:scale-[0.99]"
       style={{
-        borderColor: checked ? '#1a5c28' : '#e9ecef',
+        borderColor: checked ? '#085d33' : '#e9ecef',
         background:  checked ? '#f0faf3' : 'white',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
       }}
@@ -86,11 +86,11 @@ export function CheckCard({
       <div
         className="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
         style={{
-          borderColor: checked ? '#1a5c28' : '#d1d5db',
-          background:  checked ? '#1a5c28' : 'transparent',
+          borderColor: checked ? '#085d33' : '#d1d5db',
+          background:  checked ? '#085d33' : 'transparent',
         }}
       >
-        {checked && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
+        {checked && <Check size={10} stroke="#f4fbf5" strokeWidth={2.5} />}
       </div>
     </button>
   );
@@ -105,7 +105,7 @@ export function FieldLabel({
 }) {
   return (
     <label className="font-body text-czysty-black text-[13px] font-medium block mb-1.5">
-      {children}{required && <span className="text-czysty-red ml-0.5">*</span>}
+      {children}{required && <span className="text-red-600 ml-0.5">*</span>}
     </label>
   );
 }
@@ -128,15 +128,15 @@ export function StyledSelect({
           value={value}
           onChange={e => onChange(e.target.value)}
           className="w-full appearance-none rounded-xl border-2 outline-none px-4 py-3 font-body text-sm text-czysty-black bg-white transition-colors pr-10"
-          style={{ borderColor: error ? '#8b1a1a' : '#e9ecef' }}
-          onFocus={e => { e.currentTarget.style.borderColor = '#1a5c28'; }}
-          onBlur={e => { e.currentTarget.style.borderColor = error ? '#8b1a1a' : '#e9ecef'; }}
+          style={{ borderColor: error ? '#1f7a45' : '#e9ecef' }}
+          onFocus={e => { e.currentTarget.style.borderColor = '#085d33'; }}
+          onBlur={e => { e.currentTarget.style.borderColor = error ? '#1f7a45' : '#e9ecef'; }}
         >
           {children}
         </select>
-        <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
+        <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#4f6b58" strokeWidth={2.5} />
       </div>
-      {error && <p className="font-body text-czysty-red text-[12px] mt-1.5">{error}</p>}
+      {error && <p className="font-body text-red-600 text-[12px] mt-1.5">{error}</p>}
     </div>
   );
 }
@@ -165,11 +165,11 @@ export function TextInput({
         onBlur={onBlur}
         placeholder={placeholder}
         className="w-full rounded-xl border-2 outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 transition-colors bg-white"
-        style={{ borderColor: error ? '#8b1a1a' : '#e9ecef' }}
-        onFocus={e => { e.currentTarget.style.borderColor = '#1a5c28'; }}
-        onBlurCapture={e => { e.currentTarget.style.borderColor = error ? '#8b1a1a' : '#e9ecef'; }}
+        style={{ borderColor: error ? '#1f7a45' : '#e9ecef' }}
+        onFocus={e => { e.currentTarget.style.borderColor = '#085d33'; }}
+        onBlurCapture={e => { e.currentTarget.style.borderColor = error ? '#1f7a45' : '#e9ecef'; }}
       />
-      {error && <p className="font-body text-czysty-red text-[12px] mt-1.5">{error}</p>}
+      {error && <p className="font-body text-red-600 text-[12px] mt-1.5">{error}</p>}
     </div>
   );
 }

@@ -13,13 +13,13 @@ export default function AdminQRPage() {
   const notConfigured = !secret;
 
   return (
-    <main className="min-h-screen bg-[#F7F4EF] flex flex-col items-center justify-center px-6 py-16">
+    <main className="min-h-screen bg-[#f1f8f2] flex flex-col items-center justify-center px-6 py-16">
       <a href="/">
         <Image
-          src="/images/logo.png"
+          src="/images/logo-green.png"
           alt="Czysty Cleaners"
           width={130}
-          height={44}
+          height={32}
         />
       </a>
 
@@ -35,8 +35,8 @@ export default function AdminQRPage() {
       </p>
 
       {notConfigured ? (
-        <div className="bg-white border border-czysty-red/30 p-8 max-w-sm text-center">
-          <p className="font-display font-bold text-czysty-red uppercase text-sm mb-2">
+        <div className="bg-white border border-red-300 p-8 max-w-sm text-center">
+          <p className="font-display font-bold text-red-600 uppercase text-sm mb-2">
             QR_SECRET not set
           </p>
           <p className="font-body text-czysty-muted text-[13px] leading-relaxed">

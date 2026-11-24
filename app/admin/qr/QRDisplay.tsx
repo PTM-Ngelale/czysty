@@ -24,7 +24,7 @@ export default function QRDisplay({ url }: { url: string }) {
           id="czysty-qr"
           value={url}
           size={240}
-          fgColor="#09100A"
+          fgColor="#022811"
           bgColor="#FFFFFF"
           level="H"
         />

@@ -5,7 +5,7 @@ import { Check, ChevronDown } from "lucide-react";
 const stats = [
   { v: "2,000+", l: "Loads Completed" },
   { v: "4.9★", l: "Customer Rating" },
-  { v: "24 hrs", l: "Avg. Turnaround" },
+  { v: "Wed & Sat", l: "Delivery Days" },
 ];
 
 export default function Hero() {
@@ -29,7 +29,7 @@ export default function Hero() {
       {/* Dark overlay — lets video show through while keeping text readable */}
       <div
         className="absolute inset-0"
-        style={{ background: "rgba(9,16,10,0.55)", zIndex: 1 }}
+        style={{ background: "rgba(2, 40, 17,0.55)", zIndex: 1 }}
       />
 
       {/* Background layers */}
@@ -45,21 +45,21 @@ export default function Hero() {
           className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(26,92,40,0.13) 0%, transparent 65%)",
+              "radial-gradient(circle, rgba(8, 93, 51,0.13) 0%, transparent 65%)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(139,26,26,0.09) 0%, transparent 65%)",
+              "radial-gradient(circle, rgba(201, 237, 209,0.09) 0%, transparent 65%)",
           }}
         />
       </div>
 
-      {/* Left crimson accent bar */}
+      {/* Left mint accent bar */}
       <div
-        className="absolute left-0 top-0 bottom-0 w-1 bg-czysty-red hidden lg:block"
+        className="absolute left-0 top-0 bottom-0 w-1 bg-czysty-light hidden lg:block"
         style={{ zIndex: 3 }}
       />
 
@@ -67,8 +67,8 @@ export default function Hero() {
       <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl w-full mx-auto px-6 lg:px-16 pt-20 lg:pt-24 pb-8 lg:pb-10">
         {/* Tag line */}
         <div className="flex items-center gap-4 mb-6 hero-a">
-          <div className="h-px w-10 bg-czysty-red flex-shrink-0" />
-          <span className="font-body text-[11px] text-czysty-red tracking-[0.28em] uppercase font-semibold">
+          <div className="h-px w-10 bg-czysty-light flex-shrink-0" />
+          <span className="font-body text-[11px] text-czysty-light tracking-[0.28em] uppercase font-semibold">
             Czysty Cleaners Int&apos;l Ltd
           </span>
         </div>
@@ -82,7 +82,7 @@ export default function Hero() {
           }}
         >
           <span className="block text-czysty-cream hero-b">LAUNDRY?</span>
-          <span className="block text-czysty-green  hero-c">CLEANING?</span>
+          <span className="block text-czysty-light hero-c">CLEANING?</span>
           <span className="block text-czysty-cream hero-d">EASY.</span>
         </h1>
 
@@ -115,7 +115,7 @@ export default function Hero() {
               key={s.l}
               className="flex-1 max-w-[140px] border-t border-czysty-green/20 pt-3"
             >
-              <p className="font-display font-extrabold text-czysty-green text-lg tabular-nums">
+              <p className="font-display font-extrabold text-czysty-light text-lg tabular-nums">
                 {s.v}
               </p>
               <p className="font-body text-czysty-cream/35 text-[10px] uppercase tracking-widest leading-tight mt-0.5">
@@ -131,7 +131,7 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-6 lg:px-16 py-3">
           <div className="flex flex-wrap gap-x-6 gap-y-1.5">
             {[
-              "Same-Day Service",
+              "First Pickup Free",
               "Eco-Friendly Products",
               "Home & Office Cleans",
               "Door-to-Door Delivery",

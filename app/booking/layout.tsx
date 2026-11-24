@@ -259,7 +259,7 @@ function BookingShell({ children }: { children: React.ReactNode }) {
   const showPanel = showCart && stepIndex >= 2 && !isLaundryFlow;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f7f4ef]">
+    <div className="min-h-screen flex flex-col bg-[#f1f8f2]">
       {/* ── Header ── */}
       <header className="bg-white sticky top-0 z-40">
         {/* Green accent line */}
@@ -279,10 +279,10 @@ function BookingShell({ children }: { children: React.ReactNode }) {
           {/* <div className="flex-1 flex flex-col items-center gap-0.5"> */}
           <a href="/" className="block">
             <Image
-              src="/images/logo.png"
+              src="/images/logo-green.png"
               alt="Czysty Cleaners"
-              width={96}
-              height={32}
+              width={110}
+              height={27}
               priority
             />
           </a>
@@ -305,7 +305,7 @@ function BookingShell({ children }: { children: React.ReactNode }) {
                 <div
                   key={i}
                   className="h-1.5 flex-1 rounded-full transition-all duration-500 ease-out"
-                  style={{ background: i < segment ? "#1a5c28" : "#e9ecef" }}
+                  style={{ background: i < segment ? "#085d33" : "#e9ecef" }}
                 />
               ))}
             </div>
@@ -381,7 +381,7 @@ function BookingShell({ children }: { children: React.ReactNode }) {
                   onClick={handleNext}
                   disabled={nextDisabled}
                   className="flex-1 h-12 rounded-full font-display font-bold text-[11px] uppercase tracking-widest text-czysty-cream transition-all active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
-                  style={{ background: "#1a5c28" }}
+                  style={{ background: "#085d33" }}
                 >
                   <span className="flex items-center justify-center gap-1.5">
                     {nextLabel.replace(/\s*→$/, '')}

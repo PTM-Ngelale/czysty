@@ -57,7 +57,7 @@ export async function POST(request: Request) {
       to: getBookingAdminRecipients(),
       subject: `Payment received — ${name}`,
       html: `
-        <h2 style="color:#1A5C28">Booking Paid</h2>
+        <h2 style="color:#085d33">Booking Paid</h2>
         <table style="border-collapse:collapse;width:100%">
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Name</strong></td><td style="padding:8px;border:1px solid #ddd">${name}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Phone</strong></td><td style="padding:8px;border:1px solid #ddd">${tx.customer.phone_number ?? ''}</td></tr>
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Payment type</strong></td><td style="padding:8px;border:1px solid #ddd">${tx.payment_type ?? ''}</td></tr>
         </table>
         ${bookingHtml}
-        <p style="color:#6B7B6B;font-size:12px">Confirmed via Flutterwave webhook.</p>
+        <p style="color:#4f6b58;font-size:12px">Confirmed via Flutterwave webhook.</p>
       `,
     }, { idempotencyKey: `${txRef}-admin` })
 
@@ -76,12 +76,12 @@ export async function POST(request: Request) {
       to: tx.customer.email,
       subject: '✅ Payment received — Czysty Cleaners',
       html: `
-        <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#09100A">
-          <h2 style="color:#1A5C28;margin-bottom:8px">Thanks, ${name}!</h2>
-          <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:16px">
+        <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#022811">
+          <h2 style="color:#085d33;margin-bottom:8px">Thanks, ${name}!</h2>
+          <p style="color:#4f6b58;font-size:14px;line-height:1.6;margin-bottom:16px">
             We've received your payment of <strong>₦${Number(tx.amount).toLocaleString('en-NG')}</strong> and your booking is confirmed.
           </p>
-          <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:24px">
+          <p style="color:#4f6b58;font-size:14px;line-height:1.6;margin-bottom:24px">
             Our team will be in touch to confirm pickup/arrival details.
           </p>
           ${bookingHtml}
@@ -102,6 +102,7 @@ export async function POST(request: Request) {
       txRef,
       bookingType: bookingMeta.bookingType,
       service: bookingMeta.service,
+      months: bookingMeta.months,
       date: bookingMeta.date,
       arrivalWindow: bookingMeta.arrivalWindow,
       address: bookingMeta.address,

@@ -76,7 +76,7 @@ export default function Gallery() {
               className="display-heading"
               style={{
                 fontSize: "clamp(1.2rem, 5.5vw, 4rem)",
-                color: "#09100A",
+                color: "#022811",
               }}
             >
               SEE THE <span className="text-czysty-green">DIFFERENCE</span>
@@ -111,7 +111,7 @@ export default function Gallery() {
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-400 flex items-end p-4 sm:p-5"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(26,92,40,0.8) 0%, transparent 60%)",
+                    "linear-gradient(to top, rgba(8, 93, 51,0.8) 0%, transparent 60%)",
                 }}
               >
                 <div>

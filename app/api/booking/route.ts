@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       to: BOOKING_ADMIN_EMAILS,
       subject: `New Pickup Request — ${name}`,
       html: `
-        <h2 style="color:#1A5C28">New Booking Request</h2>
+        <h2 style="color:#085d33">New Booking Request</h2>
         <table style="border-collapse:collapse;width:100%">
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Name</strong></td><td style="padding:8px;border:1px solid #ddd">${name}</td></tr>
           <tr><td style="padding:8px;border:1px solid #ddd"><strong>Phone</strong></td><td style="padding:8px;border:1px solid #ddd">${phone}</td></tr>
@@ -39,17 +39,17 @@ export async function POST(request: Request) {
         to: email,
         subject: '✅ Booking Received — Czysty Cleaners',
         html: `
-          <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#09100A">
-            <h2 style="color:#1A5C28;margin-bottom:8px">We've got your request, ${name}!</h2>
-            <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:16px">
+          <div style="font-family:sans-serif;max-width:500px;margin:0 auto;color:#022811">
+            <h2 style="color:#085d33;margin-bottom:8px">We've got your request, ${name}!</h2>
+            <p style="color:#4f6b58;font-size:14px;line-height:1.6;margin-bottom:16px">
               Thank you for booking with <strong>Czysty Cleaners</strong>. Here's a summary of what we received:
             </p>
             <table style="border-collapse:collapse;width:100%;margin-bottom:24px">
-              <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#6B7B6B;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Service</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${service}</td></tr>
-              <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#6B7B6B;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Address</td><td style="padding:8px 0;border-bottom:1px solid #eee">${address}</td></tr>
-              <tr><td style="padding:8px 0;color:#6B7B6B;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Preferred Date</td><td style="padding:8px 0">${date || 'Flexible'}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#4f6b58;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Service</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${service}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#4f6b58;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Address</td><td style="padding:8px 0;border-bottom:1px solid #eee">${address}</td></tr>
+              <tr><td style="padding:8px 0;color:#4f6b58;font-size:12px;text-transform:uppercase;letter-spacing:0.1em">Preferred Date</td><td style="padding:8px 0">${date || 'Flexible'}</td></tr>
             </table>
-            <p style="color:#6B7B6B;font-size:14px;line-height:1.6;margin-bottom:24px">
+            <p style="color:#4f6b58;font-size:14px;line-height:1.6;margin-bottom:24px">
               Our team will confirm your pickup within the hour during business hours (Mon – Sat, 8am – 6pm).
             </p>
             <hr style="border:none;border-top:1px solid #eee;margin-bottom:24px" />

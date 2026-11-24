@@ -94,6 +94,7 @@ export type BookingWhatsAppInput = {
   txRef?: string
   bookingType?: string
   service?: string
+  months?: string
   date?: string
   arrivalWindow?: string
   address?: string
@@ -115,7 +116,8 @@ export async function sendBookingWhatsApp(input: BookingWhatsAppInput): Promise<
   // Laundry bookings skip the scheduling step, so date/arrivalWindow can be
   // absent — fall back to a neutral placeholder rather than leaving a blank
   // WhatsApp variable.
-  const jobLabel = [input.bookingType, input.service].filter(Boolean).join(' — ') || 'Booking'
+  const monthsNote = input.months && input.months !== '1' ? ` × ${input.months} months` : ''
+  const jobLabel = ([input.bookingType, input.service].filter(Boolean).join(' — ') || 'Booking') + monthsNote
   const scheduled = input.date
     ? `${input.date}${input.arrivalWindow ? ` (${input.arrivalWindow})` : ''}`
     : 'To be confirmed'

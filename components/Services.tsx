@@ -1,52 +1,57 @@
 "use client";
 
+import { CLEANING_QUOTE_WHATSAPP_URL } from "@/lib/booking-catalog";
+
 const services = [
   {
     num: "01",
-    tag: "Laundry",
-    title: "Wash, Dry & Fold",
+    tag: "Basic Plan",
+    title: "Wash & Fold",
     description:
-      "One off payment gives you the power to wash up to 50 items monthly with 1 free pick up",
+      "₦10,000 per month — 40 items monthly, max 25 items per batch. Self drop off / pick up.",
     cta: "See Pricing",
     ctaHref: "#pricing",
-    accent: "#1A5C28",
-    ctaColor: "#1A5C28",
+    external: false,
+    accent: "#085d33",
+    ctaColor: "#085d33",
   },
   {
     num: "02",
-    tag: "Dry Cleaning",
-    title: "Delicate & Formal Wear",
+    tag: "Corporate Plan",
+    title: "Wash, Dry & Iron",
     description:
-      "Professional dry cleaning for suits, dresses, and delicates — expert solvent care guaranteed.",
+      "₦20,000 per month — 30 items monthly, max 15 items per batch. Only your first pick up is free.",
     cta: "See Pricing",
     ctaHref: "#pricing",
-    accent: "#8B1A1A",
-    ctaColor: "#8B1A1A",
+    external: false,
+    accent: "#085d33",
+    ctaColor: "#085d33",
   },
   {
     num: "03",
     tag: "Home & Office",
     title: "Space Cleaning",
     description:
-      "Full home or office cleans — floors, surfaces, bathrooms, kitchens. One-off or recurring.",
-    cta: "Get a Quote",
-    ctaHref: "#contact",
-    accent: "#1A5C28",
-    ctaColor: "#1A5C28",
+      "Full home or office cleans — floors, surfaces, bathrooms, kitchens. Message us on WhatsApp for a quote.",
+    cta: "Get a Quote on WhatsApp",
+    ctaHref: CLEANING_QUOTE_WHATSAPP_URL,
+    external: true,
+    accent: "#085d33",
+    ctaColor: "#085d33",
   },
 ];
 
 const addons = [
   {
-    tag: "Ironing",
-    title: "Press & Iron",
-    description: "Crisp, wrinkle-free results. Per-item pricing.",
+    tag: "Duvets",
+    title: "Extra Care Items",
+    description: "Duvets come at an extra cost of ₦3,500 per unit.",
   },
   {
-    tag: "Pickup & Delivery",
-    title: "Door-to-Door",
+    tag: "Delivery",
+    title: "Wednesdays & Saturdays",
     description:
-      "We collect and return your laundry within 24–48 hours. No queues, no hassle.",
+      "Each batch takes 6–7 days. Deliveries go out Wednesdays and Saturdays — your first pick up is free.",
   },
 ];
 
@@ -54,7 +59,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative bg-[#F7F4EF] overflow-hidden py-16 lg:py-36"
+      className="relative bg-[#f1f8f2] overflow-hidden py-16 lg:py-36"
     >
       {/* Ghost number */}
       <div
@@ -78,12 +83,12 @@ export default function Services() {
               className="display-heading"
               style={{
                 fontSize: "clamp(1.2rem, 5.5vw, 4rem)",
-                color: "#09100A",
+                color: "#022811",
               }}
             >
-              EVERY CLEANING
+              CLEAN CLOTHES.
               <br />
-              <span className="text-czysty-green">NEED, COVERED</span>
+              <span className="text-czysty-green">LESS STRESS.</span>
             </h2>
           </div>
           <a
@@ -141,6 +146,7 @@ export default function Services() {
                   <div className="h-px flex-1 bg-czysty-green/12 group-hover:bg-czysty-green/30 transition-colors duration-500" />
                   <a
                     href={svc.ctaHref}
+                    {...(svc.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="font-body text-[12px] font-semibold uppercase tracking-widest transition-colors duration-200"
                     style={{ color: svc.ctaColor }}
                   >
@@ -159,9 +165,9 @@ export default function Services() {
               key={addon.tag}
               className="bg-white hover:bg-czysty-cream/50 transition-colors duration-300 px-5 sm:px-8 py-5 sm:py-6 flex items-start gap-5 sm:gap-6"
             >
-              <div className="w-px self-stretch bg-czysty-red flex-shrink-0" />
+              <div className="w-px self-stretch bg-czysty-green flex-shrink-0" />
               <div>
-                <span className="font-body text-czysty-red/70 text-[10px] font-semibold uppercase tracking-widest block mb-1">
+                <span className="font-body text-czysty-green/80 text-[10px] font-semibold uppercase tracking-widest block mb-1">
                   {addon.tag}
                 </span>
                 <h4 className="font-display font-bold text-czysty-black uppercase text-base mb-1">

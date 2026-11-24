@@ -5,20 +5,23 @@ import { useRouter } from 'next/navigation';
 import { useBooking, type BookingType } from '@/lib/booking-store';
 import { Sparkles, WashingMachine, ArrowRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { CLEANING_QUOTE_WHATSAPP_URL } from '@/lib/booking-catalog';
 
-const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string; route: string }[] = [
+// Cleaning is quoted on WhatsApp now — that card opens a chat instead of the booking flow.
+const CARDS: { type: BookingType; Icon: LucideIcon; title: string; sub: string; route: string; external?: boolean }[] = [
   {
     type:  'self',
     Icon:  Sparkles,
-    title: 'Book for Cleaning',
-    sub:   'Standard and deep cleaning for your home.',
-    route: '/booking/space',
+    title: 'Cleaning',
+    sub:   'Home & office cleaning. Chat with us on WhatsApp for a quote.',
+    route: CLEANING_QUOTE_WHATSAPP_URL,
+    external: true,
   },
   {
     type:  'gift',
     Icon:  WashingMachine,
     title: 'Do your Laundry',
-    sub:   'Up to 50 items washed and packed monthly.',
+    sub:   'Monthly plans from ₦10,000 — up to 40 items.',
     route: '/booking/laundry',
   },
 ];
@@ -33,6 +36,10 @@ export default function BookingIntroPage() {
   }, [dispatch]);
 
   function select(card: typeof CARDS[number]) {
+    if (card.external) {
+      window.location.href = card.route;
+      return;
+    }
     dispatch({ type: 'SET_BOOKING_TYPE', bookingType: card.type });
     router.push(card.route);
   }
@@ -61,7 +68,7 @@ export default function BookingIntroPage() {
               style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}
             >
               <card.Icon size={30} className="mb-3 text-czysty-green" />
-              <p className="font-display font-extrabold text-czysty-black text-base uppercase leading-tight mb-1.5">
+              <p className="font-display font-extrabold text-czysty-black text-[15px] sm:text-base uppercase leading-tight mb-1.5 break-words">
                 {card.title}
               </p>
               <p className="font-body text-czysty-muted text-[12px] leading-relaxed mb-4">
@@ -69,16 +76,16 @@ export default function BookingIntroPage() {
               </p>
               <div
                 className="w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-czysty-green transition-colors duration-200"
-                style={{ background: '#09100a' }}
+                style={{ background: '#022811' }}
               >
-                <ArrowRight size={14} stroke="#f2ede4" strokeWidth={2.5} />
+                <ArrowRight size={14} stroke="#f4fbf5" strokeWidth={2.5} />
               </div>
             </button>
           ))}
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 mt-2">
-          {['Free pickup & delivery', 'Secure payment', 'Confirmed by email'].map(t => (
+          {['First pickup free', 'Secure payment', 'Confirmed by email'].map(t => (
             <span key={t} className="flex items-center gap-1.5 font-body text-czysty-muted/60 text-[11px]">
               <span className="w-1 h-1 rounded-full bg-czysty-green/60" />
               {t}

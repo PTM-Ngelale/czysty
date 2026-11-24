@@ -8,14 +8,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Czysty Cleaners brand palette — derived from logo
-        'czysty-black':  '#09100A',  // page background / hero overlay
-        'czysty-green':  '#1A5C28',  // primary CTA buttons, highlights, accents
-        'czysty-red':    '#8B1A1A',  // secondary accent (logo crimson hook)
-        'czysty-cream':  '#F2EDE4',  // body text on dark backgrounds
-        'czysty-grey':   '#131A14',  // card / section backgrounds
-        'czysty-light':  '#C8E6CE',  // section tag labels, soft accents
-        'czysty-muted':  '#6B7B6B',  // footnotes, placeholder text
+        // Czysty brand palette — from the Nov 2026 laundry subscription flyer
+        'czysty-black':  '#022811',  // page background / hero overlay
+        'czysty-green':  '#085d33',  // primary CTA buttons, highlights, accents
+        'czysty-red':    '#1f7a45',  // secondary green accent (was crimson; flyer has no red)
+        'czysty-cream':  '#f4fbf5',  // body text on dark backgrounds
+        'czysty-grey':   '#02552c',  // deep flyer green — dark sections
+        'czysty-light':  '#c9edd1',  // section tag labels, soft accents
+        'czysty-muted':  '#4f6b58',  // footnotes, placeholder text
       },
       fontFamily: {
         display: ['var(--font-display)', 'sans-serif'],

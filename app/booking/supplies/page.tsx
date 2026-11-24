@@ -63,24 +63,24 @@ export default function SuppliesPage() {
           onClick={() => setBringSupplies(false)}
           className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
           style={{
-            borderColor: !bringSupplies ? '#1a5c28' : '#e9ecef',
-            background:  !bringSupplies ? '#1a5c28' : 'white',
-            boxShadow:   !bringSupplies ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
+            borderColor: !bringSupplies ? '#085d33' : '#e9ecef',
+            background:  !bringSupplies ? '#085d33' : 'white',
+            boxShadow:   !bringSupplies ? '0 2px 12px rgba(8, 93, 51,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
           }}
         >
           <div className="flex-1">
             <p className="font-display font-bold text-sm uppercase tracking-wide"
-              style={{ color: !bringSupplies ? '#f2ede4' : '#09100a' }}>
+              style={{ color: !bringSupplies ? '#f4fbf5' : '#022811' }}>
               I have cleaning supplies
             </p>
             <p className="font-body text-[12px] mt-0.5"
-              style={{ color: !bringSupplies ? '#c8e6ce' : '#6b7b6b' }}>
+              style={{ color: !bringSupplies ? '#c9edd1' : '#4f6b58' }}>
               Our team will use the supplies you provide
             </p>
           </div>
           <div
             className="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0"
-            style={{ borderColor: !bringSupplies ? '#f2ede4' : '#d1d5db', background: !bringSupplies ? '#f2ede4' : 'transparent' }}
+            style={{ borderColor: !bringSupplies ? '#f4fbf5' : '#d1d5db', background: !bringSupplies ? '#f4fbf5' : 'transparent' }}
           >
             {!bringSupplies && <div className="w-2 h-2 rounded-full bg-czysty-green" />}
           </div>
@@ -90,24 +90,24 @@ export default function SuppliesPage() {
           onClick={() => setBringSupplies(true)}
           className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
           style={{
-            borderColor: bringSupplies ? '#1a5c28' : '#e9ecef',
-            background:  bringSupplies ? '#1a5c28' : 'white',
-            boxShadow:   bringSupplies ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
+            borderColor: bringSupplies ? '#085d33' : '#e9ecef',
+            background:  bringSupplies ? '#085d33' : 'white',
+            boxShadow:   bringSupplies ? '0 2px 12px rgba(8, 93, 51,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
           }}
         >
-          <Package size={20} className="shrink-0" style={{ color: bringSupplies ? '#f2ede4' : '#09100a' }} />
+          <Package size={20} className="shrink-0" style={{ color: bringSupplies ? '#f4fbf5' : '#022811' }} />
           <div className="flex-1">
             <p className="font-display font-bold text-sm uppercase tracking-wide"
-              style={{ color: bringSupplies ? '#f2ede4' : '#09100a' }}>
+              style={{ color: bringSupplies ? '#f4fbf5' : '#022811' }}>
               I need you to bring your own supplies
             </p>
             <p className="font-body text-[12px] mt-0.5"
-              style={{ color: bringSupplies ? '#c8e6ce' : '#6b7b6b' }}>
+              style={{ color: bringSupplies ? '#c9edd1' : '#4f6b58' }}>
               Our team brings all necessary cleaning products
             </p>
           </div>
           <span className="font-display font-bold text-sm shrink-0"
-            style={{ color: bringSupplies ? '#f2ede4' : '#1a5c28' }}>
+            style={{ color: bringSupplies ? '#f4fbf5' : '#085d33' }}>
             +{formatNaira(SUPPLIES_FEE)}
           </span>
         </button>

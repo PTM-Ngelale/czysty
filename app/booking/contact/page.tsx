@@ -59,15 +59,15 @@ export default function ContactPage() {
         onClick={() => setForSomeoneElse(v => !v)}
         className="flex items-center gap-3 mb-7 w-full rounded-2xl border-2 px-5 py-4 text-left transition-all duration-200"
         style={{
-          borderColor: forSomeoneElse ? '#1a5c28' : '#e9ecef',
+          borderColor: forSomeoneElse ? '#085d33' : '#e9ecef',
           background:  forSomeoneElse ? '#f0faf3' : 'white',
         }}
       >
         <div
           className="w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-          style={{ borderColor: forSomeoneElse ? '#1a5c28' : '#d1d5db', background: forSomeoneElse ? '#1a5c28' : 'transparent' }}
+          style={{ borderColor: forSomeoneElse ? '#085d33' : '#d1d5db', background: forSomeoneElse ? '#085d33' : 'transparent' }}
         >
-          {forSomeoneElse && <Check size={10} stroke="#f2ede4" strokeWidth={2.5} />}
+          {forSomeoneElse && <Check size={10} stroke="#f4fbf5" strokeWidth={2.5} />}
         </div>
         <span className="font-body text-czysty-black text-sm">
           I&apos;m booking for someone else
@@ -82,18 +82,18 @@ export default function ContactPage() {
             <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} onBlur={() => blur('firstName')}
               placeholder="First name"
               className="w-full rounded-xl border-2 outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 bg-white transition-colors"
-              style={{ borderColor: errors.firstName ? '#8b1a1a' : '#e9ecef' }}
+              style={{ borderColor: errors.firstName ? '#1f7a45' : '#e9ecef' }}
             />
-            {errors.firstName && <p className="text-czysty-red text-[11px] mt-1 font-body">{errors.firstName}</p>}
+            {errors.firstName && <p className="text-red-600 text-[11px] mt-1 font-body">{errors.firstName}</p>}
           </div>
           <div>
             <FieldLabel required>{lbl} last name</FieldLabel>
             <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} onBlur={() => blur('lastName')}
               placeholder="Last name"
               className="w-full rounded-xl border-2 outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 bg-white transition-colors"
-              style={{ borderColor: errors.lastName ? '#8b1a1a' : '#e9ecef' }}
+              style={{ borderColor: errors.lastName ? '#1f7a45' : '#e9ecef' }}
             />
-            {errors.lastName && <p className="text-czysty-red text-[11px] mt-1 font-body">{errors.lastName}</p>}
+            {errors.lastName && <p className="text-red-600 text-[11px] mt-1 font-body">{errors.lastName}</p>}
           </div>
         </div>
 
@@ -102,9 +102,9 @@ export default function ContactPage() {
           <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} onBlur={() => blur('phone')}
             placeholder="e.g. 0812 345 6789"
             className="w-full rounded-xl border-2 outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 bg-white transition-colors"
-            style={{ borderColor: errors.phone ? '#8b1a1a' : '#e9ecef' }}
+            style={{ borderColor: errors.phone ? '#1f7a45' : '#e9ecef' }}
           />
-          {errors.phone && <p className="text-czysty-red text-[11px] mt-1 font-body">{errors.phone}</p>}
+          {errors.phone && <p className="text-red-600 text-[11px] mt-1 font-body">{errors.phone}</p>}
         </div>
 
         <div>
@@ -112,9 +112,9 @@ export default function ContactPage() {
           <input type="email" value={email} onChange={e => setEmail(e.target.value)} onBlur={() => blur('email')}
             placeholder="you@example.com"
             className="w-full rounded-xl border-2 outline-none px-4 py-3 font-body text-sm text-czysty-black placeholder:text-czysty-muted/40 bg-white transition-colors"
-            style={{ borderColor: errors.email ? '#8b1a1a' : '#e9ecef' }}
+            style={{ borderColor: errors.email ? '#1f7a45' : '#e9ecef' }}
           />
-          {errors.email && <p className="text-czysty-red text-[11px] mt-1 font-body">{errors.email}</p>}
+          {errors.email && <p className="text-red-600 text-[11px] mt-1 font-body">{errors.email}</p>}
         </div>
       </div>
 

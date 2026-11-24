@@ -25,7 +25,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section id="reviews" className="relative bg-[#F7F4EF] overflow-hidden py-16 lg:py-36">
+    <section id="reviews" className="relative bg-[#f1f8f2] overflow-hidden py-16 lg:py-36">
 
       {/* Ghost number */}
       <div className="absolute top-0 right-0 select-none pointer-events-none overflow-hidden" aria-hidden>
@@ -51,7 +51,7 @@ export default function Testimonials() {
         {/* Header */}
         <div className="text-center mb-10 lg:mb-16 reveal">
           <div className="section-tag justify-center">Reviews</div>
-          <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
+          <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#022811' }}>
             WHAT OUR{' '}
             <span className="text-czysty-green">CUSTOMERS SAY</span>
           </h2>

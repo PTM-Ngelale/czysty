@@ -53,7 +53,7 @@ export const HOME_OPTIONS: HomeOption[] = [
 ];
 
 // Laundry package is accessed via the "Do your Laundry" entry on the intro page only
-export const LAUNDRY_PACKAGE_PRICE = 9999;
+export const LAUNDRY_PACKAGE_PRICE = 10000;
 
 // Alias for backward compat
 export const SPACE_OPTIONS = HOME_OPTIONS;
@@ -83,13 +83,57 @@ export const PRIMARY_SERVICES: PrimaryService[] = [
 ];
 export const STANDALONE_ADDONS: StandaloneAddon[] = [];
 
-// ─── Laundry options ─────────────────────────────────────────────────────────
+// ─── Laundry plans (monthly subscription — Nov 2026 flyer) ──────────────────
 
 export const LAUNDRY_OPTIONS = [
-  { id: "wash", name: "Wash Only", price: 9999 },
-  { id: "wash-iron", name: "Washing & Ironing (Dry Cleaning)", price: 19999 },
+  {
+    id: "wash",
+    name: "Wash Only",
+    planName: "Basic Plan",
+    tagline: "Wash & Fold",
+    price: 10000,
+    itemsPerMonth: 40,
+    maxPerBatch: 25,
+    features: [
+      "40 items per month",
+      "Max 25 items per batch",
+      "Self drop off / pick up",
+    ],
+  },
+  {
+    id: "wash-iron",
+    name: "Wash & Iron",
+    planName: "Corporate Plan",
+    tagline: "Wash, Dry & Iron",
+    price: 20000,
+    itemsPerMonth: 30,
+    maxPerBatch: 15,
+    features: [
+      "30 items per month",
+      "Max 15 items per batch",
+      "Only first pick up is free",
+      "Self drop off / pick up",
+    ],
+  },
 ] as const;
 export type LaundryOptionId = (typeof LAUNDRY_OPTIONS)[number]["id"];
+
+export const DUVET_EXTRA_PRICE = 3500;
+
+export const LAUNDRY_TERMS = [
+  "Registrations must be made before drop off.",
+  "Each batch takes between 6–7 days to be prepared.",
+  `Duvets come at an extra cost of ₦3,500 per unit.`,
+  "Delivery by the company goes out on Wednesdays and Saturdays only.",
+  "Only your first pick up is free.",
+  "No clothing insurance against damage — Czysty is not liable for any wear, tear, shrinkage or damage during the laundry process.",
+];
+
+// Cleaning is no longer booked online — quotes are handled on WhatsApp.
+export const CZYSTY_WHATSAPP = "2348072133343";
+export const CLEANING_QUOTE_WHATSAPP_URL = `https://wa.me/${CZYSTY_WHATSAPP}?text=${encodeURIComponent(
+  "Hi Czysty! I'd like a quote for cleaning. Here are the details of my space:",
+)}`;
 
 // ─── Pricing constants ────────────────────────────────────────────────────────
 

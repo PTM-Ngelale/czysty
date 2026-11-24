@@ -102,7 +102,7 @@ export default function JoinForm() {
       </div>
 
       {status === 'error' && (
-        <p className="font-body text-czysty-red/80 text-[13px] text-center">
+        <p className="font-body text-red-600 text-[13px] text-center">
           Something went wrong. Please try again.
         </p>
       )}

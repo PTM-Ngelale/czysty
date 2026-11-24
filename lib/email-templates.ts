@@ -13,6 +13,10 @@ export function getBookingAdminRecipients(): string[] {
 export type BookingMetaFields = {
   bookingType?: string
   service?: string
+  months?: string
+  customerName?: string
+  customerPhone?: string
+  customerEmail?: string
   space?: string
   address?: string
   landmark?: string
@@ -27,6 +31,10 @@ export type BookingMetaFields = {
 const FIELD_LABELS: [keyof BookingMetaFields, string][] = [
   ['bookingType', 'Booking type'],
   ['service', 'Service'],
+  ['months', 'Months paid for'],
+  ['customerName', 'Customer'],
+  ['customerPhone', 'Customer phone'],
+  ['customerEmail', 'Customer email'],
   ['space', 'Space'],
   ['address', 'Address'],
   ['landmark', 'Landmark'],
@@ -53,7 +61,7 @@ export function renderBookingDetailsHtml(meta: BookingMetaFields): string {
   if (!rows.length) return ''
 
   return `
-    <h3 style="color:#1A5C28;margin-top:24px">Booking Details</h3>
+    <h3 style="color:#085d33;margin-top:24px">Booking Details</h3>
     <table style="border-collapse:collapse;width:100%">
       ${rows
         .map(

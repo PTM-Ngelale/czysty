@@ -36,10 +36,10 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#home">
           <Image
-            src="/images/logo.png"
+            src={scrolled ? "/images/logo-green.png" : "/images/logo-white.png"}
             alt="Czysty Cleaners"
             width={140}
-            height={48}
+            height={34}
             className=""
             priority
           />

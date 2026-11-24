@@ -114,10 +114,10 @@ export default function Footer() {
           <div>
             <div className="inline-block">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-green.png"
                 alt="Czysty Cleaners"
                 width={130}
-                height={44}
+                height={32}
               />
             </div>
 

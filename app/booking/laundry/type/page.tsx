@@ -47,34 +47,40 @@ export default function LaundryTypePage() {
               onClick={() => setSelected(opt.id)}
               className="w-full text-left rounded-2xl border-2 px-5 py-5 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
               style={{
-                borderColor: active ? '#1a5c28' : '#e9ecef',
-                background:  active ? '#1a5c28' : 'white',
-                boxShadow:   active ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
+                borderColor: active ? '#085d33' : '#e9ecef',
+                background:  active ? '#085d33' : 'white',
+                boxShadow:   active ? '0 2px 12px rgba(8, 93, 51,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
               }}
             >
               <div className="flex-1 min-w-0">
                 <p
                   className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
-                  style={{ color: active ? '#f2ede4' : '#09100a' }}
+                  style={{ color: active ? '#f4fbf5' : '#022811' }}
                 >
-                  {opt.name}
+                  {opt.planName} — {opt.tagline}
+                </p>
+                <p
+                  className="font-body text-[12px] mt-1 leading-relaxed"
+                  style={{ color: active ? '#c9edd1' : '#4f6b58' }}
+                >
+                  {opt.features.join(' · ')}
                 </p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
                 <span
                   className="font-display font-bold text-lg"
-                  style={{ color: active ? '#f2ede4' : '#1a5c28' }}
+                  style={{ color: active ? '#f4fbf5' : '#085d33' }}
                 >
-                  {formatNaira(opt.price)}
+                  {formatNaira(opt.price)}<span className="font-body font-normal text-[11px]">/mo</span>
                 </span>
                 <div
                   className="w-5 h-5 rounded border-2 flex items-center justify-center"
                   style={{
-                    borderColor: active ? '#f2ede4' : '#d1d5db',
-                    background:  active ? '#f2ede4' : 'transparent',
+                    borderColor: active ? '#f4fbf5' : '#d1d5db',
+                    background:  active ? '#f4fbf5' : 'transparent',
                   }}
                 >
-                  {active && <Check size={10} stroke="#1a5c28" strokeWidth={2.5} />}
+                  {active && <Check size={10} stroke="#085d33" strokeWidth={2.5} />}
                 </div>
               </div>
             </button>

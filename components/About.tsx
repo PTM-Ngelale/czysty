@@ -5,7 +5,7 @@ import Image from "next/image";
 const stats = [
   { value: "2.9M+", label: "Items Laundered" },
   { value: "4.9★", label: "Average Rating" },
-  { value: "24 hrs", label: "Avg Turnaround" },
+  { value: "6–7 days", label: "Per Batch" },
 ];
 
 export default function About() {
@@ -36,7 +36,7 @@ export default function About() {
               className="display-heading mb-6"
               style={{
                 fontSize: "clamp(1.2rem, 5.5vw, 4rem)",
-                color: "#09100A",
+                color: "#022811",
               }}
             >
               WE HANDLE THE MESS.
@@ -120,7 +120,7 @@ export default function About() {
               </div>
 
               {/* Floating badge */}
-              <div className="absolute -bottom-6 -right-6 bg-czysty-green px-5 py-4 shadow-[0_8px_30px_rgba(26,92,40,0.25)]">
+              <div className="absolute -bottom-6 -right-6 bg-czysty-green px-5 py-4 shadow-[0_8px_30px_rgba(8, 93, 51,0.25)]">
                 <p className="font-display font-extrabold text-czysty-cream text-2xl">
                   2.9M+
                 </p>

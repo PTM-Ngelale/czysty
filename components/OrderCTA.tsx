@@ -7,7 +7,7 @@ export default function OrderCTA() {
       {/* Background dot pattern */}
       <div className="absolute inset-0 opacity-10"
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(242,237,228,0.4) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(244, 251, 245,0.4) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
         }}
       />
@@ -22,8 +22,8 @@ export default function OrderCTA() {
         </span>
       </div>
 
-      {/* Left red bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-czysty-red/60" />
+      {/* Left mint bar */}
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-czysty-light/60" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 lg:px-14 text-center reveal">
         <p className="font-body text-czysty-cream/60 text-[11px] uppercase tracking-[0.3em] mb-4">
@@ -51,14 +51,14 @@ export default function OrderCTA() {
             Call Us
           </a>
           <a href="https://wa.me/2348072133343" target="_blank" rel="noopener noreferrer"
-            className="czysty-btn bg-czysty-red text-czysty-cream hover:bg-czysty-red/80 transition-colors duration-200 px-9 py-4 text-sm text-center">
+            className="czysty-btn bg-czysty-light text-czysty-black hover:bg-white transition-colors duration-200 px-9 py-4 text-sm text-center">
             WhatsApp →
           </a>
         </div>
 
         {/* Trust row */}
         <div className="mt-8 sm:mt-12 flex flex-wrap justify-center gap-4 sm:gap-6">
-          {['No lock-in contracts', 'Same-day available', 'Eco-friendly products'].map((item) => (
+          {['No lock-in contracts', 'First pickup free', 'Eco-friendly products'].map((item) => (
             <span key={item} className="flex items-center gap-2 font-body text-czysty-cream/50 text-[12px]">
               <span className="w-1 h-1 rounded-full bg-czysty-cream/40" />
               {item}

@@ -58,27 +58,27 @@ export default function ExtraTasksPage() {
               onClick={() => toggle(extra.id)}
               className="w-full text-left rounded-2xl border-2 px-5 py-4 flex items-center gap-4 transition-all duration-200 active:scale-[0.99]"
               style={{
-                borderColor: checked ? '#1a5c28' : '#e9ecef',
-                background:  checked ? '#1a5c28' : 'white',
-                boxShadow:   checked ? '0 2px 12px rgba(26,92,40,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
+                borderColor: checked ? '#085d33' : '#e9ecef',
+                background:  checked ? '#085d33' : 'white',
+                boxShadow:   checked ? '0 2px 12px rgba(8, 93, 51,0.15)' : '0 1px 3px rgba(0,0,0,0.05)',
               }}
             >
               <div className="flex-1 min-w-0">
                 <p className="font-display font-bold text-sm uppercase tracking-wide leading-tight"
-                  style={{ color: checked ? '#f2ede4' : '#09100a' }}>
+                  style={{ color: checked ? '#f4fbf5' : '#022811' }}>
                   {extra.name}
                 </p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
                 <span className="font-display font-bold text-sm"
-                  style={{ color: checked ? '#f2ede4' : '#1a5c28' }}>
+                  style={{ color: checked ? '#f4fbf5' : '#085d33' }}>
                   +{formatNaira(extra.unitPrice)}
                 </span>
                 <div
                   className="w-5 h-5 rounded border-2 flex items-center justify-center"
-                  style={{ borderColor: checked ? '#f2ede4' : '#d1d5db', background: checked ? '#f2ede4' : 'transparent' }}
+                  style={{ borderColor: checked ? '#f4fbf5' : '#d1d5db', background: checked ? '#f4fbf5' : 'transparent' }}
                 >
-                  {checked && <Check size={10} stroke="#1a5c28" strokeWidth={2.5} />}
+                  {checked && <Check size={10} stroke="#085d33" strokeWidth={2.5} />}
                 </div>
               </div>
             </button>

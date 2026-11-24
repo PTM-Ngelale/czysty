@@ -101,7 +101,7 @@ export default function AddressPage() {
             ))}
             <option value="Other">Other area in Port Harcourt</option>
           </select>
-          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#6b7b6b" strokeWidth={2.5} />
+          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" size={15} stroke="#4f6b58" strokeWidth={2.5} />
         </div>
       </div>
 
@@ -111,7 +111,7 @@ export default function AddressPage() {
         <div className="flex flex-col gap-2 mt-1.5">
           {ACCESS_OPTIONS.map(opt => (
             <RadioCard key={opt.value} active={access === opt.value} onClick={() => setAccess(opt.value)}>
-              <span className="font-body text-sm" style={{ color: access === opt.value ? '#f2ede4' : '#09100a' }}>
+              <span className="font-body text-sm" style={{ color: access === opt.value ? '#f4fbf5' : '#022811' }}>
                 {opt.label}
               </span>
             </RadioCard>

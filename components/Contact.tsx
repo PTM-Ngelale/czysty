@@ -61,7 +61,7 @@ export default function Contact() {
         {/* Header */}
         <div className="reveal mb-10 lg:mb-16">
           <div className="section-tag">Get in Touch</div>
-          <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#09100A' }}>
+          <h2 className="display-heading" style={{ fontSize: 'clamp(1.2rem, 5.5vw, 4rem)', color: '#022811' }}>
             LET&apos;S GET YOUR
             <br />
             <span className="text-czysty-green">PLACE SORTED</span>
@@ -139,7 +139,7 @@ export default function Contact() {
                 </p>
               )}
               {status === 'error' && (
-                <p className="font-body text-czysty-red/80 text-[13px] text-center py-1">
+                <p className="font-body text-red-600 text-[13px] text-center py-1">
                   Something went wrong. Please call or WhatsApp us directly.
                 </p>
               )}

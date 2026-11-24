@@ -20,14 +20,14 @@ export default async function JoinPage({
   }
 
   return (
-    <main className="min-h-screen bg-[#F7F4EF] flex flex-col items-center justify-center px-4 py-16">
+    <main className="min-h-screen bg-[#f1f8f2] flex flex-col items-center justify-center px-4 py-16">
       {/* Logo */}
       <a href="/">
         <Image
-          src="/images/logo.png"
+          src="/images/logo-green.png"
           alt="Czysty Cleaners"
           width={200}
-          height={68}
+          height={49}
           className=""
           priority
         />
